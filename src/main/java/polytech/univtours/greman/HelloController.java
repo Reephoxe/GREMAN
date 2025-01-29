@@ -1,14 +1,52 @@
 package polytech.univtours.greman;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.IOException;
 
 public class HelloController {
-    @FXML
-    private Label welcomeText;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    FileChooser fileChooser;
+
+    // Fonction pour choisir un fichier
+    public void selectFile(ActionEvent event) throws IOException {
+
+        // Ouvre la fenêtre de gestionnaire de fichiers
+        FileChooser fileChooser = new FileChooser();
+        // Spécifie l'extension acceptée lors de la sélection de fichier
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv, *.s1p, *.s2p)", "*.csv", "*.s1p", "*.s2p");
+        fileChooser.getExtensionFilters().add(extFilter);
+        // Enregistre dans file le chemin du fichier dans les dossiers
+        File file = fileChooser.showOpenDialog(stage);
+        System.out.println("File path: " + file);
+
+        // Récupère les informations de la scène précédente et change de scène i.e. de fenêtre
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
+        root = fxmlLoader.load();
+
+        MainController mainController = fxmlLoader.getController();
+
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        // ------------ Ajoute le style CSS -------------
+        String css = getClass().getResource("helloApplication.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        // ----------------------------------------------
+        stage.setScene(scene);
+        stage.setFullScreen(true);
+        stage.show();
     }
 }
