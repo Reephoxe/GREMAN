@@ -16,6 +16,5 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        // Additional initialization if needed
     }
 }
