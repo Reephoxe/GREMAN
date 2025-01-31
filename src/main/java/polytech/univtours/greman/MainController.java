@@ -16,9 +16,6 @@ public class MainController {
     private Scene scene;
     private Parent root;
 
-    @FXML
-    Label nameLabel;
-
     // Bouton pour revenir vers la scène (fenêtre) d'accueil
     public void switchToHelloScene(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
@@ -29,9 +26,5 @@ public class MainController {
         scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public void displayName(String userName) {
-        nameLabel.setText("Hello " + userName + "!");
     }
 }
