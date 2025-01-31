@@ -10,8 +10,22 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import javafx.scene.layout.HBox;
 
 public class MainController {
+    @FXML
+    private HBox topBox;
+
+    @FXML
+    private HBox centerBox;
+
+    @FXML
+    private HBox bottomBox;
+
+    @FXML
+    public void initialize() {
+    }
+
     private Stage stage;
     private Scene scene;
     private Parent root;
