@@ -11,6 +11,7 @@
             <children>
                 <Canvas height="200.0" width="200.0" />
             <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="15.2" mnemonicParsing="false" onAction="#switchToFileChooserScene" prefHeight="26.0" prefWidth="77.0" text="Fichier" />
+            <Button layoutX="100.0" layoutY="16.0" mnemonicParsing="false" onAction="#switchToSaveFileScene" text="Sauvegarder" />
             </children>
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: lightgreen;">
