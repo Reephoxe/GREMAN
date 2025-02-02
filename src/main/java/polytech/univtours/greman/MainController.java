@@ -22,23 +22,23 @@ public class MainController {
     @FXML
     private HBox bottomBox;
 
-    @FXML
-    public void initialize() {
-    }
-
     private Stage stage;
     private Scene scene;
     private Parent root;
 
-    // Bouton pour revenir vers la scène (fenêtre) d'accueil
-    public void switchToHelloScene(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+    // Bouton pour ouvrir la scène (fenêtre) de changement de fichier
+    public void switchToFileChooserScene(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("file-chooser-view.fxml"));
         root = fxmlLoader.load();
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root, 400, 300);
         String css = getClass().getResource("helloApplication.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setScene(scene);
+        // Permet de ne pas mettre en plein écran
+        stage.setMaximized(false);
+        // Centre la fenêtre au milieu de l'écran
+        stage.centerOnScreen();
         stage.show();
     }
 }

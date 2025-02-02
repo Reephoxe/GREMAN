@@ -19,7 +19,8 @@ public class HelloApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         // Permet de ne pas pouvoir changer la taille de la fenêtre
-        stage.setResizable(false);
+        //stage.setResizable(false);
+        stage.centerOnScreen();
         stage.show();
     }
 
