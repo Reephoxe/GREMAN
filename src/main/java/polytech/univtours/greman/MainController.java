@@ -1,20 +1,25 @@
 package polytech.univtours.greman;
 
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
 public class MainController {
     @FXML
-    private HBox topBox;
+    private AnchorPane topBox;
 
     @FXML
     private HBox centerBox;
@@ -22,9 +27,23 @@ public class MainController {
     @FXML
     private HBox bottomBox;
 
+    @FXML
+    private VBox sideBar;
+
+    @FXML
+    private Button toggleButton;
+
+    @FXML
+    private ScrollBar scrollBar;
+
     private Stage stage;
     private Scene scene;
     private Parent root;
+
+    public void initialize() {
+        sideBar.setPrefWidth(200);
+        sideBar.setPrefHeight(500);
+    }
 
     // Bouton pour ouvrir la scène (fenêtre) de changement de fichier
     public void switchToFileChooserScene(ActionEvent event) throws IOException {
@@ -55,5 +74,33 @@ public class MainController {
         // Centre la fenêtre au milieu de l'écran
         stage.centerOnScreen();
         stage.show();
+    }
+
+    // Bouton pour afficher ou enlever la liste des éléments du circuit
+    public void toggleSideBar(ActionEvent event) throws IOException {
+        // Animations pour faire apparaître / disparaître en glissant
+        TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(300), sideBar);
+        TranslateTransition buttonTransition = new TranslateTransition(Duration.millis(300), toggleButton);
+        TranslateTransition scrollBarTransition = new TranslateTransition(Duration.millis(300), scrollBar);
+
+        // Si les éléments sont cachés
+        if (sideBar.getTranslateX() > (0)) {
+            // Remettre les éléments à leur position d'origine
+            sideBarTransition.setToX(0);
+            buttonTransition.setToX(0);
+            scrollBarTransition.setToX(0);
+            toggleButton.setText(">>>");
+        // Si les éléments sont visibles
+        } else {
+            // Déplacer les éléments hors de l'écran
+            sideBarTransition.setToX(215);
+            buttonTransition.setToX(215);
+            scrollBarTransition.setToX(215);
+            toggleButton.setText("<<<");
+        }
+        // Jouer les animations
+        sideBarTransition.play();
+        buttonTransition.play();
+        scrollBarTransition.play();
     }
 }
