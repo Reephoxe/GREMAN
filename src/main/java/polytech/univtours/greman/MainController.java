@@ -8,7 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -34,7 +34,7 @@ public class MainController {
     private Button toggleButton;
 
     @FXML
-    private ScrollBar scrollBar;
+    private ScrollPane scrollPane;
 
     private Stage stage;
     private Scene scene;
@@ -42,7 +42,7 @@ public class MainController {
 
     public void initialize() {
         sideBar.setPrefWidth(200);
-        sideBar.setPrefHeight(500);
+        //scrollBar.valueProperty().addListener((observable, oldValue, newValue) -> {})
     }
 
     // Bouton pour ouvrir la scène (fenêtre) de changement de fichier
@@ -81,26 +81,27 @@ public class MainController {
         // Animations pour faire apparaître / disparaître en glissant
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(300), sideBar);
         TranslateTransition buttonTransition = new TranslateTransition(Duration.millis(300), toggleButton);
-        TranslateTransition scrollBarTransition = new TranslateTransition(Duration.millis(300), scrollBar);
+        TranslateTransition scrollPaneTransition = new TranslateTransition(Duration.millis(300), scrollPane);
 
         // Si les éléments sont cachés
         if (sideBar.getTranslateX() > (0)) {
             // Remettre les éléments à leur position d'origine
             sideBarTransition.setToX(0);
             buttonTransition.setToX(0);
-            scrollBarTransition.setToX(0);
+            scrollPaneTransition.setToX(0);
             toggleButton.setText(">>>");
         // Si les éléments sont visibles
         } else {
             // Déplacer les éléments hors de l'écran
-            sideBarTransition.setToX(215);
-            buttonTransition.setToX(215);
-            scrollBarTransition.setToX(215);
+            sideBarTransition.setToX(200);
+            buttonTransition.setToX(200);
+            scrollPaneTransition.setToX(200);
             toggleButton.setText("<<<");
+            System.out.println(sideBar.getHeight());
         }
         // Jouer les animations
         sideBarTransition.play();
         buttonTransition.play();
-        scrollBarTransition.play();
+        scrollPaneTransition.play();
     }
 }
