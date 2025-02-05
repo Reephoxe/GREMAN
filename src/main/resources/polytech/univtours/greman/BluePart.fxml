@@ -11,8 +11,8 @@
 
     <children>
         <Canvas height="200.0" width="200.0" />
-        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="15.2" mnemonicParsing="false" prefHeight="26.0" prefWidth="77.0" text="Fichier" />
-        <Button layoutX="100.0" layoutY="16.0" mnemonicParsing="false" text="Sauvegarder" />
+        <Button fx:id="but_Fichier" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="15.2" mnemonicParsing="false" onAction="#switchToFileChooserScene" prefHeight="26.0" prefWidth="77.0" text="Fichier" />
+        <Button fx:id="but_sauvegarder" layoutX="100.0" layoutY="16.0" mnemonicParsing="false" onAction="#switchToSaveFileScene" text="Sauvegarder" />
         <Button fx:id="toggleButton" layoutX="331.0" layoutY="3.0" mnemonicParsing="false" onAction="#toggleSideBar" text="&gt;&gt;&gt;" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="15.0" />
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutY="54.0" prefHeight="300.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
@@ -56,5 +56,6 @@
             </content>
         </ScrollPane>
       <Button fx:id="but_FullSceen" layoutX="366.0" layoutY="48.0" mnemonicParsing="false" onAction="#FullScreen" text="⭷" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="60.0" />
+      <Button fx:id="but_closeFullSceen" layoutX="369.0" layoutY="60.0" mnemonicParsing="false" onAction="#closeFullScreen" text="⭹" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="60.0" />
     </children>
 </AnchorPane>

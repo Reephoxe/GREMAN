@@ -26,21 +26,27 @@ public class FileSaveController {
     private CheckBox argumentCheckBox;
 
     public void backToMainScene(ActionEvent event) throws IOException {
+
         // Récupère les informations de la scène précédente et change de scène i.e. de fenêtre
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         root = fxmlLoader.load();
 
+        // Récupère le contrôleur de la vue
         MainController mainController = fxmlLoader.getController();
 
+        // Récupère la scène et la fenêtre
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
+
         // ------------ Ajoute le style CSS -------------
         String css = getClass().getResource("helloApplication.css").toExternalForm();
         scene.getStylesheets().add(css);
         // ----------------------------------------------
         stage.setScene(scene);
+
         // Permet de mettre en plein écran
         stage.setMaximized(true);
+
         // Centre la fenêtre au milieu de l'écran
         stage.centerOnScreen();
         stage.show();
