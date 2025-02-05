@@ -40,6 +40,7 @@ public class BluePart {
         // Animations pour faire apparaître / disparaître en glissant
         TranslateTransition sideBarTransition = new TranslateTransition(Duration.millis(300), sideBar);
         TranslateTransition buttonTransition = new TranslateTransition(Duration.millis(300), toggleButton);
+        TranslateTransition buttonFillsreen = new TranslateTransition(Duration.millis(300), but_FullSceen);
         TranslateTransition scrollPaneTransition = new TranslateTransition(Duration.millis(300), scrollPane);
 
         // Si les éléments sont cachés
@@ -48,6 +49,7 @@ public class BluePart {
             sideBarTransition.setToX(0);
             buttonTransition.setToX(0);
             scrollPaneTransition.setToX(0);
+            buttonFillsreen.setToX(0);
             toggleButton.setText(">>>");
             // Si les éléments sont visibles
         } else {
@@ -55,6 +57,7 @@ public class BluePart {
             sideBarTransition.setToX(200);
             buttonTransition.setToX(200);
             scrollPaneTransition.setToX(200);
+            buttonFillsreen.setToX(200);
             toggleButton.setText("<<<");
             System.out.println(sideBar.getHeight());
         }
@@ -62,6 +65,7 @@ public class BluePart {
         sideBarTransition.play();
         buttonTransition.play();
         scrollPaneTransition.play();
+        buttonFillsreen.play();
     }
 
     public void FullScreen() throws IOException {
