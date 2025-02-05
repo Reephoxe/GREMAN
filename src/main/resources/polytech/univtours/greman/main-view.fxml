@@ -1,31 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 
-<SplitPane fx:id="SplitPane" dividerPositions="0.5100401606425703, 0.751004016064257" maxHeight="-Infinity"
-           maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0"
-           prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="polytech.univtours.greman.MainController">
-    <AnchorPane>
-        <fx:include source="BluePart.fxml"/>
-    </AnchorPane>
+<SplitPane fx:id="SplitPane" dividerPositions="0.40601503759398494, 0.6641604010025063" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="polytech.univtours.greman.MainController">
 
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"
-                style="-fx-background-color: lightgreen;">
-        <children>
-            <Canvas height="200.0" width="200.0"/>
-        </children>
-    </AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"
-                style="-fx-background-color: lightcoral;">
-        <children>
-            <Canvas height="200.0" width="200.0"/>
-        </children>
-    </AnchorPane>
+
+        <fx:include source="BluePart.fxml" />
+        <fx:include source="PartRed.fxml" />
+        <fx:include source="PartGreen.fxml" />
+
 </SplitPane>

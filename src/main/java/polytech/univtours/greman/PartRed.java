@@ -10,25 +10,23 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
+public class PartRed {
 
-public class PartGreen {
-
-    public Button but_Fullscreen;
-
+    public Button but_FullScreen;
     public void initializeView(String MODE){
 
         if(Objects.equals(MODE, "FSM")){
-            but_Fullscreen.setVisible(false);
-            but_Fullscreen.isDisable();
+            but_FullScreen.setVisible(false);
+            but_FullScreen.isDisable();
         }
     }
 
-    public void FullScreen(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("PartGreen.fxml"));
+    public void FullSrceen(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("PartRed.fxml"));
         Parent root = loader.load();
 
         // Récupérer le contrôleur et initialiser la vue avec le mode souhaité
-        PartGreen Fullscreen = loader.getController();
+        PartRed Fullscreen = loader.getController();
 
         Fullscreen.initializeView("FSM");
 
@@ -43,4 +41,5 @@ public class PartGreen {
         stage.setMaximized(true);
         stage.showAndWait();  // Attendre la fermeture avant de continuer
     }
+
 }
