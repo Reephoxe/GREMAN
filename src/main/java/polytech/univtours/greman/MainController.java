@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -18,6 +19,8 @@ import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
 public class MainController {
+
+    public javafx.scene.control.SplitPane SplitPane;
     @FXML
     private AnchorPane topBox;
 
@@ -40,10 +43,6 @@ public class MainController {
     private Scene scene;
     private Parent root;
 
-    public void initialize() {
-        sideBar.setPrefWidth(200);
-        //scrollBar.valueProperty().addListener((observable, oldValue, newValue) -> {})
-    }
 
     // Bouton pour ouvrir la scène (fenêtre) de changement de fichier
     public void switchToFileChooserScene(ActionEvent event) throws IOException {

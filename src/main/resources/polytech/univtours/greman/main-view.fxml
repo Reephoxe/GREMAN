@@ -8,66 +8,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<SplitPane dividerPositions="0.5100401606425703, 0.751004016064257" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="polytech.univtours.greman.MainController">
-    <items>
-        <AnchorPane fx:id="topBox" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightblue;">
-            <children>
-                <Canvas height="200.0" width="200.0" />
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="15.2" mnemonicParsing="false" onAction="#switchToFileChooserScene" prefHeight="26.0" prefWidth="77.0" text="Fichier" />
-            <Button layoutX="100.0" layoutY="16.0" mnemonicParsing="false" onAction="#switchToSaveFileScene" text="Sauvegarder" />
-            <Button fx:id="toggleButton" layoutX="331.0" layoutY="3.0" mnemonicParsing="false" onAction="#toggleSideBar" text="&gt;&gt;&gt;" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="15.0" />
-            <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutY="54.0" prefHeight="300.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1500.0" prefWidth="200.0">
-                     <children>
-                        <VBox fx:id="sideBar" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: yellow;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <Label text="Label1" />
-                              <Label text="Label2" />
-                              <Label text="Label3" />
-                              <Label text="Label4" />
-                               <Label text="Label1" />
-                               <Label text="Label2" />
-                               <Label text="Label3" />
-                               <Label text="Label4" />
-                               <Label text="Label1" />
-                               <Label text="Label2" />
-                               <Label text="Label3" />
-                               <Label text="Label4" />
-                               <Label text="Label1" />
-                               <Label text="Label2" />
-                               <Label text="Label3" />
-                               <Label text="Label4" />
-                               <Label text="Label1" />
-                               <Label text="Label2" />
-                               <Label text="Label3" />
-                               <Label text="Label4" />
-                               <Label text="Label1" />
-                               <Label text="Label2" />
-                               <Label text="Label3" />
-                               <Label text="Label4" />
-                               <Label text="Label1" />
-                               <Label text="Label2" />
-                               <Label text="Label3" />
-                               <Label text="Label4" />
+<SplitPane fx:id="SplitPane" dividerPositions="0.5100401606425703, 0.751004016064257" maxHeight="-Infinity"
+           maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0"
+           prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="polytech.univtours.greman.MainController">
+    <AnchorPane>
+        <fx:include source="BluePart.fxml"/>
+    </AnchorPane>
 
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </ScrollPane>
-            </children>
-        </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: lightgreen;">
-            <children>
-                <Canvas height="200.0" width="200.0" />
-            </children>
-        </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: lightcoral;">
-            <children>
-                <Canvas height="200.0" width="200.0" />
-            </children>
-        </AnchorPane>
-    </items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"
+                style="-fx-background-color: lightgreen;">
+        <children>
+            <Canvas height="200.0" width="200.0"/>
+        </children>
+    </AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"
+                style="-fx-background-color: lightcoral;">
+        <children>
+            <Canvas height="200.0" width="200.0"/>
+        </children>
+    </AnchorPane>
 </SplitPane>
