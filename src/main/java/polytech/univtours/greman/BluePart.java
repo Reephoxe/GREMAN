@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -17,9 +18,14 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class BluePart {
+
+
+
     public AnchorPane topBox;
     public Button toggleButton;
     public ScrollPane scrollPane;
@@ -28,6 +34,7 @@ public class BluePart {
     public Button but_Fichier;
     public Button but_sauvegarder;
     public Button but_closeFullSceen;
+    public Button but_addtest;
 
     public void initialize() {
         sideBar.setPrefWidth(200);
@@ -90,10 +97,15 @@ public class BluePart {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BluePart.fxml"));
         Parent root = loader.load();
 
-        // Récupérer le contrôleur et initialiser la vue avec le mode souhaité
+        //Récupérer le contrôleur et initialiser la vue avec le mode souhaité
         BluePart Fullscreen = loader.getController();
-
         Fullscreen.initializeView("FSM");
+
+        //Passer les éléments de la barre latérale à la vue en plein écran
+        Fullscreen.setSideBarItems(getSideBarItems());
+
+        //passer le contrôleur principal à la vue en plein écran
+        Fullscreen.setMainController(this);
 
         // Configurer la scène pour la fenêtre modale
         Scene scene = new Scene(root);
@@ -104,7 +116,6 @@ public class BluePart {
         stage.setTitle("BluePart");
         stage.setScene(scene);
         stage.setMaximized(true);
-        //transitionZoom(root);
 
         stage.showAndWait();  // Attendre la fermeture avant de continuer
     }
@@ -127,6 +138,7 @@ public class BluePart {
         stage.show();
     }
 
+    // Bouton pour ouvrir la scène (fenêtre) de sauvegarde de fichier
     public void switchToSaveFileScene(ActionEvent event) throws IOException {
 
         // Récupère le fichier FXML
@@ -150,6 +162,7 @@ public class BluePart {
         stage.show();
     }
 
+    //effet que je n'utilise plus mais que je garde pour le moment
     public void transitionZoom(Parent parent) {
         ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(500), parent);
         scaleTransition.setFromY(0.0);
@@ -159,9 +172,36 @@ public class BluePart {
         scaleTransition.play();
     }
 
+
+    // Récupération des éléments de la barre latérale pour les passer à la vue en plein écran
+    // et pour les mettre à jour après la fermeture de la vue en plein écran
+    private BluePart mainController;
+    public List<Node> getSideBarItems() {
+        return new ArrayList<>(sideBar.getChildren());
+    }
+    public void setSideBarItems(List<Node> items) {
+        sideBar.getChildren().setAll(items);
+    }
+    public void setMainController(BluePart mainController) {
+        this.mainController = mainController;
+    }
+
+    // Action du bouton pour fermer la vue en plein écran
     public void closeFullScreen(ActionEvent actionEvent) {
         initializeView("MAIN");
         Stage stage = (Stage) but_closeFullSceen.getScene().getWindow();
         stage.close();
+
+        //met a jour la vue de la barre larérale apres la fermeture de la vue en plein écran
+        if (mainController != null) {
+            mainController.setSideBarItems(getSideBarItems());
+        }
     }
+
+
+    // Bouton qui ajoute un bouton dans la barre latéralle pour voir sir la maj fonctionne
+    public void testadd(ActionEvent actionEvent) {
+        sideBar.getChildren().add(new Button("Test"));
+    }
+
 }
