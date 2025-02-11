@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -28,12 +29,14 @@ public class BluePart {
     public Button but_Fichier;
     public Button but_sauvegarder;
     public Button but_closeFullSceen;
+    public Button addLabelButton;
+    public Integer counter;
 
     public void initialize() {
         sideBar.setPrefWidth(200);
         //scrollBar.valueProperty().addListener((observable, oldValue, newValue) -> {})
         but_closeFullSceen.setVisible(false);
-
+        counter = 0;
     }
 
     public void initializeView(String MODE){
@@ -163,5 +166,11 @@ public class BluePart {
         initializeView("MAIN");
         Stage stage = (Stage) but_closeFullSceen.getScene().getWindow();
         stage.close();
+    }
+
+    public void addLabel(ActionEvent actionEvent) {
+        Label label = new Label("Label" + counter);
+        counter++;
+        sideBar.getChildren().add(label);
     }
 }
