@@ -24,48 +24,50 @@ public class PartGreen {
     // Trouver le Pane dans le FXML
     @FXML
     public Pane graphePane;
-
     // Définir les axes
+    @FXML
     public NumberAxis xAxis = new NumberAxis();
+    @FXML
     public NumberAxis yAxis = new NumberAxis();
-    xAxis.setLabel("Abscisse");
-    yAxis.setLabel("Ordonnée");
-
     // Créer le graphique
     @FXML
-    final LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-    lineChart.setTitle("Titre");
+    public LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
 
-    // Définir les séries de données
-    XYChart.Series<Number, Number> series = new XYChart.Series<>();
-    series.setName("Nom de la courbe");
+    public void init_courbe(){
+        // Définir les séries de données
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        series.setName("Nom de la courbe frérot ");
 
-    series.getData().add(new XYChart.Data<>(1, 23));
-    series.getData().add(new XYChart.Data<>(2, 14));
-    series.getData().add(new XYChart.Data<>(3, 15));
-    series.getData().add(new XYChart.Data<>(4, 24));
-    series.getData().add(new XYChart.Data<>(5, 34));
-    series.getData().add(new XYChart.Data<>(6, 36));
-    series.getData().add(new XYChart.Data<>(7, 22));
-    series.getData().add(new XYChart.Data<>(8, 45));
-    series.getData().add(new XYChart.Data<>(9, 43));
-    series.getData().add(new XYChart.Data<>(10, 17));
-    series.getData().add(new XYChart.Data<>(11, 29));
-    series.getData().add(new XYChart.Data<>(12, 25));
+        series.getData().add(new XYChart.Data<>(1, 23));
+        series.getData().add(new XYChart.Data<>(2, 14));
+        series.getData().add(new XYChart.Data<>(3, 15));
+        series.getData().add(new XYChart.Data<>(4, 24));
+        series.getData().add(new XYChart.Data<>(5, 34));
+        series.getData().add(new XYChart.Data<>(6, 36));
+        series.getData().add(new XYChart.Data<>(7, 22));
+        series.getData().add(new XYChart.Data<>(8, 45));
+        series.getData().add(new XYChart.Data<>(9, 43));
+        series.getData().add(new XYChart.Data<>(10, 17));
+        series.getData().add(new XYChart.Data<>(11, 29));
+        series.getData().add(new XYChart.Data<>(12, 25));
 
-    lineChart.getData().add(series);
+        lineChart.getData().add(series);
 
-    // Ajouter le graphique dans le Pane
-    graphePane.getChildren().add(lineChart);
-
-
-public void initializeView(String MODE){
-
-        if(Objects.equals(MODE, "FSM")){
-            but_Fullscreen.setVisible(false);
-            but_Fullscreen.isDisable();
-        }
+        // Ajouter le graphique dans le Pane
+        //graphePane.getChildren().add(lineChart);
     }
+
+    public void initialize() {
+        init_courbe();
+    }
+    public void initializeView(String MODE){
+
+            if(Objects.equals(MODE, "FSM")){
+                but_Fullscreen.setVisible(false);
+                but_Fullscreen.isDisable();
+            }
+    }
+
     public void FullScreen(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("PartGreen.fxml"));
         Parent root = loader.load();
@@ -90,11 +92,11 @@ public void initializeView(String MODE){
         stage.showAndWait();  // Attendre la fermeture avant de continuer
     }
     public void transitionZoom(Parent parent) {
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(500), parent);
-        scaleTransition.setFromX(0.5);
-        scaleTransition.setFromY(0.5);
-        scaleTransition.setToX(1.0);
-        scaleTransition.setToY(1.0);
-        scaleTransition.play();
-    }
+    ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(500), parent);
+    scaleTransition.setFromX(0.5);
+    scaleTransition.setFromY(0.5);
+    scaleTransition.setToX(1.0);
+    scaleTransition.setToY(1.0);
+    scaleTransition.play();
+}
 }
