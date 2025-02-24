@@ -4,6 +4,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -40,7 +42,6 @@ public class BluePart {
         sideBar.setPrefWidth(200);
         //scrollBar.valueProperty().addListener((observable, oldValue, newValue) -> {})
         but_closeFullSceen.setVisible(false);
-
     }
 
     public void initializeView(String MODE){
@@ -126,10 +127,13 @@ public class BluePart {
 
         FileChooserController fileChooserController = fxmlLoader.getController();
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        //Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = new Stage();
         Scene scene = new Scene(root, 400, 300);
         String css = getClass().getResource("helloApplication.css").toExternalForm();
         scene.getStylesheets().add(css);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle("FileChooser");
         stage.setScene(scene);
         // Permet de ne pas mettre en plein écran
         stage.setMaximized(false);
@@ -146,7 +150,8 @@ public class BluePart {
         Parent root = fxmlLoader.load();
 
         // Récupère le contrôleur de la vue
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        //Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = new Stage();
         Scene scene = new Scene(root, 400, 300);
 
         // Ajoute le style CSS
@@ -159,7 +164,7 @@ public class BluePart {
 
         // Centre la fenêtre au milieu de l'écran
         stage.centerOnScreen();
-        stage.show();
+        stage.showAndWait();
     }
 
     //effet que je n'utilise plus mais que je garde pour le moment
@@ -204,4 +209,6 @@ public class BluePart {
         sideBar.getChildren().add(new Button("Test"));
     }
 
+
 }
+
