@@ -60,6 +60,7 @@ public class PartGreen {
     public void initialize() {
         init_courbe();
     }
+
     public void initializeView(String MODE){
 
             if(Objects.equals(MODE, "FSM")){
@@ -87,8 +88,11 @@ public class PartGreen {
         stage.setScene(scene);
         stage.setMaximized(true);
 
-        transitionZoom(root);
+        // Redimensionner le graphique en fonction de la taille de la fenêtre
+        Fullscreen.lineChart.prefWidthProperty().bind(scene.widthProperty());
+        Fullscreen.lineChart.prefHeightProperty().bind(scene.heightProperty());
 
+        transitionZoom(root);
         stage.showAndWait();  // Attendre la fermeture avant de continuer
     }
     public void transitionZoom(Parent parent) {
