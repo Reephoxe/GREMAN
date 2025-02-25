@@ -16,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.util.Objects;
 
@@ -169,8 +168,8 @@ public class BluePart {
     }
 
     public void addLabel(ActionEvent actionEvent) {
-        Label label = new Label("Label" + counter);
+        ResistanceSideBar resistanceSideBar = new ResistanceSideBar("R" + counter);
         counter++;
-        sideBar.getChildren().add(label);
+        sideBar.getChildren().add(resistanceSideBar);
     }
 }
