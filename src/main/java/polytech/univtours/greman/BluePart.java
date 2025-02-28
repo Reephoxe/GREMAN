@@ -168,7 +168,7 @@ public class BluePart {
     }
 
     public void addLabel(ActionEvent actionEvent) {
-        ResistanceSideBar resistanceSideBar = new ResistanceSideBar("R" + counter);
+        ResistanceSideBar resistanceSideBar = new ResistanceSideBar("R" + counter + ":");
         counter++;
         sideBar.getChildren().add(resistanceSideBar);
     }

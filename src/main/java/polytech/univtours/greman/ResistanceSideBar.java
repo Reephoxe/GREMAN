@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 // Class of the elements of a resistance in the sidebar
 public class ResistanceSideBar extends VBox {
@@ -13,12 +14,20 @@ public class ResistanceSideBar extends VBox {
         // HBix that will contain the name of the resistance and its value
         HBox hbox = new HBox();
         // Name of the resistance
-        Label label = new Label(labelText);
+        Label name = new Label(labelText);
         // Value of the resistance
         TextField textField = new TextField("30");
+        // Unit of the resistance
+        Label unit = new Label("Ω");
         // Put the name and value into the HBox
-        hbox.getChildren().addAll(label, textField);
-        hbox.setSpacing(10);
+        hbox.getChildren().addAll(name, textField, unit);
+        // Padding to separate the name from the rest
+        name.setPadding(new Insets(0, 7, 0, 0));
+        unit.setPadding(new Insets(0, 0, 0, 3));
+        name.setFont(new Font(17));
+        unit.setFont(new Font(17));
+        textField.setPrefWidth(130);
+
 
         // Slider to change the value of the resistance
         Slider slider = new Slider(0, 1000, 30);
