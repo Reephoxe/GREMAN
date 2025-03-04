@@ -11,6 +11,7 @@
 
     <children>
         <Canvas height="200.0" width="200.0" />
+        <fx:include source="Infinite-image-pane.fxml" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
         <Button fx:id="but_Fichier" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="15.2" mnemonicParsing="false" onAction="#switchToFileChooserScene" prefHeight="26.0" prefWidth="77.0" text="Fichier" />
         <Button fx:id="but_sauvegarder" layoutX="100.0" layoutY="16.0" mnemonicParsing="false" onAction="#switchToSaveFileScene" text="Sauvegarder" />
         <Button fx:id="toggleButton" layoutX="331.0" layoutY="3.0" mnemonicParsing="false" onAction="#toggleSideBar" text="&gt;&gt;&gt;" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="15.0" />
