@@ -11,12 +11,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class BluePart {
@@ -30,12 +34,15 @@ public class BluePart {
     public Button but_closeFullSceen;
     public Button addLabelButton;
     public Integer counter;
+    public List<ResistanceSideBar> elementList;
+    public TextField searchField;
 
     public void initialize() {
         sideBar.setPrefWidth(200);
         //scrollBar.valueProperty().addListener((observable, oldValue, newValue) -> {})
         but_closeFullSceen.setVisible(false);
         counter = 0;
+        elementList = new ArrayList<>();
     }
 
     public void initializeView(String MODE){
@@ -169,7 +176,30 @@ public class BluePart {
 
     public void addLabel(ActionEvent actionEvent) {
         ResistanceSideBar resistanceSideBar = new ResistanceSideBar("R" + counter + ":");
+        elementList.add(resistanceSideBar);
         counter++;
         sideBar.getChildren().add(resistanceSideBar);
+    }
+
+    public void searchElement(ActionEvent actionEvent) {
+        // On récupère le texte entré dans la barre de recherche
+        String searchText = searchField.getText();
+        // Pour chaque élément présent dans la sidebar
+        for (ResistanceSideBar resistanceSideBar : elementList) {
+            // on récupère le nom de l'élément
+            String labelText = resistanceSideBar.getHBoxLabelName();
+            // Si le nom de l'élément ne contient pas ce qui est écrit dans la sidebar
+            if (!labelText.contains(searchText)) {
+                // L'élément devient invisible
+                resistanceSideBar.setVisible(false);
+                // L'élément n'est plus pris en compte
+                resistanceSideBar.setManaged(false);
+            } else {
+                // L'élément devient visible
+                resistanceSideBar.setVisible(true);
+                // L'élément est pris en compte
+                resistanceSideBar.setManaged(true);
+            }
+        }
     }
 }

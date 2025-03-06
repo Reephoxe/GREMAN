@@ -1,6 +1,8 @@
 package polytech.univtours.greman;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
@@ -10,9 +12,12 @@ import javafx.scene.text.Font;
 
 // Class of the elements of a resistance in the sidebar
 public class ResistanceSideBar extends VBox {
+
+    private HBox hBox;
+
     public ResistanceSideBar(String labelText) {
-        // HBix that will contain the name of the resistance and its value
-        HBox hbox = new HBox();
+        // HBox that will contain the name of the resistance and its value
+        this.hBox = new HBox();
         // Name of the resistance
         Label name = new Label(labelText);
         // Value of the resistance
@@ -20,7 +25,7 @@ public class ResistanceSideBar extends VBox {
         // Unit of the resistance
         Label unit = new Label("Ω");
         // Put the name and value into the HBox
-        hbox.getChildren().addAll(name, textField, unit);
+        this.hBox.getChildren().addAll(name, textField, unit);
         // Padding to separate the name from the rest
         name.setPadding(new Insets(0, 7, 0, 0));
         unit.setPadding(new Insets(0, 0, 0, 3));
@@ -48,8 +53,14 @@ public class ResistanceSideBar extends VBox {
                 textField.setText(String.valueOf((float) slider.getValue())); // Reset to valid value
             }
         });
-        this.getChildren().addAll(hbox, slider);
+        this.getChildren().addAll(this.hBox, slider);
         this.setSpacing(5);
         VBox.setMargin(slider, new Insets(0, 20, 0, 10));
+    }
+
+    // Getter to get the HBox child Label, and get the name of the label
+    public String getHBoxLabelName() {
+        Label label = (Label)hBox.getChildren().getFirst();
+        return label.getText();
     }
 }
