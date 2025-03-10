@@ -8,10 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -36,6 +33,7 @@ public class BluePart {
     public Integer counter;
     public List<ResistanceSideBar> elementList;
     public TextField searchField;
+    public InfiniteImagePane infini;
 
     public void initialize() {
         sideBar.setPrefWidth(200);
@@ -179,6 +177,50 @@ public class BluePart {
         elementList.add(resistanceSideBar);
         counter++;
         sideBar.getChildren().add(resistanceSideBar);
+
+        // Create a new dialog
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Select Element");
+
+        // Set the button types
+        ButtonType addButtonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(addButtonType, ButtonType.CANCEL);
+
+        // Create the ComboBox and populate it with options
+        ComboBox<String> comboBox = new ComboBox<>();
+        comboBox.getItems().addAll("Resistance", "Condensateur", "Bobine");
+
+        // Create a layout for the dialog
+        VBox vbox = new VBox(comboBox);
+        vbox.setSpacing(10);
+        dialog.getDialogPane().setContent(vbox);
+
+        // Convert the result to the selected item when the add button is clicked
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == addButtonType) {
+                return comboBox.getSelectionModel().getSelectedItem();
+            }
+            return null;
+        });
+
+        // Show the dialog and wait for the result
+        dialog.showAndWait().ifPresent(selectedItem -> {
+            String imagePath = "";
+            switch (selectedItem) {
+                case "Resistance":
+                    imagePath = "resistance.png";
+                    break;
+                case "Condensateur":
+                    imagePath = "condensateur.png";
+                    break;
+                case "Bobine":
+                    imagePath = "bobine.png";
+                    break;
+            }
+
+            // Add the selected image to the InfiniteImagePane
+            infini._addImage(imagePath);
+        });
     }
 
     public void searchElement(ActionEvent actionEvent) {

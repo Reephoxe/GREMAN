@@ -11,7 +11,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="polytech.univtours.greman.BluePart">
 
-    <fx:include source="infinite-image-pane.fxml" AnchorPane.topAnchor="50.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"/>
+    <fx:include source="infinite-image-pane.fxml" AnchorPane.topAnchor="50.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" fx:id="infini"/>
     <children>
         <Canvas height="200.0" width="200.0" />
         <Button fx:id="but_Fichier" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="15.2" mnemonicParsing="false" onAction="#switchToFileChooserScene" prefHeight="26.0" prefWidth="77.0" text="Fichier" />

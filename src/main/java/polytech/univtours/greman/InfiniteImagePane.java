@@ -11,7 +11,7 @@ public class InfiniteImagePane extends Pane {
 
     public InfiniteImagePane() {
         // Load the image (ensure the path is correct)
-        Image image = new Image("file:src/main/resources/image.png");
+        Image image = new Image("file:src/main/resources/resistance.png");
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
         imageView.fitWidthProperty().bind(widthProperty());
@@ -40,5 +40,17 @@ public class InfiniteImagePane extends Pane {
             setScaleX(scale);
             setScaleY(scale);
         });
+    }
+
+    public void _addImage(String element_name) {
+        Image image = new Image("file:src/main/resources/" + element_name);
+        ImageView imageView = new ImageView(image);
+        imageView.setPreserveRatio(true);
+        imageView.fitWidthProperty().bind(widthProperty());
+        imageView.fitHeightProperty().bind(heightProperty());
+
+        imageView.setTranslateX(getChildren().get(getChildren().size() - 1).getTranslateX() + getChildren().get(getChildren().size() - 1).getLayoutBounds().getWidth());
+
+        getChildren().add(imageView);
     }
 }
