@@ -33,10 +33,11 @@ public class BluePart {
     public Button but_closeFullSceen;
     public Button addLabelButton;
     public Integer counter;
-    public List<ResistanceSideBar> elementList;
+    public List<Node> elementList;
     public TextField searchField;
     public InfiniteImagePane infini;
     public Button test_creation;
+    public Button test_condensateur;
 
     public void initialize() {
         sideBar.setPrefWidth(200);
@@ -180,26 +181,31 @@ public class BluePart {
         elementList.add(resistanceSideBar);
         counter++;
         sideBar.getChildren().add(resistanceSideBar);
+        infini._addImage("resistance.png");
     }
 
     public void searchElement(ActionEvent actionEvent) {
         // On récupère le texte entré dans la barre de recherche
         String searchText = searchField.getText();
         // Pour chaque élément présent dans la sidebar
-        for (ResistanceSideBar resistanceSideBar : elementList) {
-            // on récupère le nom de l'élément
-            String labelText = resistanceSideBar.getHBoxLabelName();
-            // Si le nom de l'élément ne contient pas ce qui est écrit dans la sidebar
-            if (!labelText.contains(searchText)) {
-                // L'élément devient invisible
-                resistanceSideBar.setVisible(false);
-                // L'élément n'est plus pris en compte
-                resistanceSideBar.setManaged(false);
-            } else {
-                // L'élément devient visible
-                resistanceSideBar.setVisible(true);
-                // L'élément est pris en compte
-                resistanceSideBar.setManaged(true);
+        for (Node resistanceSideBar : elementList) {
+
+            //si l'element et de type Resistance sidebar
+            if(resistanceSideBar instanceof ResistanceSideBar){
+                // on récupère le nom de l'élément
+                String labelText = ((ResistanceSideBar) resistanceSideBar)._getName();
+                // Si le nom de l'élément ne contient pas ce qui est écrit dans la sidebar
+                if (!labelText.contains(searchText)) {
+                    // L'élément devient invisible
+                    resistanceSideBar.setVisible(false);
+                    // L'élément n'est plus pris en compte
+                    resistanceSideBar.setManaged(false);
+                } else {
+                    // L'élément devient visible
+                    resistanceSideBar.setVisible(true);
+                    // L'élément est pris en compte
+                    resistanceSideBar.setManaged(true);
+                }
             }
         }
     }
@@ -253,31 +259,43 @@ public class BluePart {
 
     public void _CreationCircuit() {
 
-
         /*ObservableList<String> items = FXCollections.observableArrayList();
         items.add("resistance.png");
-        items.add("resistance.png");
         items.add("condensateur.png");
+        items.add("resistance.png");
+
         items.add("bobine.png");
         items.add("resistance.png");
         for(String item : items){
             infini._addImage(item);
         }*/
 
-
-        for (ResistanceSideBar element : elementList) {
-            if (element.getHBoxLabelName().contains("R")) {
-                infini._addImage("resistance.png",element.getHBoxLabelName());
+        for (Node element : elementList) {
+            if (((ResistanceSideBar)element).getHBoxLabelName().contains("R")) {
+                infini._addImage("resistance.png");
             }
-            else if (element.getHBoxLabelName().contains("C")) {
+            /*else if (element.getHBoxLabelName().contains("C")) {
                 infini._addImage("condensateur.png","C");
             }
             else if (element.getHBoxLabelName().contains("L")) {
                 infini._addImage("bobine.png","L");
-            }
+            }*/
         }
-
-
     }
 
+    public void _ajouterResistance(){
+        ResistanceSideBar resistance = new ResistanceSideBar("R" + counter + ":");
+        elementList.add(resistance);
+        sideBar.getChildren().add(resistance);
+        infini._addImage("resistance.png");
+        counter++;
+    }
+
+    public void _ajouterCondensateur() throws IOException {
+        CondensateurSideBarController condensateur = new CondensateurSideBarController("C" + counter + ":");
+        elementList.add(condensateur);
+        sideBar.getChildren().add(condensateur);
+        infini._addImage("condensateur.png");
+        counter++;
+    }
 }

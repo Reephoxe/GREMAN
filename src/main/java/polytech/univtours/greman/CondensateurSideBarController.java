@@ -10,21 +10,21 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-// Class of the elements of a resistance in the sidebar
-public class ResistanceSideBar extends VBox {
+// Class of the elements of a capacitor in the sidebar
+public class CondensateurSideBarController extends VBox {
 
     private HBox hBox;
     public Label name;
 
-    public ResistanceSideBar(String labelText) {
-        // HBox that will contain the name of the resistance and its value
+    public CondensateurSideBarController(String labelText) {
+        // HBox that will contain the name of the capacitor and its value
         this.hBox = new HBox();
-        // Name of the resistance
+        // Name of the capacitor
         name = new Label(labelText);
-        // Value of the resistance
+        // Value of the capacitor
         TextField textField = new TextField("30");
-        // Unit of the resistance
-        Label unit = new Label("Ω");
+        // Unit of the capacitor
+        Label unit = new Label("F");
         // Put the name and value into the HBox
         this.hBox.getChildren().addAll(name, textField, unit);
         // Padding to separate the name from the rest
@@ -34,8 +34,7 @@ public class ResistanceSideBar extends VBox {
         unit.setFont(new Font(17));
         textField.setPrefWidth(130);
 
-
-        // Slider to change the value of the resistance
+        // Slider to change the value of the capacitor
         Slider slider = new Slider(0, 1000, 30);
         // Listener on the slider to change the value when slider is moved
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -61,7 +60,7 @@ public class ResistanceSideBar extends VBox {
 
     // Getter to get the HBox child Label, and get the name of the label
     public String getHBoxLabelName() {
-        Label label = (Label)hBox.getChildren().getFirst();
+        Label label = (Label)hBox.getChildren().get(0);
         return label.getText();
     }
 

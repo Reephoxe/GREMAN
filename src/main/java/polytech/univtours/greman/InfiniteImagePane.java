@@ -1,15 +1,10 @@
 package polytech.univtours.greman;
 
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
-import javafx.geometry.Pos;
 
 
 public class InfiniteImagePane extends Pane {
@@ -18,7 +13,7 @@ public class InfiniteImagePane extends Pane {
 
     public InfiniteImagePane() {
         // Load the image (ensure the path is correct)
-        Image image = new Image("file:src/main/resources/resistance.png");
+        Image image = new Image("file:src/main/resources/source.png");
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
         imageView.fitWidthProperty().bind(widthProperty());
@@ -49,7 +44,7 @@ public class InfiniteImagePane extends Pane {
         });
     }
 
-    public void _addImage(String element_name, String abreviation) {
+    public void _addImage(String element_name) {
         Image image = new Image("file:src/main/resources/" + element_name);
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
