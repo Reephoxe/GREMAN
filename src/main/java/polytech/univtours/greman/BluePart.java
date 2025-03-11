@@ -189,7 +189,7 @@ public class BluePart {
         elementList.add(resistanceSideBar);
         counter++;
         sideBar.getChildren().add(resistanceSideBar);
-        infini._addImage("resistance.png");
+        //infini._addImage("resistance.png","R"+counter+":");
     }
 
     public void searchElement(ActionEvent actionEvent) {
@@ -278,14 +278,13 @@ public class BluePart {
                 //_ajouterBobine();
             }
         }
-
     }
 
     public void _ajouterResistance(){
         ResistanceSideBar resistance = new ResistanceSideBar("R" + counter + ":");
         elementList.add(resistance);
         sideBar.getChildren().add(resistance);
-        infini._addImage("resistance.png");
+        infini._addImage("resistance.png", "R" + counter,resistance.slider);
         counter++;
     }
 
@@ -293,7 +292,15 @@ public class BluePart {
         CondensateurSideBarController condensateur = new CondensateurSideBarController("C" + counter + ":");
         elementList.add(condensateur);
         sideBar.getChildren().add(condensateur);
-        infini._addImage("condensateur.png");
+        infini._addImage("condensateur.png","C"+counter, condensateur.slider);
         counter++;
+    }
+
+    public void _ajouterBobine() throws IOException {
+        /*BobineSideBarController bobine = new BobineSideBarController("L" + counter + ":");
+        elementList.add(bobine);
+        sideBar.getChildren().add(bobine);
+        infini._addImage("bobine.png");
+        counter++;*/
     }
 }

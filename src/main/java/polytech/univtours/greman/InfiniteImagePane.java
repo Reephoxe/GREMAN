@@ -1,10 +1,14 @@
 package polytech.univtours.greman;
 
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 
 public class InfiniteImagePane extends Pane {
@@ -44,23 +48,39 @@ public class InfiniteImagePane extends Pane {
         });
     }
 
-    public void _addImage(String element_name) {
+    public void _addImage(String element_name, String abreviation, Slider slider) {
         Image image = new Image("file:src/main/resources/" + element_name);
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
         imageView.fitWidthProperty().bind(widthProperty());
         imageView.fitHeightProperty().bind(heightProperty());
 
+        Label label = new Label(abreviation);
+        label.setStyle("-fx-font-weight: bold; -fx-padding: 2px;");
+        label.setTranslateY(-10);
+
+        Label valueLabel = new Label();
+        valueLabel.setStyle("-fx-font-weight: bold; -fx-padding: 2px;");
+        valueLabel.textProperty().bind(slider.valueProperty().asString("%.2f"));
+        valueLabel.setTranslateY(10);
+
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(imageView, label, valueLabel);
+
+        StackPane.setAlignment(label, Pos.CENTER);
+        StackPane.setAlignment(valueLabel, Pos.CENTER);
+
         if (!getChildren().isEmpty()) {
             Node lastChild = getChildren().get(getChildren().size() - 1);
             if (element_name.equals("condensateur.png")) {
-                imageView.setTranslateY(lastChild.getTranslateY() + lastChild.getLayoutBounds().getHeight() - 75);
-                imageView.setTranslateX(lastChild.getTranslateX());
+                stackPane.setTranslateY(lastChild.getTranslateY() + lastChild.getLayoutBounds().getHeight() - 75);
+                stackPane.setTranslateX(lastChild.getTranslateX());
             } else {
-                imageView.setTranslateX(lastChild.getTranslateX() + lastChild.getLayoutBounds().getWidth());
+                stackPane.setTranslateX(lastChild.getTranslateX() + lastChild.getLayoutBounds().getWidth());
             }
         }
 
-        getChildren().addAll(imageView);
+        getChildren().add(stackPane);
     }
 }

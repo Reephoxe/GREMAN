@@ -15,6 +15,7 @@ public class CondensateurSideBarController extends VBox {
 
     private HBox hBox;
     public Label name;
+    public Slider slider;
 
     public CondensateurSideBarController(String labelText) {
         // HBox that will contain the name of the capacitor and its value
@@ -35,7 +36,7 @@ public class CondensateurSideBarController extends VBox {
         textField.setPrefWidth(130);
 
         // Slider to change the value of the capacitor
-        Slider slider = new Slider(0, 1000, 30);
+        slider = new Slider(0, 1000, 30);
         // Listener on the slider to change the value when slider is moved
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             textField.setText(newValue.toString());

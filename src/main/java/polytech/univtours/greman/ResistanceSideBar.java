@@ -15,6 +15,7 @@ public class ResistanceSideBar extends VBox {
 
     private HBox hBox;
     public Label name;
+    public Slider slider;
 
     public ResistanceSideBar(String labelText) {
         // HBox that will contain the name of the resistance and its value
@@ -36,7 +37,7 @@ public class ResistanceSideBar extends VBox {
 
 
         // Slider to change the value of the resistance
-        Slider slider = new Slider(0, 1000, 30);
+        slider = new Slider(0, 1000, 30);
         // Listener on the slider to change the value when slider is moved
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             textField.setText(newValue.toString());
