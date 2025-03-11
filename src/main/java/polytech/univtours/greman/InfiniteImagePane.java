@@ -1,9 +1,16 @@
 package polytech.univtours.greman;
 
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
+import javafx.geometry.Pos;
+
 
 public class InfiniteImagePane extends Pane {
     private double mouseX, mouseY;
@@ -42,15 +49,23 @@ public class InfiniteImagePane extends Pane {
         });
     }
 
-    public void _addImage(String element_name) {
+    public void _addImage(String element_name, String abreviation) {
         Image image = new Image("file:src/main/resources/" + element_name);
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
         imageView.fitWidthProperty().bind(widthProperty());
         imageView.fitHeightProperty().bind(heightProperty());
 
-        imageView.setTranslateX(getChildren().get(getChildren().size() - 1).getTranslateX() + getChildren().get(getChildren().size() - 1).getLayoutBounds().getWidth());
+        if (!getChildren().isEmpty()) {
+            Node lastChild = getChildren().get(getChildren().size() - 1);
+            if (element_name.equals("condensateur.png")) {
+                imageView.setTranslateY(lastChild.getTranslateY() + lastChild.getLayoutBounds().getHeight() - 75);
+                imageView.setTranslateX(lastChild.getTranslateX());
+            } else {
+                imageView.setTranslateX(lastChild.getTranslateX() + lastChild.getLayoutBounds().getWidth());
+            }
+        }
 
-        getChildren().add(imageView);
+        getChildren().addAll(imageView);
     }
 }

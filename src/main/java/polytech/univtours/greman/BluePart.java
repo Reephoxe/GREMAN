@@ -3,6 +3,8 @@ package polytech.univtours.greman;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -34,6 +36,7 @@ public class BluePart {
     public List<ResistanceSideBar> elementList;
     public TextField searchField;
     public InfiniteImagePane infini;
+    public Button test_creation;
 
     public void initialize() {
         sideBar.setPrefWidth(200);
@@ -177,7 +180,32 @@ public class BluePart {
         elementList.add(resistanceSideBar);
         counter++;
         sideBar.getChildren().add(resistanceSideBar);
+    }
 
+    public void searchElement(ActionEvent actionEvent) {
+        // On récupère le texte entré dans la barre de recherche
+        String searchText = searchField.getText();
+        // Pour chaque élément présent dans la sidebar
+        for (ResistanceSideBar resistanceSideBar : elementList) {
+            // on récupère le nom de l'élément
+            String labelText = resistanceSideBar.getHBoxLabelName();
+            // Si le nom de l'élément ne contient pas ce qui est écrit dans la sidebar
+            if (!labelText.contains(searchText)) {
+                // L'élément devient invisible
+                resistanceSideBar.setVisible(false);
+                // L'élément n'est plus pris en compte
+                resistanceSideBar.setManaged(false);
+            } else {
+                // L'élément devient visible
+                resistanceSideBar.setVisible(true);
+                // L'élément est pris en compte
+                resistanceSideBar.setManaged(true);
+            }
+        }
+    }
+
+
+    public void _boiteDialogueAjoutElement(){
         // Create a new dialog
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle("Select Element");
@@ -219,29 +247,37 @@ public class BluePart {
             }
 
             // Add the selected image to the InfiniteImagePane
-            infini._addImage(imagePath);
+            //infini._addImage(imagePath);
         });
     }
 
-    public void searchElement(ActionEvent actionEvent) {
-        // On récupère le texte entré dans la barre de recherche
-        String searchText = searchField.getText();
-        // Pour chaque élément présent dans la sidebar
-        for (ResistanceSideBar resistanceSideBar : elementList) {
-            // on récupère le nom de l'élément
-            String labelText = resistanceSideBar.getHBoxLabelName();
-            // Si le nom de l'élément ne contient pas ce qui est écrit dans la sidebar
-            if (!labelText.contains(searchText)) {
-                // L'élément devient invisible
-                resistanceSideBar.setVisible(false);
-                // L'élément n'est plus pris en compte
-                resistanceSideBar.setManaged(false);
-            } else {
-                // L'élément devient visible
-                resistanceSideBar.setVisible(true);
-                // L'élément est pris en compte
-                resistanceSideBar.setManaged(true);
+    public void _CreationCircuit() {
+
+
+        /*ObservableList<String> items = FXCollections.observableArrayList();
+        items.add("resistance.png");
+        items.add("resistance.png");
+        items.add("condensateur.png");
+        items.add("bobine.png");
+        items.add("resistance.png");
+        for(String item : items){
+            infini._addImage(item);
+        }*/
+
+
+        for (ResistanceSideBar element : elementList) {
+            if (element.getHBoxLabelName().contains("R")) {
+                infini._addImage("resistance.png",element.getHBoxLabelName());
+            }
+            else if (element.getHBoxLabelName().contains("C")) {
+                infini._addImage("condensateur.png","C");
+            }
+            else if (element.getHBoxLabelName().contains("L")) {
+                infini._addImage("bobine.png","L");
             }
         }
+
+
     }
+
 }
