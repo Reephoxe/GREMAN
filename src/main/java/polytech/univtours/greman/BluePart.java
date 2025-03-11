@@ -38,13 +38,21 @@ public class BluePart {
     public InfiniteImagePane infini;
     public Button test_creation;
     public Button test_condensateur;
+    public List<String> Composants = new ArrayList<>();
 
-    public void initialize() {
+    public void initialize() throws IOException {
         sideBar.setPrefWidth(200);
         //scrollBar.valueProperty().addListener((observable, oldValue, newValue) -> {})
         but_closeFullSceen.setVisible(false);
         counter = 0;
         elementList = new ArrayList<>();
+
+        //test ajout element de base
+        Composants.add("Resistance");
+        Composants.add("Condensateur");
+        Composants.add("Resistance");
+        Composants.add("Resistance");
+
     }
 
     public void initializeView(String MODE){
@@ -257,30 +265,20 @@ public class BluePart {
         });
     }
 
-    public void _CreationCircuit() {
+    public void _CreationCircuit() throws IOException {
 
-        /*ObservableList<String> items = FXCollections.observableArrayList();
-        items.add("resistance.png");
-        items.add("condensateur.png");
-        items.add("resistance.png");
-
-        items.add("bobine.png");
-        items.add("resistance.png");
-        for(String item : items){
-            infini._addImage(item);
-        }*/
-
-        for (Node element : elementList) {
-            if (((ResistanceSideBar)element).getHBoxLabelName().contains("R")) {
-                infini._addImage("resistance.png");
+        for(String element : Composants){
+            if (element.equals("Resistance")){
+                _ajouterResistance();
             }
-            /*else if (element.getHBoxLabelName().contains("C")) {
-                infini._addImage("condensateur.png","C");
+            else if (element.equals("Condensateur")) {
+                _ajouterCondensateur();
             }
-            else if (element.getHBoxLabelName().contains("L")) {
-                infini._addImage("bobine.png","L");
-            }*/
+            else if (element.equals("Bobine")) {
+                //_ajouterBobine();
+            }
         }
+
     }
 
     public void _ajouterResistance(){
