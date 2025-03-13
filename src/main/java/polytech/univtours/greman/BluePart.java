@@ -33,7 +33,7 @@ public class BluePart {
     public Button but_sauvegarder;
     public Button but_closeFullSceen;
     public Button addLabelButton;
-    public Integer counter;
+    public int counter;
     public List<ResistanceSideBar> elementList;
     public TextField searchField;
 
@@ -174,7 +174,7 @@ public class BluePart {
         stage.close();
     }
 
-    public void addLabel(ActionEvent actionEvent) {
+    public void addResistance(ActionEvent actionEvent) {
         ResistanceSideBar resistanceSideBar = new ResistanceSideBar("R" + counter + ":");
         elementList.add(resistanceSideBar);
         counter++;
