@@ -7,8 +7,8 @@ import java.io.InputStreamReader;
 public class Executable {
     private static String scriptPath = "./Algorithmes";  // Utilisation de '/' pour compatibilité Windows & Linux
 
-    public static void main(String[] args) {
-        //Exemple d'utilisation
+    //Exemple d'utilisation
+    /*public static void main(String[] args) {
         String f = "1000";
         String Z = "50 + 10i";
 
@@ -27,7 +27,7 @@ public class Executable {
         System.out.println("R2 = " + R2);
         System.out.println("L2 = " + L2);
         System.out.println("C2 = " + C2);
-    }
+    }*/
 
 
     private static String executeOctaveCommand(String command) {
