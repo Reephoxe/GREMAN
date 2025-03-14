@@ -3,15 +3,14 @@ package polytech.univtours.greman;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -33,16 +32,27 @@ public class BluePart {
     public Button but_sauvegarder;
     public Button but_closeFullSceen;
     public Button addLabelButton;
-    public int counter;
-    public List<ResistanceSideBar> elementList;
+    public Integer counter;
+    public List<Node> elementList;
     public TextField searchField;
+    public InfiniteImagePane infini;
+    public Button test_creation;
+    public Button test_condensateur;
+    public List<String> Composants = new ArrayList<>();
 
-    public void initialize() {
+    public void initialize() throws IOException {
         sideBar.setPrefWidth(200);
         //scrollBar.valueProperty().addListener((observable, oldValue, newValue) -> {})
         but_closeFullSceen.setVisible(false);
         counter = 0;
         elementList = new ArrayList<>();
+
+        //test ajout element de base
+        Composants.add("Resistance");
+        Composants.add("Condensateur");
+        Composants.add("Resistance");
+        Composants.add("Resistance");
+
     }
 
     public void initializeView(String MODE){
@@ -174,32 +184,123 @@ public class BluePart {
         stage.close();
     }
 
-    public void addResistance(ActionEvent actionEvent) {
+    public void addLabel(ActionEvent actionEvent) {
         ResistanceSideBar resistanceSideBar = new ResistanceSideBar("R" + counter + ":");
         elementList.add(resistanceSideBar);
         counter++;
         sideBar.getChildren().add(resistanceSideBar);
+        //infini._addImage("resistance.png","R"+counter+":");
     }
 
     public void searchElement(ActionEvent actionEvent) {
         // On récupère le texte entré dans la barre de recherche
         String searchText = searchField.getText();
         // Pour chaque élément présent dans la sidebar
-        for (ResistanceSideBar resistanceSideBar : elementList) {
-            // on récupère le nom de l'élément
-            String labelText = resistanceSideBar.getHBoxLabelName();
-            // Si le nom de l'élément ne contient pas ce qui est écrit dans la sidebar
-            if (!labelText.contains(searchText)) {
-                // L'élément devient invisible
-                resistanceSideBar.setVisible(false);
-                // L'élément n'est plus pris en compte
-                resistanceSideBar.setManaged(false);
-            } else {
-                // L'élément devient visible
-                resistanceSideBar.setVisible(true);
-                // L'élément est pris en compte
-                resistanceSideBar.setManaged(true);
+        for (Node resistanceSideBar : elementList) {
+
+            //si l'element et de type Resistance sidebar
+            if(resistanceSideBar instanceof ResistanceSideBar){
+                // on récupère le nom de l'élément
+                String labelText = ((ResistanceSideBar) resistanceSideBar)._getName();
+                // Si le nom de l'élément ne contient pas ce qui est écrit dans la sidebar
+                if (!labelText.contains(searchText)) {
+                    // L'élément devient invisible
+                    resistanceSideBar.setVisible(false);
+                    // L'élément n'est plus pris en compte
+                    resistanceSideBar.setManaged(false);
+                } else {
+                    // L'élément devient visible
+                    resistanceSideBar.setVisible(true);
+                    // L'élément est pris en compte
+                    resistanceSideBar.setManaged(true);
+                }
             }
         }
+    }
+
+
+    public void _boiteDialogueAjoutElement(){
+        // Create a new dialog
+        Dialog<String> dialog = new Dialog<>();
+        dialog.setTitle("Select Element");
+
+        // Set the button types
+        ButtonType addButtonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(addButtonType, ButtonType.CANCEL);
+
+        // Create the ComboBox and populate it with options
+        ComboBox<String> comboBox = new ComboBox<>();
+        comboBox.getItems().addAll("Resistance", "Condensateur", "Bobine");
+
+        // Create a layout for the dialog
+        VBox vbox = new VBox(comboBox);
+        vbox.setSpacing(10);
+        dialog.getDialogPane().setContent(vbox);
+
+        // Convert the result to the selected item when the add button is clicked
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == addButtonType) {
+                return comboBox.getSelectionModel().getSelectedItem();
+            }
+            return null;
+        });
+
+        // Show the dialog and wait for the result
+        dialog.showAndWait().ifPresent(selectedItem -> {
+            String imagePath = "";
+            switch (selectedItem) {
+                case "Resistance":
+                    imagePath = "resistance.png";
+                    break;
+                case "Condensateur":
+                    imagePath = "condensateur.png";
+                    break;
+                case "Bobine":
+                    imagePath = "bobine.png";
+                    break;
+            }
+
+            // Add the selected image to the InfiniteImagePane
+            //infini._addImage(imagePath);
+        });
+    }
+
+    public void _CreationCircuit() throws IOException {
+
+        for(String element : Composants){
+            if (element.equals("Resistance")){
+                _ajouterResistance();
+            }
+            else if (element.equals("Condensateur")) {
+                _ajouterCondensateur();
+            }
+            else if (element.equals("Bobine")) {
+                //_ajouterBobine();
+            }
+        }
+    }
+
+    public void _ajouterResistance(){
+        ResistanceSideBar resistance = new ResistanceSideBar("R" + counter + ":");
+        elementList.add(resistance);
+        sideBar.getChildren().add(resistance);
+        infini._addImage("resistance.png", "R" + counter,resistance.slider);
+        counter++;
+    }
+
+    public void _ajouterCondensateur() throws IOException {
+        CondensateurSideBarController condensateur = new CondensateurSideBarController("C" + counter + ":");
+        elementList.add(condensateur);
+        sideBar.getChildren().add(condensateur);
+        infini._addImage("condensateur.png","C"+counter, condensateur.slider);
+        counter++;
+    }
+
+    public void _ajouterBobine() throws IOException {
+        /*BobineSideBarController bobine = new BobineSideBarController("L" + counter + ":");
+        elementList.add(bobine);
+        sideBar.getChildren().add(bobine);
+        infini._addImage("bobine.png");
+        counter++;*/
     }
 }
