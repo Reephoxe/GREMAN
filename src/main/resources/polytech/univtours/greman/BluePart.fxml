@@ -42,9 +42,10 @@
         </ScrollPane>
       <Button fx:id="but_FullSceen" layoutX="366.0" layoutY="48.0" mnemonicParsing="false" onAction="#FullScreen" text="⭷" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="60.0" />
       <Button fx:id="but_closeFullSceen" layoutX="369.0" layoutY="60.0" mnemonicParsing="false" onAction="#closeFullScreen" text="⭹" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="60.0" />
-      <Button fx:id="addLabelButton" layoutX="194.0" layoutY="16.0" mnemonicParsing="false" onAction="#_ajouterResistance" text="R++" />
-      <Button fx:id="test_creation" layoutX="245.0" layoutY="16.0" mnemonicParsing="false" onAction="#_CreationCircuit" text="test creation circuit" />
-      <Button fx:id="test_condensateur" layoutX="376.0" layoutY="15.0" mnemonicParsing="false" onAction="#_ajouterCondensateur" text="test condensateur" />
+      <Button fx:id="addLabelButton" layoutX="14.0" layoutY="47.0" mnemonicParsing="false" onAction="#_ajouterResistance" text="_ajoutResistance" />
+      <Button fx:id="test_creation" layoutX="16.0" layoutY="126.0" mnemonicParsing="false" onAction="#_CreationCircuit" text="_creation_circuit" />
+      <Button fx:id="test_condensateur" layoutX="14.0" layoutY="100.0" mnemonicParsing="false" onAction="#_ajouterCondensateur" text="_ajoutCondensateur" />
+      <Button fx:id="test_bobine" layoutX="14.0" layoutY="73.0" mnemonicParsing="false" onAction="#_ajouterBobine" text="_ajoutBobine" />
 
     </children>
 </AnchorPane>

@@ -47,11 +47,10 @@ public class BluePart {
         counter = 0;
         elementList = new ArrayList<>();
 
-        //test ajout element de base
-        Composants.add("Resistance");
-        Composants.add("Condensateur");
         Composants.add("Resistance");
         Composants.add("Resistance");
+        Composants.add("Resistance");
+        System.out.println(Composants);
 
     }
 
@@ -218,7 +217,6 @@ public class BluePart {
         }
     }
 
-
     public void _boiteDialogueAjoutElement(){
         // Create a new dialog
         Dialog<String> dialog = new Dialog<>();
@@ -265,17 +263,13 @@ public class BluePart {
         });
     }
 
-    public void _CreationCircuit() throws IOException {
+    public void _CreationCircuit() throws IOException{
 
         for(String element : Composants){
-            if (element.equals("Resistance")){
-                _ajouterResistance();
-            }
-            else if (element.equals("Condensateur")) {
-                _ajouterCondensateur();
-            }
-            else if (element.equals("Bobine")) {
-                //_ajouterBobine();
+            switch (element) {
+                case "Resistance" -> _ajouterResistance();
+                case "Condensateur" -> _ajouterCondensateur();
+                case "Bobine" -> _ajouterBobine();
             }
         }
     }
@@ -297,10 +291,10 @@ public class BluePart {
     }
 
     public void _ajouterBobine() throws IOException {
-        /*BobineSideBarController bobine = new BobineSideBarController("L" + counter + ":");
+        BobineSideBar bobine = new BobineSideBar("L" + counter + ":");
         elementList.add(bobine);
         sideBar.getChildren().add(bobine);
-        infini._addImage("bobine.png");
-        counter++;*/
+        infini._addImage("bobine.png","L"+counter,bobine.slider);
+        counter++;
     }
 }

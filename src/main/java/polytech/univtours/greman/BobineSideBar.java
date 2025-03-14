@@ -14,11 +14,12 @@ import javafx.scene.text.Font;
 public class BobineSideBar extends VBox {
 
     private HBox hBox;
+    public Slider slider;
 
     public BobineSideBar(String labelText) {
         // HBox that will contain the name of the coil and its value
         this.hBox = new HBox();
-        // Name of the coil
+        // Name of the ccoil
         Label name = new Label(labelText);
         // Value of the coil
         TextField textField = new TextField("30");
@@ -34,7 +35,7 @@ public class BobineSideBar extends VBox {
         textField.setPrefWidth(130);
 
         // Slider to change the value of the resistance
-        Slider slider = new Slider(0, 1000, 30);
+        slider = new Slider(0, 1000, 30);
         // Listener on the slider to change the value when slider is moved
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             textField.setText(newValue.toString());
