@@ -38,7 +38,6 @@ public class BluePart {
     public InfiniteImagePane infini;
     public Button test_creation;
     public Button test_condensateur;
-    public List<String> Composants = new ArrayList<>();
 
     public void initialize() throws IOException {
         sideBar.setPrefWidth(200);
@@ -47,16 +46,11 @@ public class BluePart {
         counter = 0;
         elementList = new ArrayList<>();
 
-        Composants.add("Resistance");
-        Composants.add("Resistance");
-        Composants.add("Resistance");
-        System.out.println(Composants);
-
     }
 
-    public void initializeView(String MODE){
+    public void initializeView(String MODE) {
 
-        if(Objects.equals(MODE, "FSM")){
+        if (Objects.equals(MODE, "FSM")) {
             but_FullSceen.setVisible(false);
             but_closeFullSceen.setVisible(true);
         }
@@ -66,6 +60,7 @@ public class BluePart {
             but_closeFullSceen.setVisible(false);
         }
     }
+
     // Bouton pour afficher ou enlever la liste des éléments du circuit
     public void toggleSideBar(ActionEvent event) throws IOException {
         // Animations pour faire apparaître / disparaître en glissant
@@ -126,6 +121,7 @@ public class BluePart {
 
         stage.showAndWait();  // Attendre la fermeture avant de continuer
     }
+
     // Bouton pour ouvrir la scène (fenêtre) de changement de fichier
     public void switchToFileChooserScene(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("file-chooser-view.fxml"));
@@ -183,14 +179,6 @@ public class BluePart {
         stage.close();
     }
 
-    public void addLabel(ActionEvent actionEvent) {
-        ResistanceSideBar resistanceSideBar = new ResistanceSideBar("R" + counter + ":");
-        elementList.add(resistanceSideBar);
-        counter++;
-        sideBar.getChildren().add(resistanceSideBar);
-        //infini._addImage("resistance.png","R"+counter+":");
-    }
-
     public void searchElement(ActionEvent actionEvent) {
         // On récupère le texte entré dans la barre de recherche
         String searchText = searchField.getText();
@@ -198,7 +186,7 @@ public class BluePart {
         for (Node resistanceSideBar : elementList) {
 
             //si l'element et de type Resistance sidebar
-            if(resistanceSideBar instanceof ResistanceSideBar){
+            if (resistanceSideBar instanceof ResistanceSideBar) {
                 // on récupère le nom de l'élément
                 String labelText = ((ResistanceSideBar) resistanceSideBar)._getName();
                 // Si le nom de l'élément ne contient pas ce qui est écrit dans la sidebar
@@ -217,7 +205,7 @@ public class BluePart {
         }
     }
 
-    public void _boiteDialogueAjoutElement(){
+    public void _boiteDialogueAjoutElement() {
         // Create a new dialog
         Dialog<String> dialog = new Dialog<>();
         dialog.setTitle("Select Element");
@@ -263,18 +251,19 @@ public class BluePart {
         });
     }
 
-    public void _CreationCircuit() throws IOException{
-
-        for(String element : Composants){
+    public void _CreationCircuit() throws IOException {
+        List<String> elements = List.of("Resistance", "Condensateur", "Bobine");
+        for (String element : elements) {
             switch (element) {
                 case "Resistance" -> _ajouterResistance();
-                case "Condensateur" -> _ajouterCondensateur();
-                case "Bobine" -> _ajouterBobine();
+                case "Condensateur"->_ajouterCondensateur();
+                case "Bobine" ->_ajouterBobine();
+                default-> System.out.println("Unknown element: " + element);
             }
         }
     }
 
-    public void _ajouterResistance(){
+    public void _ajouterResistance() {
         ResistanceSideBar resistance = new ResistanceSideBar("R" + counter + ":");
         elementList.add(resistance);
         sideBar.getChildren().add(resistance);
