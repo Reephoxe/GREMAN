@@ -10,12 +10,19 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.layout.Pane;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Objects;
+
+import static polytech.univtours.greman.Parser.Parsers1p;
+import static polytech.univtours.greman.Parser.Parsers2p;
 
 public class PartGreen {
 
@@ -32,32 +39,78 @@ public class PartGreen {
     // Créer le graphique
     @FXML
     public LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+    public AnchorPane pane;
 
-    public void init_courbe(){
-        // Définir les séries de données
-        XYChart.Series<Number, Number> series = new XYChart.Series<>();
-        series.setName("Nom de la courbe frérot ");
+    public void init_courbe() throws FileNotFoundException {
+        File fichier = new File("C:/Users/sirra/IdeaProjects/Projet_Collectif_4A/src/main/java/polytech/univtours/greman/S1P/CHAFF HORS TENSION.S1P");
+        String typeDeFichier = "";
+        String nomDuFichier = fichier.getName();
 
-        series.getData().add(new XYChart.Data<>(1, 23));
-        series.getData().add(new XYChart.Data<>(2, 14));
-        series.getData().add(new XYChart.Data<>(3, 15));
-        series.getData().add(new XYChart.Data<>(4, 24));
-        series.getData().add(new XYChart.Data<>(5, 34));
-        series.getData().add(new XYChart.Data<>(6, 36));
-        series.getData().add(new XYChart.Data<>(7, 22));
-        series.getData().add(new XYChart.Data<>(8, 45));
-        series.getData().add(new XYChart.Data<>(9, 43));
-        series.getData().add(new XYChart.Data<>(10, 17));
-        series.getData().add(new XYChart.Data<>(11, 29));
-        series.getData().add(new XYChart.Data<>(12, 25));
+        //////////Définir le type de fichier/////////////
+        int point = nomDuFichier.lastIndexOf('.');
+        if (point > 0 && point < nomDuFichier.length() - 1) {
+            typeDeFichier = nomDuFichier.substring(point + 1);
+        }
+        ////////////////////////////////////////////////
 
+
+        XYChart.Series<Number, Number> series = new XYChart.Series<>(); //Points qui seront à afficher
+        series.setName("Courbe théorique"); // Nom de la courbe
+
+        ///////////Préparation des valeurs sur les axes /////////////////
+        double xmin = 1000000000;
+        double xmax = -1000000000;
+        double ymin = 1000000000;
+        double ymax = -1000000000;
+        ////////////////////////////////////////////////////////////////
+
+        if (typeDeFichier.equals("S1P")) {
+            //TODO faire en sorte que le chemin soit le chemin qui est donné lors du chargement du fichier
+            double[][] testS1P = Parsers1p(fichier);
+
+            for(int iboucle = 0 ; iboucle < testS1P.length ; iboucle++ ) {
+                series.getData().add(new XYChart.Data<>(testS1P[iboucle][0], testS1P[iboucle][1]));
+                if(testS1P[iboucle][0] < xmin) { xmin = testS1P[iboucle][0]; }
+                if(testS1P[iboucle][0] > xmax) { xmax = testS1P[iboucle][0]; }
+                if(testS1P[iboucle][1] < ymin) { ymin = testS1P[iboucle][1]; }
+                if(testS1P[iboucle][1] > ymax) { ymax = testS1P[iboucle][1]; }
+
+                xAxis.setAutoRanging(false);
+                yAxis.setAutoRanging(false);
+                xAxis.setLowerBound(xmin);
+                xAxis.setUpperBound(xmax);
+                yAxis.setLowerBound(ymin);
+                yAxis.setUpperBound(ymax);
+
+                //Juste pour vérifier que les valeurs sont bien celles de fichier, une fois terminé, peut être retiré
+                System.out.println("S1P :");
+                for (double[] row : testS1P) {
+                    System.out.println("Module: " + row[0] + ", Argument: " + row[1]);
+                }
+            }
+        } else if(typeDeFichier.equals("S2P")) {
+            double[][] testS1P = Parsers2p(fichier);
+            //TODO mettre l'initialisation des des xmin, xmax, ymin, ymax
+
+            xAxis.setAutoRanging(false);
+            yAxis.setAutoRanging(false);
+            xAxis.setLowerBound(0);
+            xAxis.setUpperBound(1);
+            yAxis.setLowerBound(0);
+            yAxis.setUpperBound(1);
+
+
+            System.out.println("S2P :");
+            for (double[] row : testS1P) {
+                System.out.println("ModuleS11: " + row[0] + ", ModuleS12: " + row[1] + ", ModuleS21: " + row[2] + ", ModuleS22: " + row[3] + ", ArgumentS11: " + row[4] + ", ArgumentS12: " + row[5] + ", ArgumentS21: " + row[6] + ", ArgumentS22: " + row[7]);
+            }
+        }
+
+        
         lineChart.getData().add(series);
-
-        // Ajouter le graphique dans le Pane
-        //graphePane.getChildren().add(lineChart);
     }
 
-    public void initialize() {
+    public void initialize() throws FileNotFoundException {
         init_courbe();
     }
 
@@ -89,7 +142,8 @@ public class PartGreen {
         stage.setMaximized(true);
 
         // Redimensionner le graphique en fonction de la taille de la fenêtre
-        Fullscreen.lineChart.prefWidthProperty().bind(scene.widthProperty());
+
+        Fullscreen.lineChart.prefWidthProperty().bind(scene.widthProperty().multiply(0.95));
         Fullscreen.lineChart.prefHeightProperty().bind(scene.heightProperty());
 
         transitionZoom(root);
