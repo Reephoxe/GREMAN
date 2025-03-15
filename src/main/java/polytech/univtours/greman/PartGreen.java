@@ -68,6 +68,8 @@ public class PartGreen {
             //TODO faire en sorte que le chemin soit le chemin qui est donné lors du chargement du fichier
             double[][] testS1P = Parsers1p(fichier);
 
+
+            ///////////////////Set des valeurs d'abscisse et d'ordonnées////////////////////////
             for(int iboucle = 0 ; iboucle < testS1P.length ; iboucle++ ) {
                 series.getData().add(new XYChart.Data<>(testS1P[iboucle][0], testS1P[iboucle][1]));
                 if(testS1P[iboucle][0] < xmin) { xmin = testS1P[iboucle][0]; }
@@ -81,32 +83,37 @@ public class PartGreen {
                 xAxis.setUpperBound(xmax);
                 yAxis.setLowerBound(ymin);
                 yAxis.setUpperBound(ymax);
+                ////////////////////////////////////////////////////////////////////////////////
 
-                //Juste pour vérifier que les valeurs sont bien celles de fichier, une fois terminé, peut être retiré
+                /////Juste pour vérifier que les valeurs sont bien celles de fichier, une fois terminé, peut être retiré/////
                 System.out.println("S1P :");
                 for (double[] row : testS1P) {
                     System.out.println("Module: " + row[0] + ", Argument: " + row[1]);
                 }
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////
             }
         } else if(typeDeFichier.equals("S2P")) {
             double[][] testS1P = Parsers2p(fichier);
-            //TODO mettre l'initialisation des des xmin, xmax, ymin, ymax
 
+
+            ///////////////////Set des valeurs d'abscisse et d'ordonnées////////////////////////
+            // TODO mettre l'initialisation des des xmin, xmax, ymin, ymax
             xAxis.setAutoRanging(false);
             yAxis.setAutoRanging(false);
-            xAxis.setLowerBound(0);
-            xAxis.setUpperBound(1);
-            yAxis.setLowerBound(0);
-            yAxis.setUpperBound(1);
+            xAxis.setLowerBound(xmin);
+            xAxis.setUpperBound(xmax);
+            yAxis.setLowerBound(ymin);
+            yAxis.setUpperBound(ymax);
 
+            ///////////////////////////////////////////////////////////////////////////////////
 
+            /////Juste pour vérifier que les valeurs sont bien celles de fichier, une fois terminé, peut être retiré/////
             System.out.println("S2P :");
             for (double[] row : testS1P) {
                 System.out.println("ModuleS11: " + row[0] + ", ModuleS12: " + row[1] + ", ModuleS21: " + row[2] + ", ModuleS22: " + row[3] + ", ArgumentS11: " + row[4] + ", ArgumentS12: " + row[5] + ", ArgumentS21: " + row[6] + ", ArgumentS22: " + row[7]);
             }
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
-
-        
         lineChart.getData().add(series);
     }
 
