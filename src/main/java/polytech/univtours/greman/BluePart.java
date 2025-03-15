@@ -1,6 +1,8 @@
 package polytech.univtours.greman;
-
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -39,6 +41,7 @@ public class BluePart {
     public Button test_creation;
     public Button test_condensateur;
 
+
     public void initialize() throws IOException {
         sideBar.setPrefWidth(200);
         //scrollBar.valueProperty().addListener((observable, oldValue, newValue) -> {})
@@ -48,9 +51,9 @@ public class BluePart {
 
     }
 
-    public void initializeView(String MODE) {
+    public void initializeView(String MODE){
 
-        if (Objects.equals(MODE, "FSM")) {
+        if(Objects.equals(MODE, "FSM")){
             but_FullSceen.setVisible(false);
             but_closeFullSceen.setVisible(true);
         }
@@ -60,7 +63,6 @@ public class BluePart {
             but_closeFullSceen.setVisible(false);
         }
     }
-
     // Bouton pour afficher ou enlever la liste des éléments du circuit
     public void toggleSideBar(ActionEvent event) throws IOException {
         // Animations pour faire apparaître / disparaître en glissant
@@ -121,7 +123,6 @@ public class BluePart {
 
         stage.showAndWait();  // Attendre la fermeture avant de continuer
     }
-
     // Bouton pour ouvrir la scène (fenêtre) de changement de fichier
     public void switchToFileChooserScene(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("file-chooser-view.fxml"));
@@ -164,15 +165,6 @@ public class BluePart {
         stage.show();
     }
 
-    public void transitionZoom(Parent parent) {
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(500), parent);
-        scaleTransition.setFromY(0.0);
-        scaleTransition.setToY(1.0);
-        scaleTransition.setFromX(1.0); // Keep the X-axis scale unchanged
-        scaleTransition.setToX(1.0);   // Keep the X-axis scale unchanged
-        scaleTransition.play();
-    }
-
     public void closeFullScreen(ActionEvent actionEvent) {
         initializeView("MAIN");
         Stage stage = (Stage) but_closeFullSceen.getScene().getWindow();
@@ -186,7 +178,7 @@ public class BluePart {
         for (Node resistanceSideBar : elementList) {
 
             //si l'element et de type Resistance sidebar
-            if (resistanceSideBar instanceof ResistanceSideBar) {
+            if(resistanceSideBar instanceof ResistanceSideBar){
                 // on récupère le nom de l'élément
                 String labelText = ((ResistanceSideBar) resistanceSideBar)._getName();
                 // Si le nom de l'élément ne contient pas ce qui est écrit dans la sidebar
@@ -205,65 +197,29 @@ public class BluePart {
         }
     }
 
-    public void _boiteDialogueAjoutElement() {
-        // Create a new dialog
-        Dialog<String> dialog = new Dialog<>();
-        dialog.setTitle("Select Element");
-
-        // Set the button types
-        ButtonType addButtonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(addButtonType, ButtonType.CANCEL);
-
-        // Create the ComboBox and populate it with options
-        ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.getItems().addAll("Resistance", "Condensateur", "Bobine");
-
-        // Create a layout for the dialog
-        VBox vbox = new VBox(comboBox);
-        vbox.setSpacing(10);
-        dialog.getDialogPane().setContent(vbox);
-
-        // Convert the result to the selected item when the add button is clicked
-        dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == addButtonType) {
-                return comboBox.getSelectionModel().getSelectedItem();
-            }
-            return null;
-        });
-
-        // Show the dialog and wait for the result
-        dialog.showAndWait().ifPresent(selectedItem -> {
-            String imagePath = "";
-            switch (selectedItem) {
-                case "Resistance":
-                    imagePath = "resistance.png";
-                    break;
-                case "Condensateur":
-                    imagePath = "condensateur.png";
-                    break;
-                case "Bobine":
-                    imagePath = "bobine.png";
-                    break;
-            }
-
-            // Add the selected image to the InfiniteImagePane
-            //infini._addImage(imagePath);
-        });
-    }
-
     public void _CreationCircuit() throws IOException {
-        List<String> elements = List.of("Resistance", "Condensateur", "Bobine");
-        for (String element : elements) {
-            switch (element) {
-                case "Resistance" -> _ajouterResistance();
-                case "Condensateur"->_ajouterCondensateur();
-                case "Bobine" ->_ajouterBobine();
-                default-> System.out.println("Unknown element: " + element);
-            }
+        List<String> listelement = List.of("Resistance","Resistance", "Condensateur", "Bobine");
+        int delay = 200; // Delay in milliseconds
+
+        for (int i = 0; i < listelement.size(); i++) {
+            String element = listelement.get(i);
+            PauseTransition pause = new PauseTransition(Duration.millis(delay * i));
+            pause.setOnFinished(event -> {
+                try {
+                    switch (element) {
+                        case "Resistance" -> _ajouterResistance();
+                        case "Condensateur" -> _ajouterCondensateur();
+                        case "Bobine" -> _ajouterBobine();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            pause.play();
         }
     }
 
-    public void _ajouterResistance() {
+    public void _ajouterResistance(){
         ResistanceSideBar resistance = new ResistanceSideBar("R" + counter + ":");
         elementList.add(resistance);
         sideBar.getChildren().add(resistance);
