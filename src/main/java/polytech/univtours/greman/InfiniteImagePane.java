@@ -82,5 +82,6 @@ public class InfiniteImagePane extends Pane {
         }
 
         getChildren().add(stackPane);
+        stackPane.layout();
     }
 }

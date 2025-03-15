@@ -1,6 +1,8 @@
 package polytech.univtours.greman;
-
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -38,7 +40,7 @@ public class BluePart {
     public InfiniteImagePane infini;
     public Button test_creation;
     public Button test_condensateur;
-    public List<String> Composants = new ArrayList<>();
+
 
     public void initialize() throws IOException {
         sideBar.setPrefWidth(200);
@@ -46,11 +48,6 @@ public class BluePart {
         but_closeFullSceen.setVisible(false);
         counter = 0;
         elementList = new ArrayList<>();
-
-        Composants.add("Resistance");
-        Composants.add("Resistance");
-        Composants.add("Resistance");
-        System.out.println(Composants);
 
     }
 
@@ -168,27 +165,10 @@ public class BluePart {
         stage.show();
     }
 
-    public void transitionZoom(Parent parent) {
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(500), parent);
-        scaleTransition.setFromY(0.0);
-        scaleTransition.setToY(1.0);
-        scaleTransition.setFromX(1.0); // Keep the X-axis scale unchanged
-        scaleTransition.setToX(1.0);   // Keep the X-axis scale unchanged
-        scaleTransition.play();
-    }
-
     public void closeFullScreen(ActionEvent actionEvent) {
         initializeView("MAIN");
         Stage stage = (Stage) but_closeFullSceen.getScene().getWindow();
         stage.close();
-    }
-
-    public void addLabel(ActionEvent actionEvent) {
-        ResistanceSideBar resistanceSideBar = new ResistanceSideBar("R" + counter + ":");
-        elementList.add(resistanceSideBar);
-        counter++;
-        sideBar.getChildren().add(resistanceSideBar);
-        //infini._addImage("resistance.png","R"+counter+":");
     }
 
     public void searchElement(ActionEvent actionEvent) {
@@ -217,60 +197,25 @@ public class BluePart {
         }
     }
 
-    public void _boiteDialogueAjoutElement(){
-        // Create a new dialog
-        Dialog<String> dialog = new Dialog<>();
-        dialog.setTitle("Select Element");
+    public void _CreationCircuit() throws IOException {
+        List<String> listelement = List.of("Resistance","Resistance", "Condensateur", "Bobine");
+        int delay = 200; // Delay in milliseconds
 
-        // Set the button types
-        ButtonType addButtonType = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(addButtonType, ButtonType.CANCEL);
-
-        // Create the ComboBox and populate it with options
-        ComboBox<String> comboBox = new ComboBox<>();
-        comboBox.getItems().addAll("Resistance", "Condensateur", "Bobine");
-
-        // Create a layout for the dialog
-        VBox vbox = new VBox(comboBox);
-        vbox.setSpacing(10);
-        dialog.getDialogPane().setContent(vbox);
-
-        // Convert the result to the selected item when the add button is clicked
-        dialog.setResultConverter(dialogButton -> {
-            if (dialogButton == addButtonType) {
-                return comboBox.getSelectionModel().getSelectedItem();
-            }
-            return null;
-        });
-
-        // Show the dialog and wait for the result
-        dialog.showAndWait().ifPresent(selectedItem -> {
-            String imagePath = "";
-            switch (selectedItem) {
-                case "Resistance":
-                    imagePath = "resistance.png";
-                    break;
-                case "Condensateur":
-                    imagePath = "condensateur.png";
-                    break;
-                case "Bobine":
-                    imagePath = "bobine.png";
-                    break;
-            }
-
-            // Add the selected image to the InfiniteImagePane
-            //infini._addImage(imagePath);
-        });
-    }
-
-    public void _CreationCircuit() throws IOException{
-
-        for(String element : Composants){
-            switch (element) {
-                case "Resistance" -> _ajouterResistance();
-                case "Condensateur" -> _ajouterCondensateur();
-                case "Bobine" -> _ajouterBobine();
-            }
+        for (int i = 0; i < listelement.size(); i++) {
+            String element = listelement.get(i);
+            PauseTransition pause = new PauseTransition(Duration.millis(delay * i));
+            pause.setOnFinished(event -> {
+                try {
+                    switch (element) {
+                        case "Resistance" -> _ajouterResistance();
+                        case "Condensateur" -> _ajouterCondensateur();
+                        case "Bobine" -> _ajouterBobine();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            pause.play();
         }
     }
 
