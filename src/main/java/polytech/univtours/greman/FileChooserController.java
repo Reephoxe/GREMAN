@@ -32,6 +32,14 @@ public class FileChooserController {
         File file = fileChooser.showOpenDialog(stage);
         System.out.println("File path: " + file);
 
+        if (file != null) {
+            String fileName = file.getName();
+            if (fileName.endsWith(".s1p") || fileName.endsWith(".s2p")) {
+                // Si le fichier est de type s1p ou s2p, appelle la méthode sparameter
+                Executable.executeFile(file.getPath(), "4", "2" ,"7" ,"4.05");
+            }
+        }
+
         // Récupère les informations de la scène précédente et change de scène i.e. de fenêtre
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         root = fxmlLoader.load();

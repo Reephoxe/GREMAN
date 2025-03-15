@@ -3,38 +3,45 @@ package polytech.univtours.greman;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Executable {
     private static String scriptPath = "./Algorithmes";  // Utilisation de '/' pour compatibilité Windows & Linux
 
-    //Exemple d'utilisation
-    /*public static void main(String[] args) {
-        String[] f = new String[]{"1000"};
-        String[] Z = new String[]{"50 + 10i"};
+    public static void executeFile(String filePath, String param_nbC, String param_nbL, String param_CoefC, String param_CoefL) {
+        try {
+            double z0 = 50.0;
+            List<SParameterParser.DataPoint> dataPoints = SParameterParser.parseFile(filePath, z0);
 
-        // Étape 1 - Estimation de base
-        String[] result = ScriptTotal(f, Z, "4", "2", "7", "4.05");
-        String R2 = result[0];
-        String L2 = result[1];
-        String C2 = result[2];
+            List<String> freqList = new ArrayList<>();
+            List<String> impList = new ArrayList<>();
 
-        double[] resultZ = Estimated_Impedance(R2, L2, C2, f);
-        for(double z : resultZ) {
-            System.out.println(z);
+            // Construire les tableaux f et Z au format Octave
+            for (SParameterParser.DataPoint dp : dataPoints) {
+                freqList.add(String.valueOf((int) dp.frequence)); // Conversion en entier (pas de ".0")
+                impList.add(dp.impedanceReel + " + " + dp.impedanceImaginaire + "i");
+            }
+
+            // Convertir en tableaux de Strings
+            String[] freqArray = freqList.toArray(new String[0]);
+            String[] impArray = impList.toArray(new String[0]);
+
+            // Appel unique de ScriptTotal avec les bons formats
+            String[] resultat = ScriptTotal(freqArray, impArray, param_nbC, param_nbL, param_CoefC, param_CoefL);
+
+            // Vérification et affichage des résultats
+            if (resultat.length >= 3) {
+                System.out.println("Résultats globaux :");
+                System.out.println("R2 = " + resultat[0] + ", L2 = " + resultat[1] + ", C2 = " + resultat[2]);
+            } else {
+                System.out.println("Erreur : Résultats incomplets.");
+            }
+        } catch (IOException e) {
+            System.err.println("Erreur de lecture du fichier : " + e.getMessage());
         }
-
-        if (R2.equals("error") || L2.equals("error") || C2.equals("error")) {
-            System.err.println("Erreur lors de l'exécution de RCL_construct");
-            return;
-        }
-
-        System.out.println("Résultats finaux :");
-        System.out.println("R2 = " + R2);
-        System.out.println("L2 = " + L2);
-        System.out.println("C2 = " + C2);
-    }*/
-
+    }
 
     private static String executeOctaveCommand(String command) {
         StringBuilder output = new StringBuilder();

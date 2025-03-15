@@ -80,38 +80,4 @@ public class SParameterParser {
         }
         return dataPoints;
     }
-
-    public static void main(String[] args) {
-        try {
-            String filePath = "C:\\Users\\flora\\Downloads\\Exemples\\S1P\\LAMP HORS TENSION.s1p";
-            double z0 = 50.0;
-            List<DataPoint> dataPoints = parseFile(filePath, z0);
-
-            List<String> freqList = new ArrayList<>();
-            List<String> impList = new ArrayList<>();
-
-            // Construire les tableaux f et Z au format Octave
-            for (DataPoint dp : dataPoints) {
-                freqList.add(String.valueOf((int) dp.frequence)); // Conversion en entier (pas de ".0")
-                impList.add(dp.impedanceReel + " + " + dp.impedanceImaginaire + "i");
-            }
-
-            // Convertir en tableaux de Strings
-            String[] freqArray = freqList.toArray(new String[0]);
-            String[] impArray = impList.toArray(new String[0]);
-
-            // Appel unique de ScriptTotal avec les bons formats
-            String[] resultat = Executable.ScriptTotal(freqArray, impArray, "4", "2", "7", "4.05");
-
-            // Vérification et affichage des résultats
-            if (resultat.length >= 3) {
-                System.out.println("Résultats globaux :");
-                System.out.println("R2 = " + resultat[0] + ", L2 = " + resultat[1] + ", C2 = " + resultat[2]);
-            } else {
-                System.out.println("Erreur : Résultats incomplets.");
-            }
-        } catch (IOException e) {
-            System.err.println("Erreur de lecture du fichier : " + e.getMessage());
-        }
-    }
 }
