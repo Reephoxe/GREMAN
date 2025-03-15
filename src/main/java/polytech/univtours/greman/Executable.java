@@ -10,14 +10,19 @@ public class Executable {
 
     //Exemple d'utilisation
     /*public static void main(String[] args) {
-        String f = "1000";
-        String Z = "50 + 10i";
+        String[] f = new String[]{"1000"};
+        String[] Z = new String[]{"50 + 10i"};
 
         // Étape 1 - Estimation de base
         String[] result = ScriptTotal(f, Z, "4", "2", "7", "4.05");
         String R2 = result[0];
         String L2 = result[1];
         String C2 = result[2];
+
+        double[] resultZ = Estimated_Impedance(R2, L2, C2, f);
+        for(double z : resultZ) {
+            System.out.println(z);
+        }
 
         if (R2.equals("error") || L2.equals("error") || C2.equals("error")) {
             System.err.println("Erreur lors de l'exécution de RCL_construct");
@@ -84,6 +89,41 @@ public class Executable {
         return StringOutput(command, 3);
     }
 
+    public static double[] Estimated_Impedance(String param_R, String param_L, String param_C, String[] param_f) {
+        // Crée la commande Octave à exécuter
+        String command = String.format(
+                "addpath('%s'); Z = Estimated_Impedance(%s, %s, %s, %s); disp(Z);",
+                scriptPath, param_R, param_L, param_C, Arrays.toString(param_f)
+        );
+
+        // Exécute la commande Octave et récupère la sortie sous forme de chaîne
+        String output = executeOctaveCommand(command);
+
+        // Parse la sortie pour extraire les valeurs numériques
+        String[] lines = output.split("\n");
+        double[] result = new double[lines.length];
+
+        // Remplir le tableau de doubles avec les valeurs extraites
+        Arrays.fill(result, Double.NaN);  // Valeur par défaut si une erreur se produit
+
+        for (String line : lines) {
+            line = line.trim();
+            if (line.matches("[-+]?\\d*\\.?\\d+([eE][-+]?\\d+)?")) {  // Correspond aux nombres décimaux
+                String[] values = line.split("\\s+");
+                for (int i = 0; i < values.length && i < result.length; i++) {
+                    try {
+                        result[i] = Double.parseDouble(values[i]);  // Conversion en double
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        return result;  // Retourne le tableau de doubles
+    }
+
+
     /*public static String[] Impedance_Estimation_Basic3(String param_f, String param_Z_complex, String param_nbC, String param_nbL, String param_coefC, String param_coefL) {
         String command = String.format(
                 "addpath('%s'); [R, L, C] = Impedance_Estimation_Basic3(%s, %s, %s, %s, %s, %s); disp([R, L, C]);",
@@ -119,15 +159,6 @@ public class Executable {
         );
 
         return StringOutput(command, 3);
-    }
-
-    public static String Estimated_Impedance(String param_R, String param_L, String param_C, String param_f) {
-        String command = String.format(
-                "addpath('%s'); Z = Estimated_Impedance(%s, %s, %s, %s); disp(Z);",
-                scriptPath, param_R, param_L, param_C, param_f
-        );
-
-        return executeOctaveCommand(command);
     }
 
     private static String fmincon(String errorEq, String initialImp2) {
