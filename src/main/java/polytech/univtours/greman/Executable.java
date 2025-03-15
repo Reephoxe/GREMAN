@@ -3,6 +3,7 @@ package polytech.univtours.greman;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Executable {
     private static String scriptPath = "./Algorithmes";  // Utilisation de '/' pour compatibilité Windows & Linux
@@ -57,8 +58,9 @@ public class Executable {
         String[] lines = output.split("\n");  // Sépare les lignes
 
         String[] tmpOut = new String[nbOutput];
+        Arrays.fill(tmpOut, "error");  // Remplissage par défaut
 
-        // Parcours chaque ligne pour trouver les valeurs numériques
+        // Parcours chaque ligne et stocke la dernière ligne contenant des valeurs
         for (String line : lines) {
             line = line.trim();
             if (line.matches("[-+]?\\d*\\.?\\d+([eE][-+]?\\d+)?(\\s+[-+]?\\d*\\.?\\d+([eE][-+]?\\d+)?)*")) {
@@ -66,24 +68,17 @@ public class Executable {
                 for (int i = 0; i < nbOutput && i < values.length; i++) {
                     tmpOut[i] = values[i];
                 }
-                break; // On prend uniquement la première ligne valide trouvée
-            }
-        }
-
-        // Si pas assez de valeurs, remplir avec "error"
-        for (int i = 0; i < nbOutput; i++) {
-            if (tmpOut[i] == null) {
-                tmpOut[i] = "error";
             }
         }
 
         return tmpOut;
     }
 
-    public static String[] ScriptTotal(String param_f, String param_Z_complex, String param_nbC, String param_nbL, String param_coefC, String param_coefL) {
+
+    public static String[] ScriptTotal(String[] param_f, String[] param_Z_complex, String param_nbC, String param_nbL, String param_coefC, String param_coefL) {
         String command = String.format(
                 "addpath('%s'); [R2, L2, C2] = ScriptTotal(%s, %s, %s, %s, %s, %s); disp([R2, L2, C2]);",
-                scriptPath, param_f, param_Z_complex, param_nbC, param_nbL, param_coefC, param_coefL
+                scriptPath, Arrays.toString(param_f), Arrays.toString(param_Z_complex), param_nbC, param_nbL, param_coefC, param_coefL
         );
 
         return StringOutput(command, 3);

@@ -7,7 +7,6 @@ pkg load optim
 
 [R,L,C] = Impedance_Estimation_Basic3(f , Z , nb_C, nb_L, Coef_C, Coef_L)
 
-
 % 2 - Equation of the total estimated impedance
 % """""""""""""""""""""""""""""""""""""""""""""
 [Z_AllExp  , initial_Imp2 , initial_cst2] = Imp_Eq (R , L , C , f , 2);

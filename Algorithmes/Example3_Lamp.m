@@ -3,8 +3,7 @@ pkg load optim;
 tic
 filename = fullfile(fileparts(mfilename('fullpath')), 'Z_Lamp.mat');
 
-data = load(filename)
-disp(data)
+load(filename)
 f = Z(:,1)';
 Z = Z(:,2)';
 Z = Z(30:end);
@@ -37,7 +36,7 @@ addpath(fullfile(pwd, 'version_finale'));
 
 % 3 - Euqation of the errors
 % """"""""""""""""""""""""""
-E_AllExp   = ErrEq(Z      , Z_AllExp);
+E_AllExp   = ErrEq(Z, Z_AllExp);
 
 % 4 - Optimization Step
 % """""""""""""""""""""
@@ -62,4 +61,17 @@ loglog(f,abs(Z) ,'m','LineWidth',2);hold on
 loglog(f,abs(Z0),'LineWidth',2)
 loglog(f,abs(Z2), '--b' , 'LineWidth' , 1)
 title ( 'Module of the real - Estimated and optimized impedance')
-...
+ylabel( 'Impedance Module [\Omega]');
+legend( 'Z_{Real}' , 'Z_{Estimated}' , 'Z_{Opt}');
+set(gca , 'FontSize' , 12);
+grid on
+
+subplot(212)
+semilogx(f,angle(Z)*180/pi ,'m','LineWidth',2);hold on
+semilogx(f,angle(Z0)*180/pi,'LineWidth',2)
+semilogx(f,angle(Z2)*180/pi, '--b' , 'LineWidth' , 1)
+title ( 'Phase of the real - Estimated and optimized impedance')
+ylabel( 'Impedance Phase [Degree]');
+xlabel( 'Frequency [Hz] - log scaled');
+set(gca , 'FontSize' , 12);
+grid on

@@ -15,12 +15,6 @@ function [Z_eq,initial_Imp,initial_cst] = Imp_Eq(R , L , C , f , WhichEq)
 % 'f' : the frequency domain
 % 'WhichEq' : A constant equal to {1,2,3,4}. The value of this input
 % changes the equation of the Z_eq
-R = 50.990;
-L = 0;
-C = 0;
-f = 1000;
-WhichEq = 2;
-
 w = 2*pi*f;
 Z_eq=[];
 n_R =length(R);

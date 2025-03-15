@@ -54,3 +54,4 @@ function [R_new , L_new , C_new] = RLC_construct ( x , initial_cst, Exp_Or_NoExp
 
     end
 end
+
