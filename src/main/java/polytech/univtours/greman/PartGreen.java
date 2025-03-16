@@ -39,7 +39,7 @@ public class PartGreen {
     // Créer le graphique
     @FXML
     public LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
-    public AnchorPane pane;
+    public AnchorPane paneGreen;
 
     public void init_courbe() throws FileNotFoundException {
         File fichier = new File("C:/Users/sirra/IdeaProjects/Projet_Collectif_4A/src/main/java/polytech/univtours/greman/S1P/CHAFF HORS TENSION.S1P");
@@ -54,8 +54,8 @@ public class PartGreen {
         ////////////////////////////////////////////////
 
 
-        XYChart.Series<Number, Number> series = new XYChart.Series<>(); //Points qui seront à afficher
-        series.setName("Courbe théorique"); // Nom de la courbe
+        LineChart.Series<Number, Number> series = new XYChart.Series<>(); //Points qui seront à afficher
+        lineChart.setLegendVisible(false);
 
         ///////////Préparation des valeurs sur les axes /////////////////
         double xmin = 1000000000;
@@ -71,11 +71,11 @@ public class PartGreen {
 
             ///////////////////Set des valeurs d'abscisse et d'ordonnées////////////////////////
             for(int iboucle = 0 ; iboucle < testS1P.length ; iboucle++ ) {
-                series.getData().add(new XYChart.Data<>(testS1P[iboucle][0], testS1P[iboucle][1]));
+                series.getData().add(new XYChart.Data<>(testS1P[iboucle][0], testS1P[iboucle][2]));
                 if(testS1P[iboucle][0] < xmin) { xmin = testS1P[iboucle][0]; }
                 if(testS1P[iboucle][0] > xmax) { xmax = testS1P[iboucle][0]; }
-                if(testS1P[iboucle][1] < ymin) { ymin = testS1P[iboucle][1]; }
-                if(testS1P[iboucle][1] > ymax) { ymax = testS1P[iboucle][1]; }
+                if(testS1P[iboucle][2] < ymin) { ymin = testS1P[iboucle][2]; }
+                if(testS1P[iboucle][2] > ymax) { ymax = testS1P[iboucle][2]; }
 
                 xAxis.setAutoRanging(false);
                 yAxis.setAutoRanging(false);
@@ -83,6 +83,8 @@ public class PartGreen {
                 xAxis.setUpperBound(xmax);
                 yAxis.setLowerBound(ymin);
                 yAxis.setUpperBound(ymax);
+                xAxis.setTickUnit((xmax - xmin)/20);
+                yAxis.setTickUnit((ymax - ymin)/20);
                 ////////////////////////////////////////////////////////////////////////////////
 
                 /////Juste pour vérifier que les valeurs sont bien celles de fichier, une fois terminé, peut être retiré/////
@@ -104,7 +106,8 @@ public class PartGreen {
             xAxis.setUpperBound(xmax);
             yAxis.setLowerBound(ymin);
             yAxis.setUpperBound(ymax);
-
+            xAxis.setTickUnit((xmax - xmin)/20);
+            yAxis.setTickUnit((ymax - ymin)/20);
             ///////////////////////////////////////////////////////////////////////////////////
 
             /////Juste pour vérifier que les valeurs sont bien celles de fichier, une fois terminé, peut être retiré/////
