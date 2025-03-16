@@ -7,7 +7,7 @@ import java.util.List;
 public class Parser {
     public static void main(String[] args) {
         //double[][] testS1P = Parsers2p(new File("C:/Users/sirra/IdeaProjects/Projet_Collectif_4A/src/main/java/polytech/univtours/greman/S2P/ZT OPEN OHM.S2P"));
-        double [][] testS1P = Parsers1p(new File("C:/Users/sirra/IdeaProjects/Projet_Collectif_4A/src/main/java/polytech/univtours/greman/S1P/CHAFF HORS TENSION.S1P"));
+        double [][] testS1P = Parsers1p(new File("C:\\!Polytech\\Cycle ingé\\Semestre 8\\Projet coo\\GREMAN\\src\\main\\java\\polytech\\univtours\\greman\\S1P\\CHAFF HORS TENSION.S1P"));
         System.out.println("S1P :");
         for (double[] row : testS1P) {
             //System.out.println("ModuleS11: " + row[0] + ", ModuleS12: " + row[1] + ", ModuleS21: " + row[2] + ", ModuleS22: " + row[3] + ", ArgumentS11: " + row[4] + ", ArgumentS12: " + row[5] + ", ArgumentS21: " + row[6] + ", ArgumentS22: " + row[7]);

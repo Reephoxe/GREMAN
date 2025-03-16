@@ -42,7 +42,8 @@ public class PartGreen {
     public AnchorPane paneGreen;
 
     public void init_courbe() throws FileNotFoundException {
-        File fichier = new File("C:/Users/sirra/IdeaProjects/Projet_Collectif_4A/src/main/java/polytech/univtours/greman/S1P/CHAFF HORS TENSION.S1P");
+        //File fichier = new File("C:/Users/sirra/IdeaProjects/Projet_Collectif_4A/src/main/java/polytech/univtours/greman/S1P/CHAFF HORS TENSION.S1P");
+        File fichier = new File("C:\\!Polytech\\Cycle ingé\\Semestre 8\\Projet coo\\GREMAN\\src\\main\\java\\polytech\\univtours\\greman\\S1P\\CHAFF HORS TENSION.S1P");
         String typeDeFichier = "";
         String nomDuFichier = fichier.getName();
 
