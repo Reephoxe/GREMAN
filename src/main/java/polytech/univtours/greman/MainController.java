@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
@@ -43,6 +44,16 @@ public class MainController {
     private Scene scene;
     private Parent root;
 
+    private File file;
+
+    public void setSelectedFile(File file) {
+        if (file != null) {
+            this.file = file;
+            System.out.println("Selected file: " + file.getAbsolutePath());
+        } else {
+            System.out.println("No file selected");
+        }
+    }
 
     // Bouton pour ouvrir la scène (fenêtre) de changement de fichier
     public void switchToFileChooserScene(ActionEvent event) throws IOException {

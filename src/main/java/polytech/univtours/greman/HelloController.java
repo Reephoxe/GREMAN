@@ -30,13 +30,17 @@ public class HelloController {
         fileChooser.getExtensionFilters().add(extFilter);
         // Enregistre dans file le chemin du fichier dans les dossiers
         File file = fileChooser.showOpenDialog(stage);
-        System.out.println("File path: " + file);
-
+        if (file != null) {
+            System.out.println("File path: " + file.getAbsolutePath());
+        } else {
+            System.out.println("No file selected");
+        }
         // Récupère les informations de la scène précédente et change de scène i.e. de fenêtre
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         root = fxmlLoader.load();
 
         MainController mainController = fxmlLoader.getController();
+        mainController.setSelectedFile(file);
 
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -51,4 +55,5 @@ public class HelloController {
         stage.centerOnScreen();
         stage.show();
     }
+
 }
