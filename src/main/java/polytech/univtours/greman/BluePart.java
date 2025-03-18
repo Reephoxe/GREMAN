@@ -219,6 +219,32 @@ public class BluePart {
         }
     }
 
+    public void _TestCreationAvecCSV(){
+        Lecture_Creation_Circuit lecture = new Lecture_Creation_Circuit();
+        lecture._lectureCSV();
+        int delay = 200; // Delay in milliseconds
+        System.out.println(lecture.composants);
+
+        for (int i = 0; i < lecture._getComposant().size(); i++) {
+            String element = lecture._getComposant().get(i);
+            PauseTransition pause = new PauseTransition(Duration.millis(delay * i));
+            pause.setOnFinished(event -> {
+                try {
+                    switch (element) {
+                        case "Resistance" -> _ajouterResistance();
+                        case "Condensateur" -> _ajouterCondensateur();
+                        case "Bobine" -> _ajouterBobine();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            pause.play();
+        }
+
+
+    }
+
     public void _ajouterResistance(){
         ResistanceSideBar resistance = new ResistanceSideBar("R" + counter + ":");
         elementList.add(resistance);

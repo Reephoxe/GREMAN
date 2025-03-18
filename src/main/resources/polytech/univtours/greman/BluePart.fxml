@@ -3,6 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,9 +17,10 @@
     <fx:include source="infinite-image-pane.fxml" AnchorPane.topAnchor="50.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" fx:id="infini"/>
     <children>
         <Canvas height="200.0" width="200.0" />
-        <Button fx:id="but_Fichier" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="15.2" mnemonicParsing="false" onAction="#switchToFileChooserScene" prefHeight="26.0" prefWidth="77.0" text="Fichier" />
+      <!--  <Button fx:id="but_Fichier" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="15.2" mnemonicParsing="false" onAction="#switchToFileChooserScene" prefHeight="26.0" prefWidth="77.0" text="Fichier" />
         <Button fx:id="but_sauvegarder" layoutX="100.0" layoutY="16.0" mnemonicParsing="false" onAction="#switchToSaveFileScene" text="Sauvegarder" />
         <Button fx:id="toggleButton" layoutX="331.0" layoutY="3.0" mnemonicParsing="false" onAction="#toggleSideBar" text="&gt;&gt;&gt;" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="15.0" />
+        -->
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutY="54.0" prefHeight="300.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1500.0" prefWidth="200.0">
@@ -42,10 +46,34 @@
         </ScrollPane>
       <Button fx:id="but_FullSceen" layoutX="366.0" layoutY="48.0" mnemonicParsing="false" onAction="#FullScreen" text="⭷" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="60.0" />
       <Button fx:id="but_closeFullSceen" layoutX="369.0" layoutY="60.0" mnemonicParsing="false" onAction="#closeFullScreen" text="⭹" AnchorPane.rightAnchor="205.0" AnchorPane.topAnchor="60.0" />
-      <Button fx:id="addLabelButton" layoutX="14.0" layoutY="47.0" mnemonicParsing="false" onAction="#_ajouterResistance" text="_ajoutResistance" />
-      <Button fx:id="test_creation" layoutX="16.0" layoutY="126.0" mnemonicParsing="false" onAction="#_CreationCircuit" text="_creation_circuit" />
-      <Button fx:id="test_condensateur" layoutX="14.0" layoutY="100.0" mnemonicParsing="false" onAction="#_ajouterCondensateur" text="_ajoutCondensateur" />
-      <Button fx:id="test_bobine" layoutX="14.0" layoutY="73.0" mnemonicParsing="false" onAction="#_ajouterBobine" text="_ajoutBobine" />
+        <!--  <Button fx:id="addLabelButton" layoutX="14.0" layoutY="47.0" mnemonicParsing="false" onAction="#_ajouterResistance" text="_ajoutResistance" />
+          <Button fx:id="test_creation" layoutX="16.0" layoutY="126.0" mnemonicParsing="false" onAction="#_TestCreationAvecCSV" text="_creation_circuit" />
+          <Button fx:id="test_condensateur" layoutX="14.0" layoutY="100.0" mnemonicParsing="false" onAction="#_ajouterCondensateur" text="_ajoutCondensateur" />
+          <Button fx:id="test_bobine" layoutX="14.0" layoutY="73.0" mnemonicParsing="false" onAction="#_ajouterBobine" text="_ajoutBobine" />
+          -->
+      <MenuBar layoutY="2.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="ADD">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#_ajouterResistance" text="_ajoutResistance" />
+                  <MenuItem mnemonicParsing="false" onAction="#_ajouterBobine" text="_ajoutBobine" />
+                  <MenuItem mnemonicParsing="false" onAction="#_ajouterCondensateur" text="_ajoutCondensateur" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Sauvegarde">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#switchToSaveFileScene" text="Cricuit" />
+               </items></Menu>
+          <Menu mnemonicParsing="false" text="Fichier">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#switchToFileChooserScene" text="Ouvrir" />
+               </items></Menu>
+            <Menu mnemonicParsing="false" text="TEST">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#_TestCreationAvecCSV" text="Creation circuit" />
+               </items></Menu>
+        </menus>
+      </MenuBar>
 
     </children>
 </AnchorPane>
