@@ -24,6 +24,7 @@ public class HelloController {
     // Fonction pour choisir un fichier
     public void selectFile(ActionEvent event) throws IOException {
         // Ouvre la pop up pour récupérer les infos nécessaires (nb bobines/condensateurs, pondérations)
+        // Récupère les informations de la scène précédente et change de scène i.e. de fenêtre
         FXMLLoader loader = new FXMLLoader(getClass().getResource("input-dialog.fxml"));
         Parent dialogRoot = loader.load();
         InputDialogController inputDialogController = loader.getController();
@@ -42,6 +43,7 @@ public class HelloController {
 
         // Si l'utilisateur a cliqué sur OK, récupère les informations
         if (inputDialogController.isOkClicked()) {
+            // Informations récupérées
             String nombreBobines = inputDialogController.getNombreBobines();
             String nombreCondensateurs = inputDialogController.getNombreCondensateurs();
             String ponderationBobines = inputDialogController.getPonderationBobines();
