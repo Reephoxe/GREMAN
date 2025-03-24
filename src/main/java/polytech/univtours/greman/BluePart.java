@@ -130,39 +130,33 @@ public class BluePart {
 
         FileChooserController fileChooserController = fxmlLoader.getController();
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 400, 300);
+        Stage popupStage = new Stage();
+        Scene scene = new Scene(root, 600, 600);
         String css = getClass().getResource("helloApplication.css").toExternalForm();
         scene.getStylesheets().add(css);
-        stage.setScene(scene);
-        // Permet de ne pas mettre en plein écran
-        stage.setMaximized(false);
-        // Centre la fenêtre au milieu de l'écran
-        stage.centerOnScreen();
-        stage.show();
+        popupStage.setScene(scene);
+        popupStage.initModality(Modality.APPLICATION_MODAL); // Make it a modal window
+        popupStage.setTitle("File Chooser");
+        popupStage.setMaximized(false); // Do not maximize
+        popupStage.centerOnScreen(); // Center the window
+        popupStage.showAndWait(); // Show the pop-up and wait for it to close
     }
 
     public void switchToSaveFileScene(ActionEvent event) throws IOException {
 
-        // Récupère le fichier FXML
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("file-save-view.fxml"));
         Parent root = fxmlLoader.load();
 
-        // Récupère le contrôleur de la vue
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 400, 300);
-
-        // Ajoute le style CSS
+        Stage popupStage = new Stage();
+        Scene scene = new Scene(root, 600, 600);
         String css = getClass().getResource("helloApplication.css").toExternalForm();
         scene.getStylesheets().add(css);
-        stage.setScene(scene);
-
-        // Permet de ne pas mettre en plein écran
-        stage.setMaximized(false);
-
-        // Centre la fenêtre au milieu de l'écran
-        stage.centerOnScreen();
-        stage.show();
+        popupStage.setScene(scene);
+        popupStage.initModality(Modality.APPLICATION_MODAL); // Make it a modal window
+        popupStage.setTitle("Save File");
+        popupStage.setMaximized(false); // Do not maximize
+        popupStage.centerOnScreen(); // Center the window
+        popupStage.showAndWait(); // Show the pop-up and wait for it to close
     }
 
     public void closeFullScreen(ActionEvent actionEvent) {
