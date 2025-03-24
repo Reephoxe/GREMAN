@@ -12,6 +12,10 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
+
+
+//classe ne s'utilise plus
+
 public class HelloController {
     private Stage stage;
     private Scene scene;

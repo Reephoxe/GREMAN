@@ -19,6 +19,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -260,4 +262,5 @@ public class BluePart {
     public void setLecture_Creation_Circuit(Lecture_Creation_Circuit lecture_Creation_Circuit) {
         this._lecture_Circuit = lecture_Creation_Circuit;
     }
+
 }
