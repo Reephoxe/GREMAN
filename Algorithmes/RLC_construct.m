@@ -1,4 +1,4 @@
-function [R_new , L_new , C_new] = RLC_construct ( x , initial_cst, Exp_Or_NoExp , R , L ,C)
+function [R_new, L_new, C_new] = RLC_construct(x, initial_cst, Exp_Or_NoExp, R, L, C)
     n_R = length(R);
     n_C = length(C);
     if n_R > n_C
@@ -12,46 +12,66 @@ function [R_new , L_new , C_new] = RLC_construct ( x , initial_cst, Exp_Or_NoExp
         initial_cst = 1;
     end
     n = length(C);
-    j=1;
+    j = 1;
     for i = 1 : n_C
         if i == 1
             if Exp_Or_NoExp == 'Y'
-              R_new = [R_new ; initial_cst(j) * 10^x(j)];
+                R_new = [R_new; initial_cst(j) * 10^x(j)];
             else
-              R_new = [R_new ; x(j)];
+                R_new = [R_new; x(j)];
             end
-            C_new = [ C_new ; 0];
-            L_new = [ L_new ; 0];
-            j = j+1;
+            C_new = [C_new; 0];
+            L_new = [L_new; 0];
+            j = j + 1;
             continue
         end
 
-        if C(i)~=0
+        if C(i) ~= 0
             if Exp_Or_NoExp == 'Y'
-                R_new = [R_new ; initial_cst(j) * 10^x(j)];
-                C_new = [C_new ; initial_cst(j+1) * 10^x(j+1)];
+                R_new = [R_new; initial_cst(j) * 10^x(j)];
+                C_new = [C_new; initial_cst(j + 1) * 10^x(j + 1)];
             else
-                R_new = [R_new ; x(j)];
-                C_new = [C_new ; x(j+1)];
+                R_new = [R_new; x(j)];
+                C_new = [C_new; x(j + 1)];
             end
-            L_new = [L_new ; 0];
-            j = j+2;
+            L_new = [L_new; 0];
+            j = j + 2;
             continue
         end
 
-        if L(i)~=0
+        if L(i) ~= 0
             if Exp_Or_NoExp == 'Y'
-                R_new = [R_new ; initial_cst(j) * 10^x(j)];
-                L_new = [L_new ; initial_cst(j+1) * 10^x(j+1)];
+                R_new = [R_new; initial_cst(j) * 10^x(j)];
+                L_new = [L_new; initial_cst(j + 1) * 10^x(j + 1)];
             else
-                R_new = [R_new ; x(j)];
-                L_new = [L_new ; x(j+1)];
+                R_new = [R_new; x(j)];
+                L_new = [L_new; x(j + 1)];
             end
-            C_new = [C_new ; 0];
-            j = j+2;
+            C_new = [C_new; 0];
+            j = j + 2;
             continue
         end
-
     end
-end
 
+    output = zeros(n, 3);
+        for i = 1:n
+            if i == 1
+                output(i, :) = [R_new(i), 0, 0];
+            else
+                if L_new(i) ~= 0
+                    output(i, :) = [R_new(i), L_new(i), 0];
+                elseif C_new(i) ~= 0
+                    output(i, :) = [R_new(i), 0, C_new(i)];
+                else
+                    output(i, :) = [R_new(i), 0, 0];
+                end
+            end
+        end
+
+        % Écrire les données dans un fichier CSV
+        csvFileName = 'RLC_data.csv';
+        csvwrite(csvFileName, output);
+
+        % Déplacer le fichier CSV vers le dossier ressources
+        movefile(csvFileName, 'src/main/resources/' + csvFileName);
+end
