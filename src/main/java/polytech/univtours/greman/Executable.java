@@ -71,17 +71,41 @@ public class Executable {
         String output = executeOctaveCommand(command);
         List<double[]> results = new ArrayList<>();
 
-        Pattern pattern = Pattern.compile("([-+]?[0-9]*\\.?[0-9]+(?:[eE][-+]?[0-9]+)?)\\s*\\+?\\s*([-+]?[0-9]*\\.?[0-9]+(?:[eE][-+]?[0-9]+)?)\\s*i");
+        // Mise à jour de la regex
+        Pattern pattern = Pattern.compile("([-+]?[0-9]*\\.?[0-9]+(?:[eE][-+]?[0-9]+)?)\\s*([+-])?\\s*([0-9]*\\.?[0-9]+(?:[eE][-+]?[0-9]+)?)?\\s*i");
         Matcher matcher = pattern.matcher(output);
 
         while (matcher.find()) {
+            // Partie réelle
             double real = Double.parseDouble(matcher.group(1));
-            double imag = Double.parseDouble(matcher.group(2));
+
+            // Partie imaginaire : vérifier si elle est présente et bien formatée
+            String imagString = matcher.group(3); // Partie imaginaire
+            if (imagString == null || imagString.trim().isEmpty()) {
+                imagString = "0"; // Si aucune partie imaginaire, on met 0
+            }
+
+            // Si la partie imaginaire est uniquement "+i" ou "-i", on lui attribue une valeur de 1 ou -1
+            if (imagString.trim().equals("+")) {
+                imagString = "1";
+            } else if (imagString.trim().equals("-")) {
+                imagString = "-1";
+            }
+
+            // Si un signe est présent pour la partie imaginaire, on le garde
+            if (matcher.group(2) != null) {
+                imagString = matcher.group(2) + imagString;
+            }
+
+            // Conversion de la partie imaginaire en double
+            double imag = Double.parseDouble(imagString);
+
             results.add(new double[]{real, imag});
         }
 
         return results.toArray(new double[0][0]);
     }
+
 
     public static double[][] ScriptTotal(String[] param_f, String[] param_Z_complex, String param_nbC, String param_nbL, String param_coefC, String param_coefL) {
         String command = String.format(
