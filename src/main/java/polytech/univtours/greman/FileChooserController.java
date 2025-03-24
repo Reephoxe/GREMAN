@@ -35,9 +35,10 @@ public class FileChooserController {
 
         if (file != null) {
             fileName = file.getName();
+            SharedData.filePathProperty.set(file.getAbsolutePath()); // NOTIFICATION GLOBALE ICI
+
             if (fileName.endsWith(".s1p") || fileName.endsWith(".s2p")) {
-                // Si le fichier est de type s1p ou s2p, appelle la méthode sparameter
-                Executable.executeFile(file.getPath(), "4", "2" ,"7" ,"4.05");
+                Executable.executeFile(file.getPath(), "4", "2", "7", "4.05");
             }
         }
         return fileName;

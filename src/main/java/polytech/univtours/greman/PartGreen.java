@@ -52,7 +52,8 @@ public class PartGreen {
 
     public void init_courbe() throws FileNotFoundException {
         //File fichier = new File("C:/Users/sirra/IdeaProjects/Projet_Collectif_4A/src/main/java/polytech/univtours/greman/S1P/CHAFF HORS TENSION.S1P");
-        File fichier = new File("C:\\!Polytech\\Cycle ingé\\Semestre 8\\Projet coo\\GREMAN\\src\\main\\java\\polytech\\univtours\\greman\\S1P\\CHAFF HORS TENSION.S1P");
+        //File fichier = new File("C:\\!Polytech\\Cycle ingé\\Semestre 8\\Projet coo\\GREMAN\\src\\main\\java\\polytech\\univtours\\greman\\S1P\\CHAFF HORS TENSION.S1P");
+        File fichier = new File(getChemin_sxp());
         String typeDeFichier = "";
         String nomDuFichier = fichier.getName();
 
@@ -131,7 +132,7 @@ public class PartGreen {
     }
 
     public void initialize() throws FileNotFoundException {
-        init_courbe();
+        _recuperationChemin();
     }
 
     public void initializeView(String MODE){
@@ -176,5 +177,24 @@ public class PartGreen {
     scaleTransition.setToX(1.0);
     scaleTransition.setToY(1.0);
     scaleTransition.play();
-}
+
+    }
+
+    public void _recuperationChemin(){
+        SharedData.filePathProperty.addListener((observable, oldValue, newValue) -> {
+            System.out.println(" Nouveau fichier détecté dans PartGreen : " + newValue);
+            setChemin_sxp(newValue);
+            // ici tu pourrais relancer init_courbe() avec ce nouveau fichier
+            try {
+                _eraze_graphique();
+                init_courbe(); // si tu le modifies pour prendre en compte Chemin_sxp
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void _eraze_graphique() {
+        lineChart.getData().clear();
+    }
 }
