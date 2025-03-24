@@ -61,7 +61,7 @@
             </CheckBox>
          </children>
       </VBox>
-      <Button layoutX="25.0" layoutY="25.0" mnemonicParsing="false" onAction="#backToMainScene" text="Retour" />
+      <Button layoutX="25.0" layoutY="25.0" mnemonicParsing="false" onAction="#_retour" text="Retour" />
       <VBox alignment="CENTER" layoutY="400.0" prefHeight="68.0" prefWidth="600.0">
          <children>
             <Button mnemonicParsing="false" onAction="#saveToFile" text="Valider">

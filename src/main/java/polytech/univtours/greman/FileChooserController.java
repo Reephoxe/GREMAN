@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class FileChooserController {
-    private Stage stage;
+    public Stage stage;
     private Scene scene;
     private Parent root;
 
@@ -80,4 +80,10 @@ public class FileChooserController {
         stage.centerOnScreen();
         stage.show();
     }
+
+    public void _retour(ActionEvent event) {
+        Stage stage1 = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage1.close();
+    }
+
 }

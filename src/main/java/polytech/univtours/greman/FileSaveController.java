@@ -123,4 +123,9 @@ public class FileSaveController {
         }
         zos.closeEntry();
     }
+
+    public void _retour(ActionEvent event) {
+        Stage stage1 = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage1.close();
+    }
 }
