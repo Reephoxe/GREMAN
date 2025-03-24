@@ -42,6 +42,25 @@ public class MainController {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private Lecture_Creation_Circuit _lecture_Circuit;
+    @FXML
+    private BluePart bluepartController;
+
+
+    @FXML
+    public void initialize() {
+        // Ensure BluePart controller is initialized
+        if (bluepartController != null) {
+            bluepartController.setLecture_Creation_Circuit(_lecture_Circuit);
+        }
+    }
+
+    public void setLecture_Creation_Circuit(Lecture_Creation_Circuit objet) {
+        this._lecture_Circuit = objet;
+        if (bluepartController != null) {
+            bluepartController.setLecture_Creation_Circuit(objet);
+        }
+    }
 
 
     // Bouton pour ouvrir la scène (fenêtre) de changement de fichier
@@ -103,4 +122,5 @@ public class MainController {
         buttonTransition.play();
         scrollPaneTransition.play();
     }
+
 }

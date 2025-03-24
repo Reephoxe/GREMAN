@@ -40,6 +40,7 @@ public class BluePart {
     public InfiniteImagePane infini;
     public Button test_creation;
     public Button test_condensateur;
+    public Lecture_Creation_Circuit _lecture_Circuit;
 
 
     public void initialize() throws IOException {
@@ -56,6 +57,7 @@ public class BluePart {
         if(Objects.equals(MODE, "FSM")){
             but_FullSceen.setVisible(false);
             but_closeFullSceen.setVisible(true);
+
         }
 
         if (Objects.equals(MODE, "MAIN")) {
@@ -214,13 +216,12 @@ public class BluePart {
     }
 
     public void _TestCreationAvecCSV(){
-        Lecture_Creation_Circuit lecture = new Lecture_Creation_Circuit();
-        lecture._lectureCSV();
+        _lecture_Circuit._lectureCSV();
         int delay = 200; // Delay in milliseconds
-        System.out.println(lecture.composants);
+        System.out.println(_lecture_Circuit.composants);
 
-        for (int i = 0; i < lecture._getComposant().size(); i++) {
-            String element = lecture._getComposant().get(i);
+        for (int i = 0; i < _lecture_Circuit._getComposant().size(); i++) {
+            String element = _lecture_Circuit._getComposant().get(i);
             PauseTransition pause = new PauseTransition(Duration.millis(delay * i));
             pause.setOnFinished(event -> {
                 try {
@@ -261,5 +262,9 @@ public class BluePart {
         sideBar.getChildren().add(bobine);
         infini._addImage("bobine.png","L"+counter,bobine.slider);
         counter++;
+    }
+
+    public void setLecture_Creation_Circuit(Lecture_Creation_Circuit lecture_Creation_Circuit) {
+        this._lecture_Circuit = lecture_Creation_Circuit;
     }
 }

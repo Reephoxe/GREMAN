@@ -23,20 +23,15 @@ public class HelloController {
     // Fonction pour choisir un fichier
     public void selectFile(ActionEvent event) throws IOException {
 
-        // Ouvre la fenêtre de gestionnaire de fichiers
-        FileChooser fileChooser = new FileChooser();
-        // Spécifie l'extension acceptée lors de la sélection de fichier
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv, *.s1p, *.s2p)", "*.csv", "*.s1p", "*.s2p");
-        fileChooser.getExtensionFilters().add(extFilter);
-        // Enregistre dans file le chemin du fichier dans les dossiers
-        File file = fileChooser.showOpenDialog(stage);
-        System.out.println("File path: " + file);
+        Lecture_Creation_Circuit File = new Lecture_Creation_Circuit();
+
 
         // Récupère les informations de la scène précédente et change de scène i.e. de fenêtre
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         root = fxmlLoader.load();
 
         MainController mainController = fxmlLoader.getController();
+        mainController.setLecture_Creation_Circuit(File);
 
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
