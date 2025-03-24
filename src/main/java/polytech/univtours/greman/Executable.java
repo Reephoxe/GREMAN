@@ -33,12 +33,27 @@ public class Executable {
             // Appel unique de ScriptTotal avec les bons formats
             double[][] resultat = ScriptTotal(freqArray, impArray, param_nbC, param_nbL, param_CoefC, param_CoefL);
 
+            double[][] resultatAvecFreq = new double[resultat.length][3];  // 3 colonnes : réel, imaginaire, fréquence
+
+            for (int i = 0; i < resultat.length; i++) {
+                // Remplir la ligne avec la partie réelle, la partie imaginaire et la fréquence
+                resultatAvecFreq[i][1] = resultat[i][0];  // partie réelle
+                resultatAvecFreq[i][2] = resultat[i][1];  // partie imaginaire
+
+                // Ajouter la fréquence correspondante (assurez-vous qu'il y a suffisamment de fréquences)
+                if (i < freqArray.length) {
+                    resultatAvecFreq[i][0] = Double.parseDouble(freqArray[i]);  // Fréquence
+                } else {
+                    resultatAvecFreq[i][2] = 0.0;  // Valeur par défaut si pas de fréquence disponible
+                }
+            }
+
             // Vérification et affichage des résultats
             System.out.println("Résultats globaux :");
-            for (double[] row : resultat) {
+            for (double[] row : resultatAvecFreq) {
                 System.out.println(Arrays.toString(row));
             }
-            return resultat;
+            return resultatAvecFreq;
         } catch (IOException e) {
             System.err.println("Erreur de lecture du fichier : " + e.getMessage());
         }
