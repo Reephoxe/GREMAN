@@ -34,7 +34,7 @@ public class BluePart {
     public Button but_sauvegarder;
     public Button but_closeFullSceen;
     public Button addLabelButton;
-    public Integer counter;
+    public Integer counterResistance, counterBobine, counterCondensateur;
     public List<Node> elementList;
     public TextField searchField;
     public InfiniteImagePane infini;
@@ -46,7 +46,9 @@ public class BluePart {
         sideBar.setPrefWidth(200);
         //scrollBar.valueProperty().addListener((observable, oldValue, newValue) -> {})
         but_closeFullSceen.setVisible(false);
-        counter = 0;
+        counterResistance = 0;
+        counterBobine = 0;
+        counterCondensateur = 0;
         elementList = new ArrayList<>();
 
     }
@@ -101,7 +103,6 @@ public class BluePart {
     }
 
     public void FullScreen() throws IOException {
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("BluePart.fxml"));
         Parent root = loader.load();
 
@@ -121,7 +122,35 @@ public class BluePart {
         stage.setMaximized(true);
         //transitionZoom(root);
 
-        stage.showAndWait();  // Attendre la fermeture avant de continuer
+        for (int i = 0; i < elementList.size(); i++) {
+            Node element = elementList.get(i);
+            PauseTransition pause = new PauseTransition(Duration.millis(200 * i));
+            pause.setOnFinished(event -> {
+                try {
+                    if (element instanceof ResistanceSideBar) {
+                        Fullscreen._ajouterResistance((ResistanceSideBar) element);
+                    } else if (element instanceof CondensateurSideBarController) {
+                        Fullscreen._ajouterCondensateur((CondensateurSideBarController) element);
+                    } else if (element instanceof BobineSideBar) {
+                        Fullscreen._ajouterBobine((BobineSideBar) element);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            pause.play();
+        }
+
+        stage.showAndWait(); // Attendre la fermeture avant de continuer
+        // On enlève les images déjà présentes
+        for(int i = 0; i < elementList.size(); i++){
+            infini._removeImage();
+        }
+        this.counterResistance = 0;
+        this.counterBobine = 0;
+        this.counterCondensateur = 0;
+        // On met à jour la liste des éléments
+        this.updateElementList(Fullscreen);
     }
     // Bouton pour ouvrir la scène (fenêtre) de changement de fichier
     public void switchToFileChooserScene(ActionEvent event) throws IOException {
@@ -175,23 +204,53 @@ public class BluePart {
         // On récupère le texte entré dans la barre de recherche
         String searchText = searchField.getText();
         // Pour chaque élément présent dans la sidebar
-        for (Node resistanceSideBar : elementList) {
+        for (Node element : elementList) {
 
             //si l'element et de type Resistance sidebar
-            if(resistanceSideBar instanceof ResistanceSideBar){
+            if(element instanceof ResistanceSideBar){
                 // on récupère le nom de l'élément
-                String labelText = ((ResistanceSideBar) resistanceSideBar)._getName();
+                String labelText = ((ResistanceSideBar) element)._getName();
                 // Si le nom de l'élément ne contient pas ce qui est écrit dans la sidebar
                 if (!labelText.contains(searchText)) {
                     // L'élément devient invisible
-                    resistanceSideBar.setVisible(false);
+                    element.setVisible(false);
                     // L'élément n'est plus pris en compte
-                    resistanceSideBar.setManaged(false);
+                    element.setManaged(false);
                 } else {
                     // L'élément devient visible
-                    resistanceSideBar.setVisible(true);
+                    element.setVisible(true);
                     // L'élément est pris en compte
-                    resistanceSideBar.setManaged(true);
+                    element.setManaged(true);
+                }
+            } else if (element instanceof BobineSideBar){
+                // on récupère le nom de l'élément
+                String labelText = ((BobineSideBar) element)._getName();
+                // Si le nom de l'élément ne contient pas ce qui est écrit dans la sidebar
+                if (!labelText.contains(searchText)) {
+                    // L'élément devient invisible
+                    element.setVisible(false);
+                    // L'élément n'est plus pris en compte
+                    element.setManaged(false);
+                } else {
+                    // L'élément devient visible
+                    element.setVisible(true);
+                    // L'élément est pris en compte
+                    element.setManaged(true);
+                }
+            } else if (element instanceof CondensateurSideBarController) {
+                // on récupère le nom de l'élément
+                String labelText = ((CondensateurSideBarController) element)._getName();
+                // Si le nom de l'élément ne contient pas ce qui est écrit dans la sidebar
+                if (!labelText.contains(searchText)) {
+                    // L'élément devient invisible
+                    element.setVisible(false);
+                    // L'élément n'est plus pris en compte
+                    element.setManaged(false);
+                } else {
+                    // L'élément devient visible
+                    element.setVisible(true);
+                    // L'élément est pris en compte
+                    element.setManaged(true);
                 }
             }
         }
@@ -220,26 +279,78 @@ public class BluePart {
     }
 
     public void _ajouterResistance(){
-        ResistanceSideBar resistance = new ResistanceSideBar("R" + counter + ":");
+        ResistanceSideBar resistance = new ResistanceSideBar("R" + counterResistance + ":");
         elementList.add(resistance);
         sideBar.getChildren().add(resistance);
-        infini._addImage("resistance.png", "R" + counter,resistance.slider);
-        counter++;
+        infini._addImage("resistance.png", "R" + counterResistance,resistance.slider);
+        counterResistance++;
+    }
+
+    // Variante de la fonction _ajouterResistance pour récupérer une résistance déjà existante et la mettre dans le plein écran
+    public void _ajouterResistance(ResistanceSideBar resistance) {
+        elementList.add(resistance);
+        sideBar.getChildren().add(resistance);
+        infini._addImage("resistance.png", "R" + counterResistance,resistance.slider);
+        counterResistance++;
     }
 
     public void _ajouterCondensateur() throws IOException {
-        CondensateurSideBarController condensateur = new CondensateurSideBarController("C" + counter + ":");
+        CondensateurSideBarController condensateur = new CondensateurSideBarController("C" + counterCondensateur + ":");
         elementList.add(condensateur);
         sideBar.getChildren().add(condensateur);
-        infini._addImage("condensateur.png","C"+counter, condensateur.slider);
-        counter++;
+        infini._addImage("condensateur.png","C"+counterCondensateur, condensateur.slider);
+        counterCondensateur++;
+    }
+
+    // Variante de la fonction _ajouterCondensateur pour récupérer un condensateur déjà existant et le mettre dans le plein écran
+    public void _ajouterCondensateur(CondensateurSideBarController condensateur) throws IOException {
+        elementList.add(condensateur);
+        sideBar.getChildren().add(condensateur);
+        infini._addImage("condensateur.png","C"+counterCondensateur, condensateur.slider);
+        counterCondensateur++;
     }
 
     public void _ajouterBobine() throws IOException {
-        BobineSideBar bobine = new BobineSideBar("L" + counter + ":");
+        BobineSideBar bobine = new BobineSideBar("L" + counterBobine + ":");
         elementList.add(bobine);
         sideBar.getChildren().add(bobine);
-        infini._addImage("bobine.png","L"+counter,bobine.slider);
-        counter++;
+        infini._addImage("bobine.png","L"+counterBobine,bobine.slider);
+        counterBobine++;
+    }
+
+    // Variante de la fonction _ajouterBobine pour récupérer une bobine déjà existante et la mettre dans le plein écran
+    public void _ajouterBobine(BobineSideBar bobine) throws IOException {
+        elementList.add(bobine);
+        sideBar.getChildren().add(bobine);
+        infini._addImage("bobine.png","L"+counterBobine,bobine.slider);
+        counterBobine++;
+    }
+
+    public void updateElementList(BluePart Fullscreen) {
+        // On enlève les éléments déjà présents pour éviter les doublons
+        for (Node element : this.elementList) {
+            this.sideBar.getChildren().remove(element);
+        }
+        this.elementList.clear();
+
+        // On ajoute les éléments de la liste de l'écran plein, y compris ceux qui ont pu être ajoutés entre-temps
+        for (int i = 0; i < Fullscreen.elementList.size(); i++) {
+            Node element = Fullscreen.elementList.get(i);
+            PauseTransition pause = new PauseTransition(Duration.millis(200 * i));
+            pause.setOnFinished(event -> {
+                try {
+                    if (element instanceof ResistanceSideBar) {
+                        this._ajouterResistance((ResistanceSideBar) element);
+                    } else if (element instanceof CondensateurSideBarController) {
+                        this._ajouterCondensateur((CondensateurSideBarController) element);
+                    } else if (element instanceof BobineSideBar) {
+                        this._ajouterBobine((BobineSideBar) element);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            pause.play();
+        }
     }
 }

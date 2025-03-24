@@ -84,4 +84,10 @@ public class InfiniteImagePane extends Pane {
         getChildren().add(stackPane);
         stackPane.layout();
     }
+
+    public void _removeImage() {
+        if (!getChildren().isEmpty()) {
+            getChildren().remove(getChildren().size() - 1);
+        }
+    }
 }

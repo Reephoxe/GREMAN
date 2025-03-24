@@ -21,7 +21,7 @@
     <Label text="Pondération des condensateurs:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
     <TextField fx:id="ponderationCondensateurs" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-    <Button onAction="#handleOk" text="OK" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+    <Button onAction="#isOkClicked" text="OK" GridPane.columnIndex="1" GridPane.rowIndex="4" />
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />

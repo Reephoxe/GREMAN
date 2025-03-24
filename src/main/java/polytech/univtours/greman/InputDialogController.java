@@ -1,5 +1,6 @@
 package polytech.univtours.greman;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -21,13 +22,7 @@ public class InputDialogController {
         this.dialogStage = dialogStage;
     }
 
-    public boolean isOkClicked() {
-        return okClicked;
-    }
-
-    @FXML
-    private void handleOk() {
-        okClicked = true;
+    public void isOkClicked(ActionEvent event) {
         dialogStage.close();
     }
 
@@ -45,5 +40,9 @@ public class InputDialogController {
 
     public String getPonderationCondensateurs() {
         return ponderationCondensateurs.getText();
+    }
+
+    public boolean isOkClicked() {
+        return okClicked;
     }
 }

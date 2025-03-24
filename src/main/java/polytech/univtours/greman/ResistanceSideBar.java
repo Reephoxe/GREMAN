@@ -69,4 +69,12 @@ public class ResistanceSideBar extends VBox {
     public String _getName(){
         return name.getText();
     }
+
+    public double _getSliderValue() {
+        return slider.getValue();
+    }
+
+    public void _setSliderValue(double value) {
+        slider.setValue(value);
+    }
 }
