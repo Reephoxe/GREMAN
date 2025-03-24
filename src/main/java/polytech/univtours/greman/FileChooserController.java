@@ -21,8 +21,9 @@ public class FileChooserController {
     FileChooser fileChooser;
 
     // Fonction pour choisir un fichier
-    public void selectFile(ActionEvent event) throws IOException {
+    public String selectFile(ActionEvent event) throws IOException {
 
+        String fileName = "";
         // Ouvre la fenêtre de gestionnaire de fichiers
         FileChooser fileChooser = new FileChooser();
         // Spécifie l'extension acceptée lors de la sélection de fichier
@@ -33,13 +34,13 @@ public class FileChooserController {
         System.out.println("File path: " + file);
 
         if (file != null) {
-            String fileName = file.getName();
+            fileName = file.getName();
             if (fileName.endsWith(".s1p") || fileName.endsWith(".s2p")) {
                 // Si le fichier est de type s1p ou s2p, appelle la méthode sparameter
                 Executable.executeFile(file.getPath(), "4", "2" ,"7" ,"4.05");
             }
         }
-
+        return fileName;
     }
 
     public void backToMainScene(ActionEvent event) throws IOException {
@@ -67,5 +68,6 @@ public class FileChooserController {
         Stage stage1 = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage1.close();
     }
+
 
 }

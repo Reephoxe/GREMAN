@@ -40,6 +40,15 @@ public class PartGreen {
     @FXML
     public LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
     public AnchorPane paneGreen;
+    public String Chemin_sxp="";
+
+    public String getChemin_sxp() {
+        return Chemin_sxp;
+    }
+
+    public void setChemin_sxp(String chemin_sxp) {
+        Chemin_sxp = chemin_sxp;
+    }
 
     public void init_courbe() throws FileNotFoundException {
         //File fichier = new File("C:/Users/sirra/IdeaProjects/Projet_Collectif_4A/src/main/java/polytech/univtours/greman/S1P/CHAFF HORS TENSION.S1P");

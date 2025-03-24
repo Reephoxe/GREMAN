@@ -132,8 +132,7 @@ public class BluePart {
     public void switchToFileChooserScene(ActionEvent event) throws IOException {
 
         FileChooserController fileChooserController = new FileChooserController();
-        fileChooserController.selectFile(event);
-
+        String Sxp = fileChooserController.selectFile(event);
     }
 
     public void switchToSaveFileScene(ActionEvent event) throws IOException {
@@ -259,8 +258,5 @@ public class BluePart {
         counter++;
     }
 
-    public void setLecture_Creation_Circuit(Lecture_Creation_Circuit lecture_Creation_Circuit) {
-        this._lecture_Circuit = lecture_Creation_Circuit;
-    }
 
 }
