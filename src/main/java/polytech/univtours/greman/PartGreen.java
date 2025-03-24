@@ -101,7 +101,7 @@ public class PartGreen {
                 /////Juste pour vérifier que les valeurs sont bien celles de fichier, une fois terminé, peut être retiré/////
                 System.out.println("S1P :");
                 for (double[] row : testS1P) {
-                    System.out.println("Module: " + row[0] + ", Argument: " + row[1]);
+                    //System.out.println("Module: " + row[0] + ", Argument: " + row[1]);
                 }
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
             }
@@ -124,7 +124,7 @@ public class PartGreen {
             /////Juste pour vérifier que les valeurs sont bien celles de fichier, une fois terminé, peut être retiré/////
             System.out.println("S2P :");
             for (double[] row : testS1P) {
-                System.out.println("ModuleS11: " + row[0] + ", ModuleS12: " + row[1] + ", ModuleS21: " + row[2] + ", ModuleS22: " + row[3] + ", ArgumentS11: " + row[4] + ", ArgumentS12: " + row[5] + ", ArgumentS21: " + row[6] + ", ArgumentS22: " + row[7]);
+                //System.out.println("ModuleS11: " + row[0] + ", ModuleS12: " + row[1] + ", ModuleS21: " + row[2] + ", ModuleS22: " + row[3] + ", ArgumentS11: " + row[4] + ", ArgumentS12: " + row[5] + ", ArgumentS21: " + row[6] + ", ArgumentS22: " + row[7]);
             }
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////
         }

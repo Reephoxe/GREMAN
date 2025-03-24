@@ -38,7 +38,7 @@ public class FileChooserController {
             SharedData.filePathProperty.set(file.getAbsolutePath()); // NOTIFICATION GLOBALE ICI
 
             if (fileName.toLowerCase().endsWith(".s1p") || fileName.toLowerCase().endsWith(".s2p")) {
-                Executable.executeFile(file.getPath(), "4", "2", "7", "4.05");
+                double[][] resultat = Executable.executeFile(file.getPath(), "4", "2", "7", "4.05");
             }
         }
         return fileName;

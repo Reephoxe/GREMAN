@@ -1,4 +1,4 @@
-function [R2,L2,C2] = ScriptTotal(f , Z , nb_C, nb_L, Coef_C, Coef_L)
+function Z2 = ScriptTotal(f , Z , nb_C, nb_L, Coef_C, Coef_L)
 
 pkg load optim
 
@@ -25,3 +25,7 @@ x_AllExp = fmincon ( E_AllExp   , initial_Imp2 , [] , [], [] , [] , lb2 , up2);
 % 5 - Reconstruct the results
 % ---------------------------
 [R2, L2 , C2] = RLC_construct ( x_AllExp , initial_cst2, 'Y' , R , L ,C);
+
+% 6 - Plot and comparision
+% """"""""""""""""""""""""
+Z2 = Estimated_Impedance(R2,L2,C2,f);
