@@ -23,15 +23,14 @@ public class HelloController {
     // Fonction pour choisir un fichier
     public void selectFile(ActionEvent event) throws IOException {
 
-        Lecture_Creation_Circuit File = new Lecture_Creation_Circuit();
-
+        Lecture_Creation_Circuit _lecture = new Lecture_Creation_Circuit();
+        _lecture._lectureCSV();
 
         // Récupère les informations de la scène précédente et change de scène i.e. de fenêtre
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         root = fxmlLoader.load();
 
         MainController mainController = fxmlLoader.getController();
-        mainController.setLecture_Creation_Circuit(File);
 
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);

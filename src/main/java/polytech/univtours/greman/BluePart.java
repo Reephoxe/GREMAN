@@ -41,6 +41,7 @@ public class BluePart {
     public Button test_creation;
     public Button test_condensateur;
     public Lecture_Creation_Circuit _lecture_Circuit;
+    public FileChooserController fileChooserController;
 
 
     public void initialize() throws IOException {
@@ -127,21 +128,10 @@ public class BluePart {
     }
     // Bouton pour ouvrir la scène (fenêtre) de changement de fichier
     public void switchToFileChooserScene(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("file-chooser-view.fxml"));
-        Parent root = fxmlLoader.load();
 
-        FileChooserController fileChooserController = fxmlLoader.getController();
+        FileChooserController fileChooserController = new FileChooserController();
+        fileChooserController.selectFile(event);
 
-        Stage popupStage = new Stage();
-        Scene scene = new Scene(root, 600, 600);
-        String css = getClass().getResource("helloApplication.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        popupStage.setScene(scene);
-        popupStage.initModality(Modality.APPLICATION_MODAL); // Make it a modal window
-        popupStage.setTitle("File Chooser");
-        popupStage.setMaximized(false); // Do not maximize
-        popupStage.centerOnScreen(); // Center the window
-        popupStage.showAndWait(); // Show the pop-up and wait for it to close
     }
 
     public void switchToSaveFileScene(ActionEvent event) throws IOException {
@@ -215,7 +205,10 @@ public class BluePart {
         }
     }
 
-    public void _TestCreationAvecCSV(){
+    public void _TestCreationAvecCSV()  {
+        if(_lecture_Circuit == null){
+            _lecture_Circuit = new Lecture_Creation_Circuit();
+        }
         _lecture_Circuit._lectureCSV();
         int delay = 200; // Delay in milliseconds
         System.out.println(_lecture_Circuit.composants);

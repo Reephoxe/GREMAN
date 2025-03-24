@@ -10,19 +10,19 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        // Récupère le fichier FXML
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 400, 300);
+        // Load the main-view.fxml file
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
 
-        // Applique le css
+        // Apply the CSS
         String css = getClass().getResource("helloApplication.css").toExternalForm();
         scene.getStylesheets().add(css);
-        stage.setTitle("Hello!");
+        stage.setTitle("Main View");
         stage.setScene(scene);
 
-        // Permet de ne pas pouvoir changer la taille de la fenêtre
-        //stage.setResizable(false);
+        // Center the window on the screen
         stage.centerOnScreen();
+        stage.setMaximized(true);
         stage.show();
     }
 
