@@ -1,4 +1,4 @@
-function [R_new, L_new, C_new] = RLC_construct(x, initial_cst, Exp_Or_NoExp, R, L, C)
+function [R_new, L_new, C_new, output] = RLC_construct(x, initial_cst, Exp_Or_NoExp, R, L, C)
     n_R = length(R);
     n_C = length(C);
     if n_R > n_C
@@ -53,39 +53,25 @@ function [R_new, L_new, C_new] = RLC_construct(x, initial_cst, Exp_Or_NoExp, R, 
         end
     end
 
-    %Version 0 et 1
     output = zeros(n, 3);
         for i = 1:n
             if i == 1
-                output(i, :) = [1 0, 0];
+                output(i, :) = [R_new(i), 0, 0];
             else
                 if L_new(i) ~= 0
-                    output(i, :) = [1, 1, 0];
+                    output(i, :) = [R_new(i), L_new(i), 0];
                 elseif C_new(i) ~= 0
-                    output(i, :) = [1, 0, 1];
+                    output(i, :) = [R_new(i), 0, C_new(i)];
                 else
-                    output(i, :) = [1, 0, 0];
+                    output(i, :) = [R_new(i), 0, 0];
                 end
             end
         end
 
-    %Version avec valeurs
-    %output = zeros(n, 3);
-    %    for i = 1:n
-    %        if i == 1
-    %            output(i, :) = [R_new(i), 0, 0];
-    %        else
-    %            if L_new(i) ~= 0
-    %                output(i, :) = [R_new(i), L_new(i), 0];
-    %            elseif C_new(i) ~= 0
-    %                output(i, :) = [R_new(i), 0, C_new(i)];
-    %            else
-    %                output(i, :) = [R_new(i), 0, 0];
-    %            end
-    %        end
-     %   end
-
         % Écrire les données dans un fichier CSV
         csvFileName = 'RLC_data.csv';
         csvwrite(csvFileName, output);
+
+        % Déplacer le fichier CSV vers le dossier ressources
+        movefile(csvFileName, 'src/main/resources/' + csvFileName);
 end
