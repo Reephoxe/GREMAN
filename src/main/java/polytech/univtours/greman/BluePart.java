@@ -270,6 +270,7 @@ public class BluePart {
             _lecture_Circuit = new Lecture_Creation_Circuit();
         }
         _lecture_Circuit._lectureCSV();
+        _lecture_Circuit.toString();
         int delay = 200; // Delay in milliseconds
         System.out.println(_lecture_Circuit.composants);
 
@@ -279,9 +280,12 @@ public class BluePart {
             pause.setOnFinished(event -> {
                 try {
                     switch (element) {
-                        case "Resistance" -> _ajouterResistance();
-                        case "Condensateur" -> _ajouterCondensateur();
-                        case "Bobine" -> _ajouterBobine();
+                        case "1,0,0" -> _ajouterResistance();
+                        case "1,1,0" -> {_ajoutResistance_Condensateur();}
+                        case "1,0,1" -> {_ajouterResistance();_ajouterBobine();}
+                        case "0,1,0" -> _ajouterBobine();
+                        case "0,1,1" -> {_ajouterBobine();_ajouterCondensateur();}
+                        case "0,0,1" -> {_ajouterCondensateur();}
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -291,6 +295,21 @@ public class BluePart {
         }
 
 
+    }
+
+    public void _ajoutResistance_Bobine() throws IOException {
+        _ajouterResistance();
+        _ajouterBobine();
+    }
+
+    public void _ajoutBobine_Condensateur() throws IOException {
+        _ajouterBobine();
+        _ajouterCondensateur();
+    }
+
+    public void _ajoutResistance_Condensateur() throws IOException {
+        _ajouterResistance();
+        _ajouterCondensateur();
     }
 
     public void _ajouterResistance(){
