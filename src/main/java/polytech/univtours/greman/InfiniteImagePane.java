@@ -16,6 +16,8 @@ public class InfiniteImagePane extends Pane {
     private double scale = 1;
     private int hauteur = 0;
     private int distance = 0;
+    private int Ynitial = 0;
+    private int Xnitial = 0;
 
     public InfiniteImagePane() {
         // Load the image (ensure the path is correct)
@@ -25,6 +27,9 @@ public class InfiniteImagePane extends Pane {
         imageView.fitWidthProperty().bind(widthProperty());
         imageView.fitHeightProperty().bind(heightProperty());
         getChildren().add(imageView);
+
+        Ynitial = (int)(getChildren().get(0).getTranslateY());
+        Xnitial = (int)(getChildren().get(0).getTranslateX());
 
         // Handle dragging (view movement)
         setOnMousePressed(e -> {
@@ -75,33 +80,38 @@ public class InfiniteImagePane extends Pane {
 
         if (!getChildren().isEmpty()) {
             Node lastChild = getChildren().get(getChildren().size() - 1);
+
+            //region complexe
             if(mode.equals("RL")){
                 if(element_name.equals("resistance.png")){
-                    stackPane.setTranslateY(lastChild.getTranslateY() + lastChild.getLayoutBounds().getHeight() -350);
+                    _incrementDistance();
+                    stackPane.setTranslateY(-75);
                     stackPane.setTranslateX(distance);
                 }else if (element_name.equals("bobine.png")){
-                    stackPane.setTranslateX(lastChild.getTranslateX() + lastChild.getLayoutBounds().getWidth()+800);
+                    stackPane.setTranslateY(75);
                     stackPane.setTranslateX(distance);
-                    _incrementDistance();
                 }
             }
             else if (mode.equals("RC")){
-                int positionX = (int) (getChildren().get(0).getTranslateX() + getChildren().get(0).getLayoutBounds().getWidth()+distance);
-                int positionY = (int) (getChildren().get(0).getTranslateY() + getChildren().get(0).getLayoutBounds().getHeight()+hauteur);
                 if(element_name.equals("resistance.png")){
-                    stackPane.setTranslateY(positionY);
-                    stackPane.setTranslateX(positionX);
                     _incrementHauteur();
+                    _decrementDistance();
+                    stackPane.setTranslateY(hauteur);
+                    stackPane.setTranslateX(distance);
                     _incrementDistance();
                 }else if (element_name.equals("condensateur.png")){
-                    stackPane.setTranslateY(lastChild.getTranslateY() + lastChild.getLayoutBounds().getHeight());
-                    stackPane.setTranslateX(positionX);
-                    _decrementDistance();
+                    stackPane.setTranslateY(hauteur);
+                    stackPane.setTranslateX(distance);
+
                 }
+
             }
-            else if(mode.equals("R")){
-                    stackPane.setTranslateY(getChildren().get(0).getTranslateY()+getChildren().get(0).getLayoutBounds().getHeight());
-                    stackPane.setTranslateX(lastChild.getTranslateX() + lastChild.getLayoutBounds().getWidth());
+            //endregion
+
+
+            if(mode.equals("R")){
+                    stackPane.setTranslateY(Ynitial);
+                    stackPane.setTranslateX(getChildren().get(0).getTranslateX() + getChildren().get(0).getLayoutBounds().getWidth()+distance);
                     _incrementDistance();
             }
 

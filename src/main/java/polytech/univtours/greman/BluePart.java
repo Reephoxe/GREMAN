@@ -271,7 +271,7 @@ public class BluePart {
         }
         _lecture_Circuit._lectureCSV();
         _lecture_Circuit.toString();
-        int delay = 200; // Delay in milliseconds
+        int delay = 500; // Delay in milliseconds
         System.out.println(_lecture_Circuit.composants);
 
         for (int i = 0; i < _lecture_Circuit._getComposant().size(); i++) {
