@@ -14,6 +14,8 @@ import javafx.scene.layout.StackPane;
 public class InfiniteImagePane extends Pane {
     private double mouseX, mouseY;
     private double scale = 1;
+    private int hauteur = 0;
+    private int distance = 0;
 
     public InfiniteImagePane() {
         // Load the image (ensure the path is correct)
@@ -48,7 +50,7 @@ public class InfiniteImagePane extends Pane {
         });
     }
 
-    public void _addImage(String element_name, String abreviation, Slider slider) {
+    public void _addImage(String element_name, String abreviation, Slider slider,String mode) {
         Image image = new Image("file:src/main/resources/" + element_name);
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
@@ -73,16 +75,45 @@ public class InfiniteImagePane extends Pane {
 
         if (!getChildren().isEmpty()) {
             Node lastChild = getChildren().get(getChildren().size() - 1);
-            if (element_name.equals("condensateur.png")) {
-                stackPane.setTranslateY(lastChild.getTranslateY() + lastChild.getLayoutBounds().getHeight() - 75);
-                stackPane.setTranslateX(lastChild.getTranslateX());
-            } else {
-                stackPane.setTranslateX(lastChild.getTranslateX() + lastChild.getLayoutBounds().getWidth());
+            if(mode.equals("RL")){
+                if(element_name.equals("resistance.png")){
+                    stackPane.setTranslateY(lastChild.getTranslateY() + lastChild.getLayoutBounds().getHeight() -350);
+                    stackPane.setTranslateX(distance);
+                }else if (element_name.equals("bobine.png")){
+                    stackPane.setTranslateX(lastChild.getTranslateX() + lastChild.getLayoutBounds().getWidth()+800);
+                    stackPane.setTranslateX(distance);
+                    _incrementDistance();
+                }
             }
-        }
+            else if (mode.equals("RC")){
+                int positionX = (int) (getChildren().get(0).getTranslateX() + getChildren().get(0).getLayoutBounds().getWidth()+distance);
+                int positionY = (int) (getChildren().get(0).getTranslateY() + getChildren().get(0).getLayoutBounds().getHeight()+hauteur);
+                if(element_name.equals("resistance.png")){
+                    stackPane.setTranslateY(positionY);
+                    stackPane.setTranslateX(positionX);
+                    _incrementHauteur();
+                    _incrementDistance();
+                }else if (element_name.equals("condensateur.png")){
+                    stackPane.setTranslateY(lastChild.getTranslateY() + lastChild.getLayoutBounds().getHeight());
+                    stackPane.setTranslateX(positionX);
+                    _decrementDistance();
+                }
+            }
+            else if(mode.equals("R")){
+                    stackPane.setTranslateY(getChildren().get(0).getTranslateY()+getChildren().get(0).getLayoutBounds().getHeight());
+                    stackPane.setTranslateX(lastChild.getTranslateX() + lastChild.getLayoutBounds().getWidth());
+                    _incrementDistance();
+            }
 
+
+
+        }
         getChildren().add(stackPane);
         stackPane.layout();
+    }
+
+    private void _decrementDistance() {
+        distance -= (int) (getChildren().get(0).getTranslateX() + getChildren().get(0).getLayoutBounds().getWidth());
     }
 
     public void _removeImage() {
@@ -90,4 +121,18 @@ public class InfiniteImagePane extends Pane {
             getChildren().remove(getChildren().size() - 1);
         }
     }
+
+    public int _moyennedistance(){
+        int sum = (int) (getChildren().get(0).getTranslateX()+getChildren().get(getChildren().size()-1).getTranslateX());
+        return sum/2;
+    }
+
+    public void _incrementDistance(){
+        distance += (int) (getChildren().get(0).getTranslateX() + getChildren().get(0).getLayoutBounds().getWidth());
+    }
+
+    public void _incrementHauteur(){
+        hauteur += (int) (getChildren().get(0).getTranslateY() + getChildren().get(0).getLayoutBounds().getHeight());
+    }
+
 }

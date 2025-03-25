@@ -55,9 +55,9 @@
         <menus>
           <Menu mnemonicParsing="false" text="ADD">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#_ajouterResistance" text="_ajoutResistance" />
-                  <MenuItem mnemonicParsing="false" onAction="#_ajouterBobine" text="_ajoutBobine" />
-                  <MenuItem mnemonicParsing="false" onAction="#_ajouterCondensateur" text="_ajoutCondensateur" />
+              <MenuItem mnemonicParsing="false" onAction="#_ajoutResistance_Bobine" text="_ajoutResistance" />
+                  <MenuItem mnemonicParsing="false" text="_ajoutBobine" />
+                  <MenuItem mnemonicParsing="false" onAction="#_ajoutResistance_Condensateur" text="_ajoutCondensateur" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Sauvegarde">

@@ -253,9 +253,9 @@ public class BluePart {
             pause.setOnFinished(event -> {
                 try {
                     switch (element) {
-                        case "Resistance" -> _ajouterResistance();
-                        case "Condensateur" -> _ajouterCondensateur();
-                        case "Bobine" -> _ajouterBobine();
+                        case "Resistance" -> _ajouterResistance("R");
+                        case "Condensateur" -> _ajouterCondensateur("C");
+                        case "Bobine" -> _ajouterBobine("L");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -280,12 +280,13 @@ public class BluePart {
             pause.setOnFinished(event -> {
                 try {
                     switch (element) {
-                        case "1,0,0" -> _ajouterResistance();
-                        case "1,1,0" -> {_ajoutResistance_Condensateur();}
-                        case "1,0,1" -> {_ajouterResistance();_ajouterBobine();}
-                        case "0,1,0" -> _ajouterBobine();
-                        case "0,1,1" -> {_ajouterBobine();_ajouterCondensateur();}
-                        case "0,0,1" -> {_ajouterCondensateur();}
+                        case "1,0,0" -> _ajouterResistance("R");
+                        case "0,1,0" -> _ajouterBobine("L");
+                        case "0,0,1" -> _ajouterCondensateur("C");
+                        case "1,1,0" -> _ajoutResistance_Condensateur();
+                        case "1,0,1" -> _ajoutResistance_Bobine();
+                        case "0,1,1" -> _ajoutBobine_Condensateur();
+
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -296,27 +297,26 @@ public class BluePart {
 
 
     }
-
     public void _ajoutResistance_Bobine() throws IOException {
-        _ajouterResistance();
-        _ajouterBobine();
+        _ajouterResistance("RL");
+        _ajouterBobine("RL");
     }
 
     public void _ajoutBobine_Condensateur() throws IOException {
-        _ajouterBobine();
-        _ajouterCondensateur();
+        _ajouterBobine("BC");
+        _ajouterCondensateur("BC");
     }
 
     public void _ajoutResistance_Condensateur() throws IOException {
-        _ajouterResistance();
-        _ajouterCondensateur();
+        _ajouterResistance("RC");
+        _ajouterCondensateur("RC");
     }
 
-    public void _ajouterResistance(){
+    public void _ajouterResistance(String mode){
         ResistanceSideBar resistance = new ResistanceSideBar("R" + counterResistance + ":");
         elementList.add(resistance);
         sideBar.getChildren().add(resistance);
-        infini._addImage("resistance.png", "R" + counterResistance,resistance.slider);
+        infini._addImage("resistance.png", "R" + counterResistance,resistance.slider,mode);
         counterResistance++;
     }
 
@@ -324,15 +324,15 @@ public class BluePart {
     public void _ajouterResistance(ResistanceSideBar resistance) {
         elementList.add(resistance);
         sideBar.getChildren().add(resistance);
-        infini._addImage("resistance.png", "R" + counterResistance,resistance.slider);
+        infini._addImage("resistance.png", "R" + counterResistance,resistance.slider,"R");
         counterResistance++;
     }
 
-    public void _ajouterCondensateur() throws IOException {
+    public void _ajouterCondensateur(String mode) throws IOException {
         CondensateurSideBarController condensateur = new CondensateurSideBarController("C" + counterCondensateur + ":");
         elementList.add(condensateur);
         sideBar.getChildren().add(condensateur);
-        infini._addImage("condensateur.png","C"+counterCondensateur, condensateur.slider);
+        infini._addImage("condensateur.png","C"+counterCondensateur, condensateur.slider,mode);
         counterCondensateur++;
     }
 
@@ -340,15 +340,15 @@ public class BluePart {
     public void _ajouterCondensateur(CondensateurSideBarController condensateur) throws IOException {
         elementList.add(condensateur);
         sideBar.getChildren().add(condensateur);
-        infini._addImage("condensateur.png","C"+counterCondensateur, condensateur.slider);
+        infini._addImage("condensateur.png","C"+counterCondensateur, condensateur.slider,"C");
         counterCondensateur++;
     }
 
-    public void _ajouterBobine() throws IOException {
+    public void _ajouterBobine(String mode) throws IOException {
         BobineSideBar bobine = new BobineSideBar("L" + counterBobine + ":");
         elementList.add(bobine);
         sideBar.getChildren().add(bobine);
-        infini._addImage("bobine.png","L"+counterBobine,bobine.slider);
+        infini._addImage("bobine.png","L"+counterBobine,bobine.slider,mode);
         counterBobine++;
     }
 
@@ -356,7 +356,7 @@ public class BluePart {
     public void _ajouterBobine(BobineSideBar bobine) throws IOException {
         elementList.add(bobine);
         sideBar.getChildren().add(bobine);
-        infini._addImage("bobine.png","L"+counterBobine,bobine.slider);
+        infini._addImage("bobine.png","L"+counterBobine,bobine.slider,"L");
         counterBobine++;
     }
 
