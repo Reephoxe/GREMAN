@@ -48,7 +48,7 @@ public class HelloController {
         Lecture_Creation_Circuit _lecture = new Lecture_Creation_Circuit();
         _lecture._lectureCSV();
 
-        if (file != null) {
+        /*if (file != null) {
             String fileName = file.getName();
             if (fileName.endsWith(".s1p") || fileName.endsWith(".s2p")) {
                 // Si le fichier est de type s1p ou s2p, appelle la méthode sparameter
@@ -77,7 +77,7 @@ public class HelloController {
         System.out.println("Nb bobines: " + inputDialogController.getNombreBobines());
         System.out.println("Nb condensateurs: " + inputDialogController.getNombreCondensateurs());
         System.out.println("Pondération bobines: " + inputDialogController.getPonderationBobines());
-        System.out.println("Pondération condensateurs: " + inputDialogController.getPonderationCondensateurs());
+        System.out.println("Pondération condensateurs: " + inputDialogController.getPonderationCondensateurs());*/
 
     }
 }
