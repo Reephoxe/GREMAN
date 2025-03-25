@@ -15,12 +15,13 @@ public class BobineSideBar extends VBox {
 
     private HBox hBox;
     public Slider slider;
+    public Label name;
 
     public BobineSideBar(String labelText) {
         // HBox that will contain the name of the coil and its value
         this.hBox = new HBox();
         // Name of the ccoil
-        Label name = new Label(labelText);
+        name = new Label(labelText);
         // Value of the coil
         TextField textField = new TextField("30");
         // Unit of the coil
@@ -62,5 +63,17 @@ public class BobineSideBar extends VBox {
     public String getHBoxLabelName() {
         Label label = (Label)hBox.getChildren().getFirst();
         return label.getText();
+    }
+
+    public String _getName(){
+        return name.getText();
+    }
+
+    public double _getSliderValue() {
+        return slider.getValue();
+    }
+
+    public void _setSliderValue(double value) {
+        slider.setValue(value);
     }
 }
