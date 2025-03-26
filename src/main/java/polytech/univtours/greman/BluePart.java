@@ -283,8 +283,8 @@ public class BluePart {
                         case "1,0,0" -> _ajouterResistance("R");
                         case "0,1,0" -> _ajouterBobine("L");
                         case "0,0,1" -> _ajouterCondensateur("C");
-                        case "1,1,0" -> _ajoutResistance_Condensateur();
-                        case "1,0,1" -> _ajoutResistance_Bobine();
+                        case "1,1,0" -> _ajoutResistance_Bobine();
+                        case "1,0,1" -> _ajoutResistance_Condensateur();
                         case "0,1,1" -> _ajoutBobine_Condensateur();
 
                     }

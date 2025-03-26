@@ -56,7 +56,24 @@ public class InfiniteImagePane extends Pane {
     }
 
     public void _addImage(String element_name, String abreviation, Slider slider,String mode) {
-        Image image = new Image("file:src/main/resources/" + element_name);
+
+        String QuelleImage = "";
+        switch (mode){
+            case"R" -> QuelleImage = "resistance.png";
+            case"L" -> QuelleImage = "bobine.png";
+            case"C" -> QuelleImage = "condensateur.png";
+            case "RL" -> {
+                if(element_name.equals("resistance.png")) QuelleImage = "resistance_b.png";
+                else QuelleImage = "bobine_b.png";
+            }
+            case"RC" -> {
+                if(element_name.equals("resistance.png")) QuelleImage = "resistance.png";
+                else QuelleImage = "condensateur.png";
+            }
+            default -> QuelleImage = "source.png";
+        }
+
+        Image image = new Image("file:src/main/resources/" + QuelleImage);
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
         imageView.fitWidthProperty().bind(widthProperty());
