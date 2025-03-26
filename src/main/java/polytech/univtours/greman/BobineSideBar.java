@@ -16,6 +16,7 @@ public class BobineSideBar extends VBox {
     private HBox hBox;
     public Slider slider;
     public Label name;
+    public TextField textField;
 
     public BobineSideBar(String labelText) {
         // HBox that will contain the name of the coil and its value
@@ -23,7 +24,7 @@ public class BobineSideBar extends VBox {
         // Name of the ccoil
         name = new Label(labelText);
         // Value of the coil
-        TextField textField = new TextField("30");
+        textField = new TextField("30");
         // Unit of the coil
         Label unit = new Label("H");
         // Put the name and value into the HBox

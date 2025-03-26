@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 // Class of the elements of a resistance in the sidebar
 public class ResistanceSideBar extends VBox {
@@ -16,6 +17,7 @@ public class ResistanceSideBar extends VBox {
     private HBox hBox;
     public Label name;
     public Slider slider;
+    public TextField textField;
 
     public ResistanceSideBar(String labelText) {
         // HBox that will contain the name of the resistance and its value
@@ -23,7 +25,7 @@ public class ResistanceSideBar extends VBox {
         // Name of the resistance
         name = new Label(labelText);
         // Value of the resistance
-        TextField textField = new TextField("30");
+        textField = new TextField("30");
         // Unit of the resistance
         Label unit = new Label("Ω");
         // Put the name and value into the HBox

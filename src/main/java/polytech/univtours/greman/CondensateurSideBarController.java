@@ -16,6 +16,7 @@ public class CondensateurSideBarController extends VBox {
     private HBox hBox;
     public Label name;
     public Slider slider;
+    public TextField textField;
 
     public CondensateurSideBarController(String labelText) {
         // HBox that will contain the name of the capacitor and its value
@@ -23,7 +24,7 @@ public class CondensateurSideBarController extends VBox {
         // Name of the capacitor
         name = new Label(labelText);
         // Value of the capacitor
-        TextField textField = new TextField("30");
+        textField = new TextField("30");
         // Unit of the capacitor
         Label unit = new Label("F");
         // Put the name and value into the HBox
