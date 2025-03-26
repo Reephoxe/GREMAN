@@ -45,6 +45,10 @@ public class BluePart {
     public Lecture_Creation_Circuit _lecture_Circuit;
     public FileChooserController fileChooserController;
 
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
 
     public void initialize() throws IOException {
         sideBar.setPrefWidth(200);
@@ -70,6 +74,7 @@ public class BluePart {
             but_closeFullSceen.setVisible(false);
         }
     }
+
     // Bouton pour afficher ou enlever la liste des éléments du circuit
     public void toggleSideBar(ActionEvent event) throws IOException {
         // Animations pour faire apparaître / disparaître en glissant
@@ -107,56 +112,6 @@ public class BluePart {
         buttoncloseFillsreen.play();
     }
 
-    public void FullScreen() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("BluePart.fxml"));
-        Parent root = loader.load();
-
-        // Récupérer le contrôleur et initialiser la vue avec le mode souhaité
-        BluePart Fullscreen = loader.getController();
-
-        Fullscreen.initializeView("FSM");
-
-        // Configurer la scène pour la fenêtre modale
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        String css = getClass().getResource("helloApplication.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        stage.initModality(Modality.APPLICATION_MODAL);  // Fenêtre modale
-        stage.setTitle("BluePart");
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        //transitionZoom(root);
-
-        for (int i = 0; i < elementList.size(); i++) {
-            Node element = elementList.get(i);
-            PauseTransition pause = new PauseTransition(Duration.millis(200 * i));
-            pause.setOnFinished(event -> {
-                try {
-                    if (element instanceof ResistanceSideBar) {
-                        Fullscreen._ajouterResistance((ResistanceSideBar) element);
-                    } else if (element instanceof CondensateurSideBarController) {
-                        Fullscreen._ajouterCondensateur((CondensateurSideBarController) element);
-                    } else if (element instanceof BobineSideBar) {
-                        Fullscreen._ajouterBobine((BobineSideBar) element);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            pause.play();
-        }
-
-        stage.showAndWait(); // Attendre la fermeture avant de continuer
-        // On enlève les images déjà présentes
-        for(int i = 0; i < elementList.size(); i++){
-            infini._removeImage();
-        }
-        this.counterResistance = 0;
-        this.counterBobine = 0;
-        this.counterCondensateur = 0;
-        // On met à jour la liste des éléments
-        this.updateElementList(Fullscreen);
-    }
     // Bouton pour ouvrir la scène (fenêtre) de changement de fichier
     public void switchToFileChooserScene(ActionEvent event) throws IOException {
 
@@ -265,6 +220,42 @@ public class BluePart {
         }
     }
 
+
+
+    // region mode main
+    public void _ajoutResistance_Bobine() throws IOException {
+        _ajouterResistance("RL");
+        _ajouterBobine("RL");
+    }
+    public void _ajoutBobine_Condensateur() throws IOException {
+        _ajouterBobine("BC");
+        _ajouterCondensateur("BC");
+    }
+    public void _ajoutResistance_Condensateur() throws IOException {
+        _ajouterResistance("RC");
+        _ajouterCondensateur("RC");
+    }
+    public void _ajouterResistance(String mode){
+        ResistanceSideBar resistance = new ResistanceSideBar("R" + counterResistance + ":");
+        elementList.add(resistance);
+        sideBar.getChildren().add(resistance);
+        infini._addImage("resistance.png", "R" + counterResistance,resistance.slider,mode);
+        counterResistance++;
+    }
+    public void _ajouterCondensateur(String mode) throws IOException {
+        CondensateurSideBarController condensateur = new CondensateurSideBarController("C" + counterCondensateur + ":");
+        elementList.add(condensateur);
+        sideBar.getChildren().add(condensateur);
+        infini._addImage("condensateur.png","C"+counterCondensateur, condensateur.slider,mode);
+        counterCondensateur++;
+    }
+    public void _ajouterBobine(String mode) throws IOException {
+        BobineSideBar bobine = new BobineSideBar("L" + counterBobine + ":");
+        elementList.add(bobine);
+        sideBar.getChildren().add(bobine);
+        infini._addImage("bobine.png","L"+counterBobine,bobine.slider,mode);
+        counterBobine++;
+    }
     public void _TestCreationAvecCSV()  {
         if(_lecture_Circuit == null){
             _lecture_Circuit = new Lecture_Creation_Circuit();
@@ -297,27 +288,59 @@ public class BluePart {
 
 
     }
-    public void _ajoutResistance_Bobine() throws IOException {
-        _ajouterResistance("RL");
-        _ajouterBobine("RL");
-    }
+    //endregion
 
-    public void _ajoutBobine_Condensateur() throws IOException {
-        _ajouterBobine("BC");
-        _ajouterCondensateur("BC");
-    }
+    //region mode fullscreen
 
-    public void _ajoutResistance_Condensateur() throws IOException {
-        _ajouterResistance("RC");
-        _ajouterCondensateur("RC");
-    }
+    public void FullScreen() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("BluePart.fxml"));
+        Parent root = loader.load();
 
-    public void _ajouterResistance(String mode){
-        ResistanceSideBar resistance = new ResistanceSideBar("R" + counterResistance + ":");
-        elementList.add(resistance);
-        sideBar.getChildren().add(resistance);
-        infini._addImage("resistance.png", "R" + counterResistance,resistance.slider,mode);
-        counterResistance++;
+        // Récupérer le contrôleur et initialiser la vue avec le mode souhaité
+        BluePart Fullscreen = loader.getController();
+
+        Fullscreen.initializeView("FSM");
+
+        // Configurer la scène pour la fenêtre modale
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        String css = getClass().getResource("helloApplication.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        stage.initModality(Modality.APPLICATION_MODAL);  // Fenêtre modale
+        stage.setTitle("BluePart");
+        stage.setScene(scene);
+        stage.setMaximized(true);
+        //transitionZoom(root);
+
+        for (int i = 0; i < elementList.size(); i++) {
+            Node element = elementList.get(i);
+            PauseTransition pause = new PauseTransition(Duration.millis(200 * i));
+            pause.setOnFinished(event -> {
+                try {
+                    if (element instanceof ResistanceSideBar) {
+                        Fullscreen._ajouterResistance((ResistanceSideBar) element);
+                    } else if (element instanceof CondensateurSideBarController) {
+                        Fullscreen._ajouterCondensateur((CondensateurSideBarController) element);
+                    } else if (element instanceof BobineSideBar) {
+                        Fullscreen._ajouterBobine((BobineSideBar) element);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            pause.play();
+        }
+
+        stage.showAndWait(); // Attendre la fermeture avant de continuer
+        // On enlève les images déjà présentes
+        for(int i = 0; i < elementList.size(); i++){
+            infini._removeImage();
+        }
+        this.counterResistance = 0;
+        this.counterBobine = 0;
+        this.counterCondensateur = 0;
+        // On met à jour la liste des éléments
+        this.updateElementList(Fullscreen);
     }
 
     // Variante de la fonction _ajouterResistance pour récupérer une résistance déjà existante et la mettre dans le plein écran
@@ -328,28 +351,12 @@ public class BluePart {
         counterResistance++;
     }
 
-    public void _ajouterCondensateur(String mode) throws IOException {
-        CondensateurSideBarController condensateur = new CondensateurSideBarController("C" + counterCondensateur + ":");
-        elementList.add(condensateur);
-        sideBar.getChildren().add(condensateur);
-        infini._addImage("condensateur.png","C"+counterCondensateur, condensateur.slider,mode);
-        counterCondensateur++;
-    }
-
     // Variante de la fonction _ajouterCondensateur pour récupérer un condensateur déjà existant et le mettre dans le plein écran
     public void _ajouterCondensateur(CondensateurSideBarController condensateur) throws IOException {
         elementList.add(condensateur);
         sideBar.getChildren().add(condensateur);
         infini._addImage("condensateur.png","C"+counterCondensateur, condensateur.slider,"C");
         counterCondensateur++;
-    }
-
-    public void _ajouterBobine(String mode) throws IOException {
-        BobineSideBar bobine = new BobineSideBar("L" + counterBobine + ":");
-        elementList.add(bobine);
-        sideBar.getChildren().add(bobine);
-        infini._addImage("bobine.png","L"+counterBobine,bobine.slider,mode);
-        counterBobine++;
     }
 
     // Variante de la fonction _ajouterBobine pour récupérer une bobine déjà existante et la mettre dans le plein écran
@@ -387,6 +394,8 @@ public class BluePart {
             pause.play();
         }
     }
+
+    //endregion
 
 
 }
