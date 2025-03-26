@@ -6,7 +6,7 @@
 
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<AnchorPane fx:id="paneRed" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: lightcoral;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="polytech.univtours.greman.PartRed">
+<AnchorPane fx:id="paneRed" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: #f4f3f2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="polytech.univtours.greman.PartRed">
 
     <Canvas height="200.0" width="200.0" />
    <Button fx:id="but_FullScreen" alignment="BOTTOM_LEFT" contentDisplay="TOP" layoutX="173.0" layoutY="-1.0" mnemonicParsing="false" onAction="#FullSrceen" text="⭷" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0"/>
