@@ -322,7 +322,7 @@ public class BluePart {
         stage.setMaximized(true);
         //transitionZoom(root);
 
-        for (int i = 0; i < elementList.size(); i++) {
+        /*for (int i = 0; i < elementList.size(); i++) {
             Node element = elementList.get(i);
             PauseTransition pause = new PauseTransition(Duration.millis(200 * i));
             pause.setOnFinished(event -> {
@@ -339,7 +339,7 @@ public class BluePart {
                 }
             });
             pause.play();
-        }
+        }*/
 
         stage.showAndWait(); // Attendre la fermeture avant de continuer
         // On enlève les images déjà présentes
@@ -353,29 +353,7 @@ public class BluePart {
         this.updateElementList(Fullscreen);
     }
 
-    // Variante de la fonction _ajouterResistance pour récupérer une résistance déjà existante et la mettre dans le plein écran
-    public void _ajouterResistance(ResistanceSideBar resistance) {
-        elementList.add(resistance);
-        sideBar.getChildren().add(resistance);
-        infini._addImage("resistance.png", "R" + counterResistance,resistance.slider,"R");
-        counterResistance++;
-    }
 
-    // Variante de la fonction _ajouterCondensateur pour récupérer un condensateur déjà existant et le mettre dans le plein écran
-    public void _ajouterCondensateur(CondensateurSideBarController condensateur) throws IOException {
-        elementList.add(condensateur);
-        sideBar.getChildren().add(condensateur);
-        infini._addImage("condensateur.png","C"+counterCondensateur, condensateur.slider,"C");
-        counterCondensateur++;
-    }
-
-    // Variante de la fonction _ajouterBobine pour récupérer une bobine déjà existante et la mettre dans le plein écran
-    public void _ajouterBobine(BobineSideBar bobine) throws IOException {
-        elementList.add(bobine);
-        sideBar.getChildren().add(bobine);
-        infini._addImage("bobine.png","L"+counterBobine,bobine.slider,"L");
-        counterBobine++;
-    }
 
     public void updateElementList(BluePart Fullscreen) {
         // On enlève les éléments déjà présents pour éviter les doublons
@@ -385,7 +363,7 @@ public class BluePart {
         this.elementList.clear();
 
         // On ajoute les éléments de la liste de l'écran plein, y compris ceux qui ont pu être ajoutés entre-temps
-        for (int i = 0; i < Fullscreen.elementList.size(); i++) {
+        /*for (int i = 0; i < Fullscreen.elementList.size(); i++) {
             Node element = Fullscreen.elementList.get(i);
             PauseTransition pause = new PauseTransition(Duration.millis(200 * i));
             pause.setOnFinished(event -> {
@@ -402,7 +380,7 @@ public class BluePart {
                 }
             });
             pause.play();
-        }
+        }*/
     }
 
     //endregion

@@ -85,9 +85,8 @@ public class InfiniteImagePane extends Pane {
 
         Label valueLabel = new Label();
         valueLabel.setStyle("-fx-font-weight: bold; -fx-padding: 2px;");
-        valueLabel.textProperty().bind(slider.valueProperty().asString("%.2f"));
+        valueLabel.textProperty().bind(slider.valueProperty().asString("%.2e"));
         valueLabel.setTranslateY(10);
-
 
         StackPane stackPane = new StackPane();
         stackPane.getChildren().addAll(imageView, label, valueLabel);
@@ -96,7 +95,6 @@ public class InfiniteImagePane extends Pane {
         StackPane.setAlignment(valueLabel, Pos.CENTER);
 
         if (!getChildren().isEmpty()) {
-            Node lastChild = getChildren().get(getChildren().size() - 1);
 
             //region complexe
             if(mode.equals("RL")){

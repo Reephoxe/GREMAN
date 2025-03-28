@@ -35,7 +35,7 @@ public class BobineSideBar extends VBox {
         textField.setPrefWidth(130);
 
         // Slider to change the value of the resistance
-        slider = new Slider(0, 1000, 30);
+        slider = new Slider(-10000000, +10000000, valeur);
         // Listener on the slider to change the value when slider is moved
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             textField.setText(newValue.toString());
