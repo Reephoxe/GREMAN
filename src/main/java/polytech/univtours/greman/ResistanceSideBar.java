@@ -1,15 +1,12 @@
 package polytech.univtours.greman;
 
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 // Class of the elements of a resistance in the sidebar
 public class ResistanceSideBar extends VBox {
@@ -19,13 +16,13 @@ public class ResistanceSideBar extends VBox {
     public Slider slider;
     public TextField textField;
 
-    public ResistanceSideBar(String labelText) {
+    public ResistanceSideBar(String labelText, double valeur) {
         // HBox that will contain the name of the resistance and its value
         this.hBox = new HBox();
         // Name of the resistance
         name = new Label(labelText);
         // Value of the resistance
-        textField = new TextField("30");
+        textField = new TextField(String.valueOf(valeur));
         // Unit of the resistance
         Label unit = new Label("Ω");
         // Put the name and value into the HBox

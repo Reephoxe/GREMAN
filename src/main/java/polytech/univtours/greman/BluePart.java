@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -198,95 +200,103 @@ public class BluePart {
         }
     }
 
-    public void _CreationCircuit() throws IOException {
-        List<String> listelement = List.of("Resistance","Resistance", "Condensateur", "Bobine");
-        int delay = 200; // Delay in milliseconds
-
-        for (int i = 0; i < listelement.size(); i++) {
-            String element = listelement.get(i);
-            PauseTransition pause = new PauseTransition(Duration.millis(delay * i));
-            pause.setOnFinished(event -> {
-                try {
-                    switch (element) {
-                        case "Resistance" -> _ajouterResistance("R");
-                        case "Condensateur" -> _ajouterCondensateur("C");
-                        case "Bobine" -> _ajouterBobine("L");
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            pause.play();
-        }
-    }
-
-
-
     // region mode main
-    public void _ajoutResistance_Bobine() throws IOException {
-        _ajouterResistance("RL");
-        _ajouterBobine("RL");
+    public void _ajoutResistance_Bobine(double value1,double value2) throws IOException {
+        _ajouterResistance("RL",value1);
+        _ajouterBobine("RL",value2);
     }
-    public void _ajoutBobine_Condensateur() throws IOException {
-        _ajouterBobine("BC");
-        _ajouterCondensateur("BC");
+    public void _ajoutBobine_Condensateur(double value1,double value2) throws IOException {
+        _ajouterBobine("BC",value1);
+        _ajouterCondensateur("BC",value2);
     }
-    public void _ajoutResistance_Condensateur() throws IOException {
-        _ajouterResistance("RC");
-        _ajouterCondensateur("RC");
+    public void _ajoutResistance_Condensateur(double value1,double value2) throws IOException {
+        _ajouterResistance("RC",value1);
+        _ajouterCondensateur("RC",value2);
     }
-    public void _ajouterResistance(String mode){
-        ResistanceSideBar resistance = new ResistanceSideBar("R" + counterResistance + ":");
+    public void _ajouterResistance(String mode, double value) throws IOException {
+        ResistanceSideBar resistance = new ResistanceSideBar("R" + counterResistance + ":", value);
         elementList.add(resistance);
         sideBar.getChildren().add(resistance);
         infini._addImage("resistance.png", "R" + counterResistance,resistance.slider,mode);
         counterResistance++;
     }
-    public void _ajouterCondensateur(String mode) throws IOException {
-        CondensateurSideBarController condensateur = new CondensateurSideBarController("C" + counterCondensateur + ":");
+    public void _ajouterCondensateur(String mode,double value) throws IOException {
+        CondensateurSideBarController condensateur = new CondensateurSideBarController("C" + counterCondensateur + ":", value);
         elementList.add(condensateur);
         sideBar.getChildren().add(condensateur);
         infini._addImage("condensateur.png","C"+counterCondensateur, condensateur.slider,mode);
         counterCondensateur++;
     }
-    public void _ajouterBobine(String mode) throws IOException {
-        BobineSideBar bobine = new BobineSideBar("L" + counterBobine + ":");
+    public void _ajouterBobine(String mode,double value) throws IOException {
+        BobineSideBar bobine = new BobineSideBar("L" + counterBobine + ":",value);
         elementList.add(bobine);
         sideBar.getChildren().add(bobine);
         infini._addImage("bobine.png","L"+counterBobine,bobine.slider,mode);
         counterBobine++;
     }
-    public void _TestCreationAvecCSV()  {
-        if(_lecture_Circuit == null){
-            _lecture_Circuit = new Lecture_Creation_Circuit();
-        }
-        _lecture_Circuit._lectureCSV();
-        _lecture_Circuit.toString();
-        int delay = 500; // Delay in milliseconds
-        System.out.println(_lecture_Circuit.composants);
 
-        for (int i = 0; i < _lecture_Circuit._getComposant().size(); i++) {
-            String element = _lecture_Circuit._getComposant().get(i);
-            PauseTransition pause = new PauseTransition(Duration.millis(delay * i));
-            pause.setOnFinished(event -> {
-                try {
-                    switch (element) {
-                        case "1,0,0" -> _ajouterResistance("R");
-                        case "0,1,0" -> _ajouterBobine("L");
-                        case "0,0,1" -> _ajouterCondensateur("C");
-                        case "1,1,0" -> _ajoutResistance_Bobine();
-                        case "1,0,1" -> _ajoutResistance_Condensateur();
-                        case "0,1,1" -> _ajoutBobine_Condensateur();
-
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+    public void _TestCreationAvecCSV() {
+        String csvFilePath = "C:\\!Polytech\\Cycle ingé\\Semestre 8\\Projet coo\\GREMAN\\RLC_data.csv";
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (values.length != 3) {
+                    System.out.println("Invalid line: " + line);
+                    continue; // Skip invalid lines
                 }
-            });
-            pause.play();
+
+                double value1 = Double.parseDouble(values[0]);
+                double value2 = Double.parseDouble(values[1]);
+                double value3 = Double.parseDouble(values[2]);
+
+                // Determine which method to call based on the values
+                switch (getComponentType(value1, value2, value3)) {
+                    case "Resistance":
+                        _ajouterResistance("R", value1);
+                        break;
+                    case "Bobine":
+                        _ajouterBobine("L", value2);
+                        break;
+                    case "Condensateur":
+                        _ajouterCondensateur("C", value3);
+                        break;
+                    case "Resistance_condensateur":
+                        _ajoutResistance_Condensateur(value1, value3);
+                        break;
+                    case "Resistance_bobine":
+                        _ajoutResistance_Bobine(value1, value3);
+                        break;
+                    case "Bobine_condensateur":
+                        _ajoutBobine_Condensateur(value2, value3);
+                        break;
+                    // Add more cases as needed
+                    default:
+                        System.out.println("Unknown component type for values: " + line);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
-
+    private String getComponentType(double value1, double value2, double value3) {
+        if (value2 == 0 && value3 == 0) {
+            return "Resistance";
+        } else if (value1 == 0 && value3 == 0) {
+            return "Bobine";
+        }else if (value1 == 0 && value2 == 0) {
+            return "Condesateur";
+        }
+        else if (value1 != 0 && value2 == 0 && value3 != 0) {
+            return "Resistance_condensateur";
+        } else if (value1 == 0 && value2 != 0 && value3 != 0) {
+            return "Bobine_condensateur";
+        } else if (value1 != 0 && value2 != 0 && value3 == 0) {
+            return "Resistance_bobine";
+        }
+        // Add more conditions as needed
+        return "Unknown";
     }
     //endregion
 

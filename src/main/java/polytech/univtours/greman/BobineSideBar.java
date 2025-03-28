@@ -1,8 +1,6 @@
 package polytech.univtours.greman;
 
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
@@ -18,13 +16,13 @@ public class BobineSideBar extends VBox {
     public Label name;
     public TextField textField;
 
-    public BobineSideBar(String labelText) {
+    public BobineSideBar(String labelText, double valeur) {
         // HBox that will contain the name of the coil and its value
         this.hBox = new HBox();
         // Name of the ccoil
         name = new Label(labelText);
         // Value of the coil
-        textField = new TextField("30");
+        textField = new TextField(String.valueOf(valeur));
         // Unit of the coil
         Label unit = new Label("H");
         // Put the name and value into the HBox

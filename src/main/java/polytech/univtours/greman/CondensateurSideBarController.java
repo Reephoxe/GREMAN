@@ -1,8 +1,6 @@
 package polytech.univtours.greman;
 
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
@@ -18,13 +16,13 @@ public class CondensateurSideBarController extends VBox {
     public Slider slider;
     public TextField textField;
 
-    public CondensateurSideBarController(String labelText) {
+    public CondensateurSideBarController(String labelText, double valeur) {
         // HBox that will contain the name of the capacitor and its value
         this.hBox = new HBox();
         // Name of the capacitor
         name = new Label(labelText);
         // Value of the capacitor
-        textField = new TextField("30");
+        textField = new TextField(String.valueOf(valeur));
         // Unit of the capacitor
         Label unit = new Label("F");
         // Put the name and value into the HBox
