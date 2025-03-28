@@ -116,7 +116,7 @@ public class BluePart {
     public void switchToFileChooserScene(ActionEvent event) throws IOException {
 
         FileChooserController fileChooserController = new FileChooserController();
-        String Sxp = fileChooserController.selectFile(event);
+        fileChooserController.selectFile(event);
     }
 
     public void switchToSaveFileScene(ActionEvent event) throws IOException {

@@ -14,11 +14,10 @@ import java.io.File;
 import java.io.IOException;
 
 
-
 //classe ne s'utilise plus
 
 public class HelloController {
-    private Stage stage;
+    /*private Stage stage;
     private Scene scene;
     private Parent root;
 
@@ -80,4 +79,3 @@ public class HelloController {
         System.out.println("Pondération condensateurs: " + inputDialogController.getPonderationCondensateurs());*/
 
     }
-}
