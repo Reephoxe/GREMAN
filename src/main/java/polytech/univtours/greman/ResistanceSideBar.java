@@ -37,9 +37,11 @@ public class ResistanceSideBar extends VBox {
         unit.setFont(new Font(17));
         textField.setPrefWidth(130);
 
+        // Convert text in textfield to float
+        float textValue = Float.parseFloat(textField.getText());
 
         // Slider to change the value of the resistance
-        slider = new Slider(0, 1000, 30);
+        slider = new Slider(textValue-0.2*textValue, textValue+0.2*textValue, textValue);
         // Listener on the slider to change the value when slider is moved
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             textField.setText(newValue.toString());
