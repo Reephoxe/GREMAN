@@ -36,7 +36,7 @@ public class ResistanceSideBar extends VBox {
 
 
         // Slider to change the value of the resistance
-        slider = new Slider(-10000000, 10000000, valeur);
+        slider = new Slider(0, 10000000, valeur);
         // Listener on the slider to change the value when slider is moved
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             textField.setText(newValue.toString());
