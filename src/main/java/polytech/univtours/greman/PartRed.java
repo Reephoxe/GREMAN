@@ -162,6 +162,10 @@ public class PartRed {
         stage.setScene(scene);
         stage.setMaximized(true);
 
+        // Redimensionner le graphique en fonction de la taille de la fenêtre
+        Fullscreen.lineChart.prefWidthProperty().bind(scene.widthProperty().multiply(0.95));
+        Fullscreen.lineChart.prefHeightProperty().bind(scene.heightProperty());
+
         transitionZoom(root);
 
         stage.showAndWait();  // Attendre la fermeture avant de continuer
