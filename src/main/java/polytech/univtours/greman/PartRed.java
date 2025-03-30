@@ -107,20 +107,33 @@ public class PartRed {
             }
         } else if(typeDeFichier.equals("S2P")) {
             double[][] testS1P = Parsers2p(fichier);
+            for(int iboucle = 0 ; iboucle < testS1P.length ; iboucle++ ) {
+                series.getData().add(new XYChart.Data<>(testS1P[iboucle][0], testS1P[iboucle][1]));
+                if (testS1P[iboucle][0] < xmin) {
+                    xmin = testS1P[iboucle][0];
+                }
+                if (testS1P[iboucle][0] > xmax) {
+                    xmax = testS1P[iboucle][0];
+                }
+                if (testS1P[iboucle][1] < ymin) {
+                    ymin = testS1P[iboucle][1];
+                }
+                if (testS1P[iboucle][1] > ymax) {
+                    ymax = testS1P[iboucle][1];
+                }
 
-
-            ///////////////////Set des valeurs d'abscisse et d'ordonnées////////////////////////
-            // TODO mettre l'initialisation des des xmin, xmax, ymin, ymax
-            xAxis.setAutoRanging(false);
-            yAxis.setAutoRanging(false);
-            xAxis.setLowerBound(xmin);
-            xAxis.setUpperBound(xmax);
-            yAxis.setLowerBound(ymin);
-            yAxis.setUpperBound(ymax);
-            xAxis.setTickUnit((xmax - xmin)/20);
-            yAxis.setTickUnit((ymax - ymin)/20);
-            ///////////////////////////////////////////////////////////////////////////////////
-
+                ///////////////////Set des valeurs d'abscisse et d'ordonnées////////////////////////
+                // TODO mettre l'initialisation des des xmin, xmax, ymin, ymax
+                xAxis.setAutoRanging(false);
+                yAxis.setAutoRanging(false);
+                xAxis.setLowerBound(xmin);
+                xAxis.setUpperBound(xmax);
+                yAxis.setLowerBound(ymin);
+                yAxis.setUpperBound(ymax);
+                xAxis.setTickUnit((xmax - xmin) / 20);
+                yAxis.setTickUnit((ymax - ymin) / 20);
+                ///////////////////////////////////////////////////////////////////////////////////
+            }
             /////Juste pour vérifier que les valeurs sont bien celles de fichier, une fois terminé, peut être retiré/////
             System.out.println("S2P :");
             for (double[] row : testS1P) {
