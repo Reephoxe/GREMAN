@@ -1,14 +1,20 @@
 package polytech.univtours.greman;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 
 
 public class InfiniteImagePane extends Pane {
@@ -135,6 +141,15 @@ public class InfiniteImagePane extends Pane {
         }
         getChildren().add(stackPane);
         stackPane.layout();
+
+        WritableImage writableImage = new WritableImage((int) (distance + getChildren().get(0).getLayoutBounds().getWidth()+10), (int) (hauteur + getChildren().get(0).getLayoutBounds().getHeight()+15));
+        snapshot(null, writableImage);
+        File file = new File("src/main/resources/image.png");
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null), "png", file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void _decrementDistance() {

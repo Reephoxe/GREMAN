@@ -77,26 +77,14 @@ public class FileSaveController {
 
         if (file != null) {
             try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(file))) {
-                if (csvRlcCheckBox.isSelected()) {
-                    addFileToZip(zos, "rlc.csv", "");
+                if (csvRlcCheckBox.isSelected()) { // Si la case est cochée
+                    addFileToZip(zos, "rlc.csv", "src/main/resources/RLC_data.csv");
+                    // On récupère le fichier csv situé dans le dossier src/main/resources et on le met dans le fichier zip
                 }
                 if (circuitCheckBox.isSelected()) {
-                    addFileToZip(zos, "circuit.png", "src/main/resources/polytech/univtours/greman/circuit.png");
+                    addFileToZip(zos, "circuit.png", "src/main/resources/image.png");
                 }
-                if (courbeCheckBox.isSelected() && lineChart != null) {
-                    WritableImage image = lineChart.snapshot(null, null);
-                    BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image, null);
-                    File chartFile = new File("courbe.png");
-                    ImageIO.write(bufferedImage, "png", chartFile);
-                    addFileToZip(zos, "courbe.png", chartFile.getPath());
-                    chartFile.delete();
-                }
-                if (valeurCheckBox.isSelected()) {
-                    addFileToZip(zos, "valeur.txt", "");
-                }
-                if (ltspiceCheckBox.isSelected()) {
-                    addFileToZip(zos, "ltspice.txt", "");
-                }
+
             }
 
             // Afficher une pop-up de confirmation

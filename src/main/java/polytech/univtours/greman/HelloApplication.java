@@ -17,7 +17,7 @@ public class HelloApplication extends Application {
         // Apply the CSS
         String css = getClass().getResource("helloApplication.css").toExternalForm();
         scene.getStylesheets().add(css);
-        stage.setTitle("Main View");
+        stage.setTitle("ElecVisualizer");
         stage.setScene(scene);
 
         // Center the window on the screen

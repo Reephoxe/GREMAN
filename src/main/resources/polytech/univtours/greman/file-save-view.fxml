@@ -38,27 +38,6 @@
                   <Font size="18.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="courbeCheckBox" mnemonicParsing="false" text="Courbe">
-               <padding>
-                  <Insets bottom="5.0" />
-               </padding>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="valeurCheckBox" mnemonicParsing="false" text="Valeur composant">
-               <padding>
-                  <Insets bottom="5.0" />
-               </padding>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="ltspiceCheckBox" mnemonicParsing="false" text="LTSpice">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </CheckBox>
          </children>
       </VBox>
       <Button layoutX="25.0" layoutY="25.0" mnemonicParsing="false" onAction="#_retour" text="Retour" />

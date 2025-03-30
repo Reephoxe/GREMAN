@@ -1,5 +1,11 @@
 package polytech.univtours.greman;
 import javafx.animation.PauseTransition;
+import javafx.application.HostServices;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.util.Duration;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
@@ -19,11 +25,16 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.layout.VBox;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -382,6 +393,41 @@ public class BluePart {
             });
             pause.play();
         }*/
+    }
+
+
+    @FXML
+    private void showAboutPopup() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About");
+        alert.setHeaderText("About this project");
+
+        Hyperlink githubLink = new Hyperlink("https://github.com/Reephoxe/GREMAN");
+        githubLink.setOnAction(e -> {
+            if (Desktop.isDesktopSupported()) {
+                try {
+                    Desktop.getDesktop().browse(new URI(githubLink.getText()));
+                } catch (IOException | URISyntaxException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        VBox content = new VBox();
+        content.getChildren().addAll(
+                new Label("Ce projet a été créé suite à la collaboration entre Polytech Tours et le laboratoire GREMAN. " +
+                        "Il a été développé dans le cadre du projet collectif de 4e année.\n\n" +
+                        "Chef du projet:\n- Martin Violet \n\n " +
+                        "Développeurs: \n- Lilian Ghesquiere \n- Romain Lafosse \n- Maxime Marecesche \n- Noé Mennerun " +
+                        "\n- Floran Schmid \n- Martin Violet \n\n" +
+                        "Représentant GREMAN: \n- Ismail Aouichak\n\n" +
+                        "Professeurs référants: \n- Yannick Kergosien \n- Frédéric Rayar \n\n" +
+                        "Algorithmes Octave: \n- Jihane Lazouzi\n\n"),
+                new Label("GitHub: "), githubLink
+        );
+
+        alert.getDialogPane().setContent(content);
+        alert.showAndWait();
     }
 
     //endregion
