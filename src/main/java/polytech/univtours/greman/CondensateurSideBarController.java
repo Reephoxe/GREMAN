@@ -1,6 +1,8 @@
 package polytech.univtours.greman;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
