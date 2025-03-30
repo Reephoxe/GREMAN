@@ -68,9 +68,9 @@
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#switchToFileChooserScene" text="Ouvrir" />
                </items></Menu>
-            <Menu mnemonicParsing="false" text="TEST">
+            <Menu mnemonicParsing="false" text="Circuit">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#_TestCreationAvecCSV" text="Creation circuit" />
+                  <MenuItem mnemonicParsing="false" onAction="#_CreationAvecCSV" text="_CreationAvecCSV" />
                </items></Menu>
             <Menu mnemonicParsing="false" text="A propos">
                 <items>

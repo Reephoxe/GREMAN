@@ -247,7 +247,7 @@ public class BluePart {
         counterBobine++;
     }
 
-    public void _TestCreationAvecCSV() {
+    public void _CreationAvecCSV() {
         _reinitialisationcircuitslidebar();
         String csvFilePath = "RLC_data.csv";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
