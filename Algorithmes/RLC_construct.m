@@ -71,7 +71,4 @@ function [R_new, L_new, C_new, output] = RLC_construct(x, initial_cst, Exp_Or_No
         % Écrire les données dans un fichier CSV
         csvFileName = 'RLC_data.csv';
         csvwrite(csvFileName, output);
-
-        % Déplacer le fichier CSV vers le dossier ressources
-        movefile(csvFileName, 'src/main/resources/' + csvFileName);
 end

@@ -99,10 +99,10 @@ public class PartGreen {
                 ////////////////////////////////////////////////////////////////////////////////
 
                 /////Juste pour vérifier que les valeurs sont bien celles de fichier, une fois terminé, peut être retiré/////
-                System.out.println("S1P :");
-                for (double[] row : testS1P) {
+                //System.out.println("S1P :");
+                //for (double[] row : testS1P) {
                     //System.out.println("Module: " + row[0] + ", Argument: " + row[1]);
-                }
+                //}
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
             }
         } else if(typeDeFichier.equals("S2P")) {
