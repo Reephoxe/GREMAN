@@ -130,6 +130,7 @@ public class BluePart {
 
         FileChooserController fileChooserController = new FileChooserController();
         fileChooserController.selectFile(event);
+        _CreationAvecCSV();
 
     }
 
