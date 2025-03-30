@@ -248,7 +248,8 @@ public class BluePart {
     }
 
     public void _TestCreationAvecCSV() {
-        String csvFilePath = "C:\\!Polytech\\Cycle ingé\\Semestre 8\\Projet coo\\GREMAN\\RLC_data.csv";
+        _reinitialisationcircuitslidebar();
+        String csvFilePath = "RLC_data.csv";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -292,6 +293,17 @@ public class BluePart {
         }
     }
 
+    private void _reinitialisationcircuitslidebar() {
+        for (Node element : elementList) {
+            sideBar.getChildren().remove(element);
+        }
+        elementList.clear();
+        infini._reset();
+        counterResistance = 0;
+        counterBobine = 0;
+        counterCondensateur = 0;
+    }
+
     private String getComponentType(double value1, double value2, double value3) {
         if (value2 == 0 && value3 == 0) {
             return "Resistance";
@@ -315,84 +327,7 @@ public class BluePart {
     //region mode fullscreen
 
     public void FullScreen() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("BluePart.fxml"));
-        Parent root = loader.load();
 
-        // Récupérer le contrôleur et initialiser la vue avec le mode souhaité
-        BluePart Fullscreen = loader.getController();
-
-        Fullscreen.initializeView("FSM");
-
-        // Configurer la scène pour la fenêtre modale
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        String css = getClass().getResource("helloApplication.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        stage.initModality(Modality.APPLICATION_MODAL);  // Fenêtre modale
-        stage.setTitle("BluePart");
-        stage.setScene(scene);
-        stage.setMaximized(true);
-        //transitionZoom(root);
-
-        /*for (int i = 0; i < elementList.size(); i++) {
-            Node element = elementList.get(i);
-            PauseTransition pause = new PauseTransition(Duration.millis(200 * i));
-            pause.setOnFinished(event -> {
-                try {
-                    if (element instanceof ResistanceSideBar) {
-                        Fullscreen._ajouterResistance((ResistanceSideBar) element);
-                    } else if (element instanceof CondensateurSideBarController) {
-                        Fullscreen._ajouterCondensateur((CondensateurSideBarController) element);
-                    } else if (element instanceof BobineSideBar) {
-                        Fullscreen._ajouterBobine((BobineSideBar) element);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            pause.play();
-        }*/
-
-        stage.showAndWait(); // Attendre la fermeture avant de continuer
-        // On enlève les images déjà présentes
-        for(int i = 0; i < elementList.size(); i++){
-            infini._removeImage();
-        }
-        this.counterResistance = 0;
-        this.counterBobine = 0;
-        this.counterCondensateur = 0;
-        // On met à jour la liste des éléments
-        this.updateElementList(Fullscreen);
-    }
-
-
-
-    public void updateElementList(BluePart Fullscreen) {
-        // On enlève les éléments déjà présents pour éviter les doublons
-        for (Node element : this.elementList) {
-            this.sideBar.getChildren().remove(element);
-        }
-        this.elementList.clear();
-
-        // On ajoute les éléments de la liste de l'écran plein, y compris ceux qui ont pu être ajoutés entre-temps
-        /*for (int i = 0; i < Fullscreen.elementList.size(); i++) {
-            Node element = Fullscreen.elementList.get(i);
-            PauseTransition pause = new PauseTransition(Duration.millis(200 * i));
-            pause.setOnFinished(event -> {
-                try {
-                    if (element instanceof ResistanceSideBar) {
-                        this._ajouterResistance((ResistanceSideBar) element);
-                    } else if (element instanceof CondensateurSideBarController) {
-                        this._ajouterCondensateur((CondensateurSideBarController) element);
-                    } else if (element instanceof BobineSideBar) {
-                        this._ajouterBobine((BobineSideBar) element);
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            pause.play();
-        }*/
     }
 
 

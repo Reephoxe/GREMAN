@@ -156,10 +156,14 @@ public class InfiniteImagePane extends Pane {
         distance -= (int) (getChildren().get(0).getTranslateX() + getChildren().get(0).getLayoutBounds().getWidth());
     }
 
-    public void _removeImage() {
-        if (!getChildren().isEmpty()) {
+    public void _reset() {
+        while (getChildren().size() > 1) {
             getChildren().remove(getChildren().size() - 1);
         }
+        hauteur = 0;
+        distance = 0;
+        Xnitial = 0;
+        Ynitial = 0;
     }
 
     public int _moyennedistance(){
