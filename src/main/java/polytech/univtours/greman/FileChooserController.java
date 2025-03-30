@@ -22,7 +22,7 @@ public class FileChooserController {
     FileChooser fileChooser;
 
     // Fonction pour choisir un fichier
-    public String selectFile(ActionEvent event) throws IOException {
+    public void selectFile(ActionEvent event) throws IOException {
 
         //region ancien Hellocontroller
         // Ouvre la pop up pour récupérer les infos nécessaires (nb bobines/condensateurs, pondérations)
@@ -68,29 +68,12 @@ public class FileChooserController {
             }
         }
 
-        // Récupère les informations de la scène précédente et change de scène i.e. de fenêtre
-        fxmlLoader = new FXMLLoader(getClass().getResource("main-view.fxml"));
-        root = fxmlLoader.load();
-
-        MainController mainController = fxmlLoader.getController();
-
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        // ------------ Ajoute le style CSS -------------
-        scene.getStylesheets().add(css);
-        // ----------------------------------------------
-        stage.setScene(scene);
-        // Permet de mettre en plein écran
-        stage.setMaximized(true);
-        // Centre la fenêtre au milieu de l'écran
-        stage.centerOnScreen();
-        stage.show();
 
         System.out.println("Nb bobines: " + inputDialogController.getNombreBobines());
         System.out.println("Nb condensateurs: " + inputDialogController.getNombreCondensateurs());
         System.out.println("Pondération bobines: " + inputDialogController.getPonderationBobines());
         System.out.println("Pondération condensateurs: " + inputDialogController.getPonderationCondensateurs());
-        return fileName;
+
     }
 
     public void backToMainScene(ActionEvent event) throws IOException {
