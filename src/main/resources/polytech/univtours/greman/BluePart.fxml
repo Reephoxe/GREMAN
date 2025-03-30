@@ -53,24 +53,17 @@
           -->
     <MenuBar layoutY="2.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <menus>
-          <Menu mnemonicParsing="false" text="ADD">
-            <items>
-              <MenuItem mnemonicParsing="false"  text="_ajoutResistance" />
-                  <MenuItem mnemonicParsing="false" text="_ajoutBobine" />
-                  <MenuItem mnemonicParsing="false"  text="_ajoutCondensateur" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Sauvegarde">
+            <Menu mnemonicParsing="false" text="Fichier">
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#switchToFileChooserScene" text="Ouvrir" />
+                </items></Menu>
+            <Menu mnemonicParsing="false" text="Circuit">
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#_CreationAvecCSV" text="_CreationAvecCSV" />
+                </items></Menu>
+            <Menu mnemonicParsing="false" text="Sauvegarde">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#switchToSaveFileScene" text="Sauvegarde" />
-               </items></Menu>
-          <Menu mnemonicParsing="false" text="Fichier">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#switchToFileChooserScene" text="Ouvrir" />
-               </items></Menu>
-            <Menu mnemonicParsing="false" text="Circuit">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#_CreationAvecCSV" text="_CreationAvecCSV" />
                </items></Menu>
             <Menu mnemonicParsing="false" text="A propos">
                 <items>
