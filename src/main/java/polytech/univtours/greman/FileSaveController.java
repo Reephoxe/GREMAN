@@ -78,7 +78,7 @@ public class FileSaveController {
         if (file != null) {
             try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(file))) {
                 if (csvRlcCheckBox.isSelected()) { // Si la case est cochée
-                    addFileToZip(zos, "rlc.csv", "src/main/resources/RLC_data.csv");
+                    addFileToZip(zos, "rlc.csv", "RLC_data.csv");
                     // On récupère le fichier csv situé dans le dossier src/main/resources et on le met dans le fichier zip
                 }
                 if (circuitCheckBox.isSelected()) {
