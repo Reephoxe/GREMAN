@@ -57,21 +57,22 @@
                 <items>
                     <MenuItem mnemonicParsing="false" onAction="#switchToFileChooserScene" text="Ouvrir" />
                 </items></Menu>
-            <Menu mnemonicParsing="false" text="Circuit">
+            <!--  <Menu mnemonicParsing="false" text="Circuit">
+                 <items>
+                     <MenuItem mnemonicParsing="false" onAction="#_CreationAvecCSV" text="_CreationAvecCSV" />
+                 </items>
+             </Menu>-->
+             <Menu mnemonicParsing="false" text="Sauvegarde">
                 <items>
-                    <MenuItem mnemonicParsing="false" onAction="#_CreationAvecCSV" text="_CreationAvecCSV" />
+                   <MenuItem mnemonicParsing="false" onAction="#switchToSaveFileScene" text="Sauvegarde" />
                 </items></Menu>
-            <Menu mnemonicParsing="false" text="Sauvegarde">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#switchToSaveFileScene" text="Sauvegarde" />
-               </items></Menu>
-            <Menu mnemonicParsing="false" text="A propos">
-                <items>
-                    <MenuItem mnemonicParsing="false" onAction="#showAboutPopup" text="Crédits" />
-                </items>
-            </Menu>
-        </menus>
-      </MenuBar>
+             <Menu mnemonicParsing="false" text="A propos">
+                 <items>
+                     <MenuItem mnemonicParsing="false" onAction="#showAboutPopup" text="Crédits" />
+                 </items>
+             </Menu>
+         </menus>
+       </MenuBar>
 
-    </children>
-</AnchorPane>
+     </children>
+ </AnchorPane>
