@@ -10,10 +10,19 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        // Load the main-view.fxml file
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
+
+        // Apply the CSS
+        String css = getClass().getResource("helloApplication.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        stage.setTitle("ElecVisualizer");
         stage.setScene(scene);
+
+        // Center the window on the screen
+        stage.centerOnScreen();
+        stage.setMaximized(true);
         stage.show();
     }
 
