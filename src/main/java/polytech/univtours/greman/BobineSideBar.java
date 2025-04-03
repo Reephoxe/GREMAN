@@ -1,6 +1,8 @@
 package polytech.univtours.greman;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
@@ -34,8 +36,11 @@ public class BobineSideBar extends VBox {
         unit.setFont(new Font(17));
         textField.setPrefWidth(130);
 
+        // Convert text in textfield to float
+        float textValue = Float.parseFloat(textField.getText());
+
         // Slider to change the value of the resistance
-        slider = new Slider(0, +10000000, valeur);
+        slider = new Slider(textValue-0.2*textValue, textValue+0.2*textValue, textValue );
         // Listener on the slider to change the value when slider is moved
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             textField.setText(newValue.toString());
