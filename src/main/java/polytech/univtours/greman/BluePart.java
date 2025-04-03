@@ -279,7 +279,7 @@ public class BluePart {
                         _ajoutResistance_Condensateur(value1, value3);
                         break;
                     case "Resistance_bobine":
-                        _ajoutResistance_Bobine(value1, value3);
+                        _ajoutResistance_Bobine(value1, value2);
                         break;
                     case "Bobine_condensateur":
                         _ajoutBobine_Condensateur(value2, value3);
