@@ -30,7 +30,7 @@ Avant d'installer ce projet, assurez-vous d'avoir :
    ```
 
 ## Utilisation
-Pour l'utiliser le .jar vérifier que le fichier soit au même niveau que le dossier Algorithmes (contenant les algorithmes Ocave) pour le bon fonctionnement.
+Pour l'utiliser le .jar vérifier que le fichier soit au même niveau que le dossier Algorithmes (contenant les algorithmes Ocave) pour le bon fonctionnement ainsi que le dossier src pour les images du circuit.
 Pour exécuter l'application (depuis une console):
 ```sh
 java -jar GREMAN-1.0-shaded.jar
