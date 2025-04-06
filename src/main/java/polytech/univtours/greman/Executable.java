@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
 public class Executable {
     private static String scriptPath = "./Algorithmes";  // Utilisation de '/' pour compatibilité Windows & Linux
 
+    // Méthode pour exécuter un fichier et obtenir les résultats sous forme de tableau 2D
+
     public static double[][] executeFile(String filePath, String param_nbC, String param_nbL, String param_CoefC, String param_CoefL) {
         try {
             double z0 = 50.0;
@@ -60,6 +62,7 @@ public class Executable {
         return new double[0][0];
     }
 
+    // Méthode pour exécuter une commande Octave et récupérer la sortie
     private static String executeOctaveCommand(String command) {
         StringBuilder output = new StringBuilder();
         try {
@@ -82,6 +85,7 @@ public class Executable {
         return output.toString().trim();
     }
 
+    // Méthode pour traiter la sortie d'Octave et la convertir en tableau 2D
     public static double[][] StringOutput(String command, int nbOutput) {
         String output = executeOctaveCommand(command);
         List<double[]> results = new ArrayList<>();
@@ -121,7 +125,7 @@ public class Executable {
         return results.toArray(new double[0][0]);
     }
 
-
+    // Méthode pour appeler le script Octave avec les paramètres donnés
     public static double[][] ScriptTotal(String[] param_f, String[] param_Z_complex, String param_nbC, String param_nbL, String param_coefC, String param_coefL) {
         String command = String.format(
                 "addpath('%s'); Z2 = ScriptTotal(%s, %s, %s, %s, %s, %s); disp(Z2);",

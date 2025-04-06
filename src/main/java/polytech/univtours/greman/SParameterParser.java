@@ -9,6 +9,7 @@ public class SParameterParser {
         double impedanceReel;
         double impedanceImaginaire;
 
+        // Constructeur pour initialiser les valeurs de DataPoint
         public DataPoint(double frequence, double reel, double imaginaire, double z0) {
             this.frequence = frequence;
             Complex s11 = new Complex(reel, imaginaire);
@@ -17,6 +18,7 @@ public class SParameterParser {
             this.impedanceImaginaire = impedance.imaginaire;
         }
 
+        // Méthode pour calculer l'impédance à partir de s11 et z0
         private Complex calculateImpedance(Complex s11, double z0) {
             Complex un = new Complex(1.0, 0.0);
             Complex numerateur = un.addition(s11);
@@ -28,23 +30,28 @@ public class SParameterParser {
     static class Complex {
         private double reel, imaginaire;
 
+        // Constructeur pour initialiser les valeurs de Complex
         public Complex(double reel, double imaginaire) {
             this.reel = reel;
             this.imaginaire = imaginaire;
         }
 
+        // Méthode pour additionner deux nombres complexes
         public Complex addition(Complex autre) {
             return new Complex(this.reel + autre.reel, this.imaginaire + autre.imaginaire);
         }
 
+        // Méthode pour soustraire deux nombres complexes
         public Complex soustraction(Complex autre) {
             return new Complex(this.reel - autre.reel, this.imaginaire - autre.imaginaire);
         }
 
+        // Méthode pour multiplier un nombre complexe par un scalaire
         public Complex multiplication(double scalaire) {
             return new Complex(this.reel * scalaire, this.imaginaire * scalaire);
         }
 
+        // Méthode pour diviser deux nombres complexes
         public Complex division(Complex autre) {
             double denominateur = autre.reel * autre.reel + autre.imaginaire * autre.imaginaire;
             double partieReel = (this.reel * autre.reel + this.imaginaire * autre.imaginaire) / denominateur;
@@ -53,6 +60,7 @@ public class SParameterParser {
         }
     }
 
+    // Méthode pour analyser un fichier et retourner une liste de DataPoint
     public static List<DataPoint> parseFile(String filePath, double z0) throws IOException {
         List<DataPoint> dataPoints = new ArrayList<>();
         boolean isS2P = filePath.endsWith(".s2p");

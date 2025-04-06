@@ -60,6 +60,7 @@ public class MainController {
         stage.show();
     }
 
+    // Bouton pour ouvrir la scène (fenêtre) de sauvegarde de fichier
     public void switchToSaveFileScene(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("file-save-view.fxml"));
         root = fxmlLoader.load();

@@ -1,18 +1,11 @@
 package polytech.univtours.greman;
-import javafx.animation.PauseTransition;
-import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
-import javafx.animation.FadeTransition;
-import javafx.animation.PauseTransition;
-import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -20,15 +13,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.layout.VBox;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -249,7 +238,7 @@ public class BluePart {
     }
 
     public void _CreationAvecCSV() {
-        _reinitialisationcircuitslidebar();
+        _reinitialisationCircuitSlideBar();
         String csvFilePath = "RLC_data.csv";
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
             String line;
@@ -294,7 +283,7 @@ public class BluePart {
         }
     }
 
-    private void _reinitialisationcircuitslidebar() {
+    private void _reinitialisationCircuitSlideBar() {
         for (Node element : elementList) {
             sideBar.getChildren().remove(element);
         }

@@ -38,7 +38,7 @@ public class CircuitBuilder {
             finalImage = addCondensateur(g2d, finalImage, condensateur, resistance);
             finalImage = addCondensateur(g2d, finalImage, condensateur, resistance);
 
-            // Ensure maxWidth and maxHeight do not exceed finalImage dimensions
+            // S'assurer que l'image finale est suffisamment grande
             maxWidth = Math.min(maxWidth, finalImage.getWidth());
             maxHeight = Math.min(maxHeight, finalImage.getHeight());
 

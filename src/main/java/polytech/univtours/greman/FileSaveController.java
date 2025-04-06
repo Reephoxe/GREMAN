@@ -68,6 +68,7 @@ public class FileSaveController {
         stage.show();
     }
 
+    // Fonction pour sauvegarder le graphique
     public void saveToFile(ActionEvent event) throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialFileName("files.zip");
@@ -100,6 +101,7 @@ public class FileSaveController {
         }
     }
 
+    // Fonction pour ajouter un fichier au zip
     private void addFileToZip(ZipOutputStream zos, String fileName, String filePath) throws IOException {
         zos.putNextEntry(new ZipEntry(fileName));
         if (!filePath.isEmpty()) {
@@ -112,6 +114,7 @@ public class FileSaveController {
         zos.closeEntry();
     }
 
+    // Fonction pour sauvegarder le graphique
     public void _retour(ActionEvent event) {
         Stage stage1 = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage1.close();
